@@ -1,6 +1,6 @@
 # Backend boundary
 
-This directory is reserved for the future .NET modular monolith.
+This directory contains the SL-000 .NET modular-monolith release boundary.
 
 The implementation must follow the approved architecture:
 
@@ -8,4 +8,6 @@ The implementation must follow the approved architecture:
 - Explicit use-case and transaction ownership.
 - Public, Operations and Worker deployable hosts from one versioned codebase.
 - No generic repository, speculative microservices or customer-specific forks.
-- No application code until the documentation roadmap declares implementation ready.
+- `NainConfigurator.PublicHost`, `NainConfigurator.OperationsHost` and `NainConfigurator.Worker` are separate compositions in one release.
+- `NainConfigurator.Hosting` owns only shared host configuration and safe structured telemetry.
+- No catalog, customer, product, persistence or public API behavior exists in SL-000.

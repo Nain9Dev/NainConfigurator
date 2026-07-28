@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-07-28",
+  "dependencies": [
+    {
+      "name": "Microsoft.EntityFrameworkCore.SqlServer",
+      "version": "10.0.10",
+      "license": "MIT",
+      "scope": "Test harness only in SL-000"
+    },
+    {
+      "name": "Microsoft.NET.Test.Sdk",
+      "version": "18.8.1",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "xunit.v3",
+      "version": "3.2.2",
+      "license": "Apache-2.0",
+      "scope": "Development"
+    },
+    {
+      "name": "React",
+      "version": "19.2.8",
+      "license": "MIT",
+      "scope": "Runtime"
+    },
+    {
+      "name": "React DOM",
+      "version": "19.2.8",
+      "license": "MIT",
+      "scope": "Runtime"
+    },
+    {
+      "name": "@types/node",
+      "version": "24.13.3",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "@types/react",
+      "version": "19.2.17",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "19.2.3",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "version": "6.0.4",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "Prettier",
+      "version": "3.9.6",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "TypeScript",
+      "version": "6.0.3",
+      "license": "Apache-2.0",
+      "scope": "Development"
+    },
+    {
+      "name": "Vite",
+      "version": "8.1.5",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "Vitest",
+      "version": "4.1.10",
+      "license": "MIT",
+      "scope": "Development"
+    }
+  ]
+}

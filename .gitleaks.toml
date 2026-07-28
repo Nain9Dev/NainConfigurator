@@ -1,0 +1,15 @@
+title = "NainConfigurator secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated and machine-local directories"
+paths = [
+  '''(^|[\\/])\.git([\\/]|$)''',
+  '''(^|[\\/])\.tools([\\/]|$)''',
+  '''(^|[\\/])artifacts([\\/]|$)''',
+  '''(^|[\\/])bin([\\/]|$)''',
+  '''(^|[\\/])node_modules([\\/]|$)''',
+  '''(^|[\\/])obj([\\/]|$)'''
+]

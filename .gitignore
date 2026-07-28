@@ -46,6 +46,7 @@ secrets.json
 **/.vite/
 **/.cache/
 **/.turbo/
+*.tsbuildinfo
 **/playwright-report/
 **/test-results/
 **/blob-report/
@@ -75,5 +76,6 @@ secrets.json
 *.log
 *.tmp
 *.temp
+.tools/
 artifacts/
 reports/

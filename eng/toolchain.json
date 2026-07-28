@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-07-28",
+  "tools": [
+    {
+      "name": ".NET SDK",
+      "version": "10.0.302",
+      "license": "MIT and Microsoft binary distribution terms",
+      "role": "Build runtime",
+      "adoption": "Portable local tool"
+    },
+    {
+      "name": ".NET Runtime",
+      "version": "8.0.29",
+      "license": "MIT and Microsoft binary distribution terms",
+      "role": "Microsoft SBOM Tool compatibility runtime only",
+      "adoption": "Portable local tool; not an application target"
+    },
+    {
+      "name": "Node.js",
+      "version": "24.18.0",
+      "license": "Node.js license",
+      "role": "Frontend build runtime",
+      "adoption": "Portable local tool"
+    },
+    {
+      "name": "Gitleaks",
+      "version": "8.30.0",
+      "license": "MIT",
+      "role": "Repository secret scanning",
+      "adoption": "Portable local tool"
+    },
+    {
+      "name": "Microsoft SBOM Tool",
+      "version": "4.1.5",
+      "license": "MIT",
+      "role": "CycloneDX and SPDX dependency evidence",
+      "adoption": "Local dotnet tool"
+    },
+    {
+      "name": "SQL Server 2025 Developer",
+      "version": "17.0.4065.4 (CU7)",
+      "license": "Developer edition, non-production only",
+      "role": "Physical SQL Server verification",
+      "adoption": "External local prerequisite"
+    },
+    {
+      "name": "Blender",
+      "version": "4.5 LTS",
+      "license": "GPL application; created artwork remains separately owned",
+      "role": "Offline 3D asset authoring",
+      "adoption": "Deferred until SL-007"
+    }
+  ]
+}

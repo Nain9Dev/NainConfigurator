@@ -3,7 +3,7 @@
 Status: Active  
 Last updated: 2026-07-28
 
-This document records approved product, commercial, UX, quality, security, privacy, domain, data and architecture decisions that affect more than one canonical document. Draft proposals remain in their design document until approved.
+This document records approved product, commercial, UX, quality, security, privacy, domain, data, architecture, testing, operations and implementation decisions that affect more than one canonical document. Draft proposals remain in their design document until approved.
 
 ## Entry template
 
@@ -1477,3 +1477,803 @@ Status: Approved
 **Trigger for reconsideration:** None; customer content remains operational data.
 
 **Affected documents:** `00.2-CommercialStrategy.md`, `05-DatabaseDesign.md` and future testing/operations/implementation documents.
+
+## TST-001 - Separate readiness evidence gates
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Passing development tests does not prove that a demo, pilot or commercial service is safe and operable.
+
+**Decision:** Maintain separate evidence gates for documentation, implementation, technical demo, customer pilot and commercial launch.
+
+**Consequences and trade-offs:** Readiness claims remain honest and reviewable, at the cost of explicit gate administration.
+
+**Rejected alternatives:** One generic definition of done was rejected because it would mix code correctness with privacy, recovery, support and commercial readiness.
+
+**Affected documents and components:** `00.1-DocumentationRoadmap.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and future implementation/release evidence.
+
+**Migration impact:** None; every future milestone and release report must identify the gate it proves.
+
+**Trigger for reconsideration:** Revisit only if an approved readiness model preserves the same separation of evidence and authority.
+
+## TST-002 - Supported .NET backend test platform
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Backend rules and contracts need a supported, automation-friendly and zero-license-cost test platform aligned with .NET 10.
+
+**Decision:** Use xUnit.net v3 with Microsoft .NET test and coverage tooling for backend verification.
+
+**Consequences and trade-offs:** The stack remains familiar and free, while package and SDK compatibility must be pinned and maintained.
+
+**Rejected alternatives:** Adding a second backend unit-test framework was rejected because it would duplicate conventions and tooling without evidence of value.
+
+**Affected documents and components:** `08-TestingStrategy.md`, future backend test projects, CI pipelines and release evidence.
+
+**Migration impact:** No test code exists; a future replacement requires an explicit suite migration with equivalent evidence.
+
+**Trigger for reconsideration:** The approved .NET test platform changes materially or cannot meet a measured requirement.
+
+## TST-003 - Real SQL Server physical acceptance
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** RLS, filtered indexes, `rowversion`, locking and SQL Server migrations cannot be proven by an in-memory substitute.
+
+**Decision:** Run physical persistence and migration acceptance against SQL Server 2025 Developer locally and a target-compatible Azure SQL profile where required.
+
+**Consequences and trade-offs:** Database evidence uses the real engine without recurring local license cost, but disposable database setup is heavier than an in-memory test.
+
+**Rejected alternatives:** EF in-memory persistence and SQLite were rejected as physical acceptance authorities.
+
+**Affected documents and components:** `05-DatabaseDesign.md`, `08-TestingStrategy.md`, database test fixtures and migration pipelines.
+
+**Migration impact:** Every schema change must pass empty, current-version and representative-data paths on the approved engine.
+
+**Trigger for reconsideration:** A production-compatible, commercially usable and free runtime proves every required SQL behavior.
+
+## TST-004 - React component verification
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Catalog-driven UI behavior needs fast component feedback without treating a simulated DOM as browser proof.
+
+**Decision:** Use Vitest and React Testing Library for shell component behavior.
+
+**Consequences and trade-offs:** Tests remain fast and user-oriented; jsdom limitations require browser coverage for real navigation, layout and platform behavior.
+
+**Rejected alternatives:** Snapshot-heavy or implementation-detail component tests were rejected because they are brittle and weak evidence of user behavior.
+
+**Affected documents and components:** `03.2-UXRequirements.md`, `08-TestingStrategy.md`, future Web components and CI.
+
+**Migration impact:** None before implementation; replacement requires equivalent accessible-behavior coverage.
+
+**Trigger for reconsideration:** The approved frontend stack changes or the tools fail a measured requirement.
+
+## TST-005 - Cross-engine browser and automated accessibility testing
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** The public journey must work across supported browser engines and catch common accessibility defects without paying for an early hosted device grid.
+
+**Decision:** Use Playwright Test across its supported engines and axe-core for automated accessibility checks.
+
+**Consequences and trade-offs:** One local framework supplies traces and cross-engine coverage, but WebKit emulation does not certify branded Safari or real Apple hardware.
+
+**Rejected alternatives:** Cypress or Selenium beside Playwright and a paid browser grid were rejected until a measured gap justifies them.
+
+**Affected documents and components:** `03.1-UserFlows.md`, `03.2-UXRequirements.md`, `04.2-NonFunctionalRequirements.md`, `08-TestingStrategy.md` and browser CI.
+
+**Migration impact:** Browser evidence must retain equivalent journeys, engines and trace artifacts through any tool migration.
+
+**Trigger for reconsideration:** The browser support matrix or a funded real-device requirement cannot be met.
+
+## TST-006 - Replaceable Babylon.js and controlled asset verification
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Optional 3D must remain replaceable and cannot weaken commercial correctness or introduce unlicensed/malformed assets.
+
+**Decision:** Use Vitest and Playwright for the Babylon.js adapter and Khronos validation plus ownership/license evidence for Blender-authored glTF/GLB assets; 3D never gates the commercial flow.
+
+**Consequences and trade-offs:** Renderer defects are isolated from business truth, while real GPU/device behavior still needs browser evidence and manual profiling.
+
+**Rejected alternatives:** Pixel-perfect GPU snapshots and renderer-owned business decisions were rejected as unstable and architecturally unsafe.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `04.3-SecurityAndPrivacy.md`, `06-Architecture.md`, `08-TestingStrategy.md`, future renderer and asset pipeline.
+
+**Migration impact:** A renderer or asset-format change must preserve the adapter contract, asset ledger and fallback tests.
+
+**Trigger for reconsideration:** Babylon.js or glTF/GLB is replaced through an approved architecture decision.
+
+## TST-007 - Mandatory manual accessibility and real-device evidence
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Automated scanners cannot prove keyboard usability, screen-reader meaning, zoom/reflow, forced colors or branded Safari behavior.
+
+**Decision:** Retain manual keyboard, screen-reader, zoom, forced-colors and real Safari/iOS checks at the release gates defined by the strategy.
+
+**Consequences and trade-offs:** Accessibility claims are more credible but require time, skill and eventual access to real Apple devices.
+
+**Rejected alternatives:** Automated accessibility results alone were rejected as incomplete evidence.
+
+**Affected documents and components:** `03.2-UXRequirements.md`, `04.2-NonFunctionalRequirements.md`, `08-TestingStrategy.md` and release reports.
+
+**Migration impact:** None; release planning must reserve the required manual evidence.
+
+**Trigger for reconsideration:** Only an approved accessibility/browser policy may change the matrix, never convenience alone.
+
+## TST-008 - Local diagnostic load with separate production proof
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Early load evidence must be affordable without presenting one workstation as proof of production capacity.
+
+**Decision:** Use k6 OSS locally for diagnostic load and require a separate generator/environment for production capacity claims.
+
+**Consequences and trade-offs:** Early testing has no SaaS charge; representative distributed proof may require later infrastructure cost.
+
+**Rejected alternatives:** Cloud load testing before evidence and laptop-only production claims were rejected.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and performance reports.
+
+**Migration impact:** Load scripts remain portable; baseline comparisons require controlled profiles through any tool change.
+
+**Trigger for reconsideration:** The approved target/load topology changes or local generation cannot exercise the diagnostic envelope.
+
+## TST-009 - Free automated security baseline without false certification
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Automated security checks provide useful release evidence but cannot replace an independent adversarial assessment.
+
+**Decision:** Use OWASP ZAP, built-in dependency audits, secret scanning and static checks while retaining an independent penetration test before paying-customer launch.
+
+**Consequences and trade-offs:** The technical baseline stays free-first; independent testing may be a justified commercial-launch cost.
+
+**Rejected alternatives:** Treating a zero-alert ZAP result as a penetration test was rejected.
+
+**Affected documents and components:** `04.3-SecurityAndPrivacy.md`, `08-TestingStrategy.md`, CI security gates and commercial-launch evidence.
+
+**Migration impact:** Tool replacement must preserve the covered threat classes and historical findings.
+
+**Trigger for reconsideration:** The approved security gate or independent-assessment requirement changes.
+
+## TST-010 - Deterministic synthetic test products and boundaries
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Repeatable verification must prove flexibility and isolation without using real customer or personal data.
+
+**Decision:** Maintain deterministic synthetic first-product, fundamentally different second-product, company-isolation, boundary and capacity fixtures.
+
+**Consequences and trade-offs:** Tests remain private, repeatable and product-agnostic, at the cost of fixture maintenance as approved limits evolve.
+
+**Rejected alternatives:** Customer exports and desk-only fixtures were rejected because they create privacy risk and do not prove platform flexibility.
+
+**Affected documents and components:** `01-ProductDefinition.md`, `03-DataModel.md`, `05-DatabaseDesign.md`, `08-TestingStrategy.md` and future test-data tooling.
+
+**Migration impact:** Fixture versions must migrate through the same published contracts without product-specific schema or DTO branches.
+
+**Trigger for reconsideration:** Approved domain or capacity boundaries change.
+
+## TST-011 - Risk-based branch coverage thresholds
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Critical decisions require complete branch evidence, while one global coverage percentage can reward low-value tests.
+
+**Decision:** Require 100-percent decision/branch coverage for approved critical rules and at least 85-percent branch coverage for domain/application code, excluding generated code.
+
+**Consequences and trade-offs:** High-risk behavior receives measurable protection; review is still required because coverage can be gamed.
+
+**Rejected alternatives:** A single repository-wide line-coverage target was rejected as weak evidence.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `08-TestingStrategy.md`, future quality configuration and CI.
+
+**Migration impact:** Baselines may rise but cannot be reduced without an approved NFR/testing decision.
+
+**Trigger for reconsideration:** Measured quality evidence supports a different risk-based threshold.
+
+## TST-012 - Bounded flaky-test quarantine
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Silently ignored flaky tests erode release trust, while an absolute no-quarantine rule can block diagnosis.
+
+**Decision:** Allow quarantine only with owner, reason and a maximum 14-day expiry; critical gates are never quarantined.
+
+**Consequences and trade-offs:** Flakiness remains visible and time-bounded, with short-term release friction when ownership is weak.
+
+**Rejected alternatives:** Permanent skips, retries that conceal failures and quarantine of critical suites were rejected.
+
+**Affected documents and components:** `08-TestingStrategy.md`, CI policy, issue tracking and release evidence.
+
+**Migration impact:** Existing quarantines must retain original failure history and expiry through pipeline changes.
+
+**Trigger for reconsideration:** Measured pipeline data proves a stricter rule is practical without hiding failures.
+
+## TST-013 - Zero-cost local client demo
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** The first commercial conversations need a reliable demonstration before public-hosting cost or real-data obligations are justified.
+
+**Decision:** Make the first client demo local and offline-capable using synthetic data and a recording notification adapter.
+
+**Consequences and trade-offs:** The owner can demonstrate the complete commercial journey without recurring cloud cost; the experience is attended rather than public self-service.
+
+**Rejected alternatives:** A public customer-facing backend, real contact data or paid infrastructure before validation was rejected.
+
+**Affected documents and components:** `00.2-CommercialStrategy.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and future demo packaging.
+
+**Migration impact:** Public demo or pilot promotion requires a separate approved data, hosting, security and cost gate.
+
+**Trigger for reconsideration:** Validated sales activity creates a measured need for unattended access.
+
+## TST-014 - Canonical source-to-test traceability
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Rules can disappear silently when tests are organized only around implementation files.
+
+**Decision:** Maintain source-to-test traceability for all 111 named canonical scenarios plus API and user-flow cases.
+
+**Consequences and trade-offs:** Coverage gaps are visible before release; the traceability report requires maintenance as canonical sources change.
+
+**Rejected alternatives:** Relying on coverage percentage or test naming alone was rejected.
+
+**Affected documents and components:** All canonical rule/flow/UX/API/NFR/security/database/architecture sources, `08-TestingStrategy.md` and future test evidence.
+
+**Migration impact:** A source rename or replacement must update mappings without losing historical decision identity.
+
+**Trigger for reconsideration:** The canonical scenario structure changes through an approved documentation decision.
+
+## OPS-001 - Separate readiness environments and data authority
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** A local prototype, public demo, customer pilot and paying production service carry fundamentally different data, availability, legal and cost obligations.
+
+**Decision:** Maintain separate Local, LocalDemo, PublicDemo, Integration, Staging, Pilot, Production and Recovery authority/data profiles. Promotion requires the target profile's evidence and approval gate.
+
+**Consequences and trade-offs:** Readiness cannot be upgraded by renaming an environment, at the cost of explicit configuration and promotion discipline.
+
+**Rejected alternatives:** One shared environment and informal environment labels were rejected because they permit synthetic, test and customer authority to be mixed.
+
+**Affected documents and components:** `00.1-DocumentationRoadmap.md`, `04.3-SecurityAndPrivacy.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and future environment configuration.
+
+**Migration impact:** Every future runtime, data set, release manifest and operational procedure must declare its authority profile.
+
+**Trigger for reconsideration:** Revisit only if a replacement readiness model preserves equivalent separation of data and authority.
+
+## OPS-002 - Local offline-capable first client demo
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Commercial validation needs a reliable complete demonstration before recurring infrastructure cost or public attack surface is justified.
+
+**Decision:** Make the first complete client demo local, attended, offline-capable and synthetic, with external notifications handled by a recording adapter.
+
+**Consequences and trade-offs:** The core journey can be sold and tested at zero recurring software/cloud cost; unattended prospect access is deferred.
+
+**Rejected alternatives:** A cloud backend, real contact data and a notification provider for the first demo were rejected as premature cost and risk.
+
+**Affected documents and components:** `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md` and future LocalDemo packaging.
+
+**Migration impact:** Public access or real customer use requires a separately approved environment, data and operations transition.
+
+**Trigger for reconsideration:** Validated prospects require unattended evaluation and the public-demo or pilot gate is satisfied.
+
+## OPS-003 - Static-only optional public synthetic demo
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** A shareable portfolio experience may improve commercial validation, but a public write-capable service would create security, privacy, reliability and cost duties before revenue.
+
+**Decision:** Permit only a static synthetic public demo with no API, writes, personal data, administrative access or SLA. Select a zero-cost host only after verifying current commercial-use terms for the exact offer.
+
+**Consequences and trade-offs:** Prospects may explore a safe bounded sample; saving, quote capture and authoritative persistence remain unavailable online.
+
+**Rejected alternatives:** Assuming that any free hosting plan permits commercial lead generation, or publishing a full backend before a funded pilot, was rejected.
+
+**Affected documents and components:** `04.3-SecurityAndPrivacy.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md` and future static demo artifacts.
+
+**Migration impact:** Provider selection, resource creation and publication require fresh terms/limit verification and explicit authorization.
+
+**Trigger for reconsideration:** Unattended use requires persistence, access control, customer branding, reliable availability or real contact capture.
+
+## OPS-004 - Immutable shared artifacts without customer forks
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Per-customer builds or release branches would make upgrades, support and security fixes unprofitable.
+
+**Decision:** Build once and promote immutable shared artifacts. Company, product, branding and catalog variation must remain data-driven; customer-specific builds, code forks and ordinary dedicated releases are prohibited.
+
+**Consequences and trade-offs:** Every customer receives the same tested product release; configuration and publication controls require discipline.
+
+**Rejected alternatives:** Customer branches, customer repositories and rebuild-on-deploy were rejected.
+
+**Affected documents and components:** `00.2-CommercialStrategy.md`, `06-Architecture.md`, `09-DeploymentAndOperations.md`, release manifests and all future deployables.
+
+**Migration impact:** Existing or proposed customer variation must be represented by approved shared schema/contracts or rejected as unsupported.
+
+**Trigger for reconsideration:** Never for the shared SaaS; a separately priced product edition requires new commercial and architecture approval.
+
+## OPS-005 - Cost-bounded private GitHub Actions
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Automated verification is valuable before revenue, but private hosted-runner and artifact usage can exhaust included allowances or create unapproved spend.
+
+**Decision:** Use private GitHub Actions only within the account's currently verified included allowance, with standard runners, zero paid-usage authorization, budget alerts and short ordinary artifact retention.
+
+**Consequences and trade-offs:** Quality gates can run without recurring CI cost; workflows may pause and fall back to local verification when allowance is exhausted.
+
+**Rejected alternatives:** Uncapped hosted usage, larger paid runners and a continuously self-hosted runner on the owner's workstation were rejected.
+
+**Affected documents and components:** `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, future CI workflows, artifact retention and cost monitoring.
+
+**Migration impact:** Account plan, included limits and stop behavior must be checked before workflows are enabled and periodically thereafter.
+
+**Trigger for reconsideration:** Revenue and measured pipeline demand justify an explicitly approved paid CI budget.
+
+## OPS-006 - Federated delivery identity and declarative infrastructure
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Long-lived cloud credentials and manual portal configuration create avoidable secret leakage and environment drift.
+
+**Decision:** Use GitHub Actions OIDC, pinned actions and Bicep with separate least-privilege delivery identities for application, migration and infrastructure responsibilities.
+
+**Consequences and trade-offs:** Delivery uses short-lived scoped credentials and reviewable infrastructure; federation and IaC require initial setup and maintenance.
+
+**Rejected alternatives:** Long-lived Azure credentials in GitHub secrets and routine portal-only changes were rejected.
+
+**Affected documents and components:** `06-Architecture.md`, `09-DeploymentAndOperations.md`, future workflows, Bicep modules, identities and release evidence.
+
+**Migration impact:** Existing manual resources must be imported, reconciled or recreated through an approved non-destructive transition before automated management.
+
+**Trigger for reconsideration:** The approved delivery provider or cloud platform changes and an equivalent secure federation/IaC mechanism is selected.
+
+## OPS-007 - Explicit expand/migrate/contract database delivery
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Startup migrations, incompatible schema/application releases and destructive rollback can corrupt or lose customer data.
+
+**Decision:** Deliver schema changes through explicit expand/migrate/contract stages using one migration identity, preflight checks, immutable migration artifacts and roll-forward or verified restore recovery.
+
+**Consequences and trade-offs:** Old and new application versions can coexist during promotion; schema evolution takes more planning and may span releases.
+
+**Rejected alternatives:** Application-startup migration, multiple migration writers and automatic destructive down migration were rejected.
+
+**Affected documents and components:** `05-DatabaseDesign.md`, `06-Architecture.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and future migration/release artifacts.
+
+**Migration impact:** Every physical change needs compatibility, backup, verification and recovery evidence before promotion.
+
+**Trigger for reconsideration:** Never replace with ad hoc production migration; only an approved database platform change may replace the mechanism.
+
+## OPS-008 - Slot deployment with readiness and observation gates
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** A deployment should not direct customer traffic to an unready process or hide regressions immediately after promotion.
+
+**Decision:** Use deployment slots, readiness checks, manifest verification, controlled swap and at least 30 minutes of post-promotion observation with an application rollback target.
+
+**Consequences and trade-offs:** Release downtime and regression exposure are reduced; temporary slot capacity and disciplined observation are required.
+
+**Rejected alternatives:** In-place overwrite, traffic before readiness and immediate release closure after swap were rejected.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `06-Architecture.md`, `09-DeploymentAndOperations.md` and future deployment workflows/runbooks.
+
+**Migration impact:** Release design must keep application and schema versions compatible across the observation/rollback window.
+
+**Trigger for reconsideration:** The approved hosting topology changes and provides an equivalent or stronger safe-promotion mechanism.
+
+## OPS-009 - Redacted operational telemetry and actionable alerts
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Availability, performance, security, retention and cost claims require evidence, while telemetry must not become a copy of personal or secret data.
+
+**Decision:** Operate OpenTelemetry/Azure Monitor dashboards and the named alert catalog with correlation identifiers, structured outcomes, approved retention and redacted/body-free telemetry.
+
+**Consequences and trade-offs:** Incidents and SLOs become diagnosable; telemetry ingestion, alert ownership and noise control require ongoing work and cost review.
+
+**Rejected alternatives:** No telemetry, payload logging and alerting on every metric were rejected.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `04.3-SecurityAndPrivacy.md`, `06-Architecture.md`, `09-DeploymentAndOperations.md` and future instrumentation.
+
+**Migration impact:** Every deployable and critical workflow must adopt the approved telemetry schema without exposing customer payloads.
+
+**Trigger for reconsideration:** An approved observability provider change preserves required evidence, privacy and operational ownership.
+
+## OPS-010 - Tested restore, regional recovery and deletion reconciliation
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Backups are not recovery evidence, and restoring an older backup can resurrect data that was already erased.
+
+**Decision:** Perform quarterly isolated restore tests, twice-yearly regional recovery exercises and deletion-journal reconciliation before restored traffic is allowed.
+
+**Consequences and trade-offs:** RPO/RTO and deletion integrity become measurable; drills need owner time and temporary funded resources in customer profiles.
+
+**Rejected alternatives:** Untested backups, restore directly into service and hot multi-region infrastructure before evidence were rejected.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `04.3-SecurityAndPrivacy.md`, `05-DatabaseDesign.md`, `09-DeploymentAndOperations.md` and recovery evidence.
+
+**Migration impact:** Recovery procedures and restored databases must process the external deletion-recovery evidence before readiness.
+
+**Trigger for reconsideration:** Two consecutive drills exceed three hours or a funded contract requires stronger measured recovery.
+
+## OPS-011 - Honest bounded support model
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** A single-owner MVP cannot honestly or profitably promise general 24/7 support.
+
+**Decision:** Provide standard business-hours B2B technical support to named customer contacts, plus a narrow 24/7 Security S1 confidentiality/integrity escalation.
+
+**Consequences and trade-offs:** The initial offer remains supportable and cost-aware; continuity risk remains until a trained backup contact exists.
+
+**Rejected alternatives:** General 24/7 support, direct public-user sales support and an unmeasured contractual SLA were rejected.
+
+**Affected documents and components:** `00.2-CommercialStrategy.md`, `04.2-NonFunctionalRequirements.md`, `04.3-SecurityAndPrivacy.md`, `09-DeploymentAndOperations.md` and future customer agreements/runbooks.
+
+**Migration impact:** Support channels, named owners, severity definitions and escalation evidence are required before a pilot.
+
+**Trigger for reconsideration:** A funded premium support offer and sufficient staffing are approved.
+
+## OPS-012 - Budget alerts and infrastructure-to-revenue guardrail
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Free allowances, consumption billing and customer customization can create costs faster than early revenue.
+
+**Decision:** Apply GitHub/Azure budgets, anomaly alerts, explicit capacity limits and a 25-percent infrastructure-to-recurring-revenue guardrail; do not treat provider budgets as guaranteed hard stops.
+
+**Consequences and trade-offs:** Cost and margin problems are surfaced early; monthly human review and conservative resource limits remain necessary.
+
+**Rejected alternatives:** Uncapped billing, free-tier assumptions and growth without unit-cost measurement were rejected.
+
+**Affected documents and components:** `00.2-CommercialStrategy.md`, `04.2-NonFunctionalRequirements.md`, `09-DeploymentAndOperations.md`, cost dashboards and future commercial review.
+
+**Migration impact:** Every activated provider must have current limits, owners, alerts and an approved spend boundary recorded.
+
+**Trigger for reconsideration:** Measured pricing, workload or margin changes justify an approved replacement threshold.
+
+## OPS-013 - Managed generic onboarding and offboarding
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Early customers need controlled catalog, branding, privacy and asset setup, but unlimited customization or self-service would add risk before demand is proven.
+
+**Decision:** Use managed company/catalog/asset onboarding, publication and offboarding without product-specific schema, code, build or deployment changes.
+
+**Consequences and trade-offs:** Quality and commercial accuracy are reviewed through a repeatable process; the MVP retains bounded manual operational work.
+
+**Rejected alternatives:** Customer-specific forks, direct database edits and premature self-service administration were rejected.
+
+**Affected documents and components:** `00.2-CommercialStrategy.md`, `03-DataModel.md`, `05-DatabaseDesign.md`, `06-Architecture.md`, `09-DeploymentAndOperations.md` and future Operations workflows.
+
+**Migration impact:** Every company/product package must pass the same validation, publication, rollback and rights-evidence process.
+
+**Trigger for reconsideration:** Measured onboarding volume and customer demand justify a shared self-service capability.
+
+## OPS-014 - Bounded operational evidence retention
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Release and security traceability needs durable evidence, while retaining every ordinary CI artifact would exhaust storage and increase cost.
+
+**Decision:** Retain release manifests, SBOMs, hashes and deployment evidence for at least 400 days; retain ordinary CI diagnostics for 7 days unless an incident/legal hold requires protected preservation.
+
+**Consequences and trade-offs:** Releases remain auditable without uncontrolled artifact growth; protected production evidence may incur storage cost.
+
+**Rejected alternatives:** Indefinite retention of all artifacts and deletion of release evidence with short-lived CI output were rejected.
+
+**Affected documents and components:** `04.3-SecurityAndPrivacy.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, future CI, evidence storage and incident handling.
+
+**Migration impact:** Pipelines and evidence stores must classify artifacts and apply the corresponding retention policy.
+
+**Trigger for reconsideration:** Legal, contractual, audit or cost requirements change through approval.
+
+## OPS-015 - No real personal data in demo/non-production by default
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** A convincing demo does not justify collecting or copying personal data before legal, security and operational controls are ready.
+
+**Decision:** Keep real personal data out of every demo and non-production default. Require legal, notification, support, security, recovery and cost gates before a customer pilot.
+
+**Consequences and trade-offs:** Privacy and reputation exposure remain low; some support reproduction must use synthetic cases.
+
+**Rejected alternatives:** Real contact fixtures, production copies in test and informal pilot data collection were rejected.
+
+**Affected documents and components:** `04.3-SecurityAndPrivacy.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md` and all future test/demo environments.
+
+**Migration impact:** Any exceptional masked-data process requires separate approval, documented minimization and deletion.
+
+**Trigger for reconsideration:** A verified support need cannot be reproduced synthetically and an approved masked-data process is necessary.
+
+## OPS-016 - Measure before topology or tenancy splitting
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Microservices, database-per-company and complex orchestration would increase fixed cost and operational burden without current scale evidence.
+
+**Decision:** Scale the approved PaaS modular-monolith topology vertically or horizontally using measured latency, saturation, availability and cost before splitting services or tenant databases.
+
+**Consequences and trade-offs:** The system remains simple and margin-aware; observability and capacity review must detect genuine boundaries.
+
+**Rejected alternatives:** Preventive microservices, Kubernetes, broker-first processing, database-per-company and hot multi-region operation were rejected.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `05-DatabaseDesign.md`, `06-Architecture.md`, `09-DeploymentAndOperations.md` and future capacity evidence.
+
+**Migration impact:** New topology boundaries require explicit data ownership, migration, deployment and recovery design.
+
+**Trigger for reconsideration:** A module has independently measured scale, availability or ownership needs and the change is funded.
+
+## IMP-001 - Dependency-ordered vertical slices
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Horizontal layer-by-layer delivery and a big-bang MVP would delay usable evidence and hide cross-boundary mistakes.
+
+**Decision:** Implement dependency-ordered end-to-end vertical slices rather than horizontal layers or a big-bang MVP.
+
+**Consequences and trade-offs:** Each completed slice produces demonstrable value and exposes integration risk early; the team must keep every slice narrowly scoped.
+
+**Rejected alternatives:** Completing all persistence, then all APIs and then all UI, or building the entire MVP before verification, were rejected.
+
+**Affected documents and components:** `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md` and every future application slice.
+
+**Migration impact:** Shared prerequisites may be introduced incrementally, but each slice must remain compatible with the previous deployable state.
+
+**Trigger for reconsideration:** Team or release structure changes with measured evidence that another sequence reduces risk.
+
+## IMP-002 - Deployable and evidenced state after every slice
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Long unstable branches and partially integrated work create hidden delivery and recovery risk.
+
+**Decision:** Require every slice to leave one shared release buildable, testable, evidenced and safely evolvable.
+
+**Consequences and trade-offs:** Verification, documentation and recovery work are performed continuously; each slice carries more Definition-of-Done effort.
+
+**Rejected alternatives:** Deferred integration, test-later branches and environment-specific rebuilds were rejected.
+
+**Affected documents and components:** `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md`, CI and release evidence.
+
+**Migration impact:** Database and contract changes must use compatible expand/migrate/contract sequencing.
+
+**Trigger for reconsideration:** Never remove equivalent build, verification and recovery evidence.
+
+## IMP-003 - Accessible commercial core before 3D dependency
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** The renderer is commercially useful but must not own rules, pricing or accessibility, and visual progress must not hide an incomplete core journey.
+
+**Decision:** Complete the accessible commercial shell and authoritative server behavior before allowing 3D to become a schedule dependency.
+
+**Consequences and trade-offs:** The sellable flow and fallback remain usable if 3D is unavailable; 3D may appear later in demonstrations.
+
+**Rejected alternatives:** Building the 3D scene first or making WebGL mandatory for configuration were rejected.
+
+**Affected documents and components:** `03.2-UXRequirements.md`, `04.2-NonFunctionalRequirements.md`, `06-Architecture.md`, `08-TestingStrategy.md` and SL-001 through SL-007.
+
+**Migration impact:** Renderer integration must remain behind the approved versioned adapter and consume the same authoritative configuration state.
+
+**Trigger for reconsideration:** Validated buyers prove that 3D is the primary purchase condition.
+
+## IMP-004 - Quality and operational controls per slice
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Deferring security, privacy, accessibility, observability and cost work until the end creates expensive unsafe rework.
+
+**Decision:** Treat those controls as per-slice work, with later system-level closure only.
+
+**Consequences and trade-offs:** Applicable risks are handled when introduced; every slice takes longer than feature-only delivery.
+
+**Rejected alternatives:** A final hardening phase and separate accessibility/security clean-up projects were rejected.
+
+**Affected documents and components:** `04.2-NonFunctionalRequirements.md`, `04.3-SecurityAndPrivacy.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md` and all slices.
+
+**Migration impact:** Existing slices cannot be promoted while applicable controls or evidence are missing.
+
+**Trigger for reconsideration:** Never defer applicable controls; only replace them with approved equivalent evidence.
+
+## IMP-005 - Real SQL Server acceptance
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** SQLite and EF in-memory cannot prove approved SQL Server RLS, constraints, locking, rowversion, JSON or migration behavior.
+
+**Decision:** Verify persistence slices with SQL Server 2025 Developer and approved migrations; reject SQLite and EF in-memory as database acceptance evidence.
+
+**Consequences and trade-offs:** Target-engine behavior is proven without a license fee for development, test and demonstration; local SQL setup and runtime effort remain.
+
+**Rejected alternatives:** Using SQLite, EF in-memory or mocked repositories as physical database acceptance evidence was rejected.
+
+**Affected documents and components:** `05-DatabaseDesign.md`, `08-TestingStrategy.md`, `10-ImplementationPlan.md`, future persistence tests and migrations.
+
+**Migration impact:** Every physical change requires a versioned migration and representative target-engine verification.
+
+**Trigger for reconsideration:** The approved database platform changes or an equivalent target-compatible free runtime is approved.
+
+## IMP-006 - Second-product proof before scalability claim
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** A generic schema and UI are only credible if a fundamentally different product can be added without product-specific structure.
+
+**Decision:** Require a fundamentally different second synthetic product to pass through data and assets only before technical-demo scalability is claimed.
+
+**Consequences and trade-offs:** Flexibility is demonstrated rather than assumed; fixture, test and asset effort increases.
+
+**Rejected alternatives:** Desk-specific fields, customer branches and abstract plugin engines without a second-product test were rejected.
+
+**Affected documents and components:** `02-BusinessRules.md`, `03-DataModel.md`, `04.1-ApiContracts.md`, `05-DatabaseDesign.md`, `08-TestingStrategy.md`, `10-ImplementationPlan.md` and LocalDemo evidence.
+
+**Migration impact:** No schema, public contract, component branch, build or deployment may be added solely for the second product.
+
+**Trigger for reconsideration:** Never remove an equivalent product-portability proof.
+
+## IMP-007 - Zero-recurring-cost local technical demo first
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Customer learning is needed before cloud, privacy and production spending is justified.
+
+**Decision:** Make the first complete technical demo local, offline-capable, synthetic and zero-recurring-cost.
+
+**Consequences and trade-offs:** The project reaches safe customer conversations cheaply; the first demo is attended rather than public and self-service.
+
+**Rejected alternatives:** Production Azure infrastructure or an Internet-exposed personal workstation before commercial evidence were rejected.
+
+**Affected documents and components:** `08-TestingStrategy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md`, SL-000 through SL-009.
+
+**Migration impact:** The local profile must use portable configuration and the same application artifacts without becoming customer production infrastructure.
+
+**Trigger for reconsideration:** Measured commercial evidence justifies a separately approved later environment.
+
+## IMP-008 - Separate public-demo, pilot and production gates
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** A successful LocalDemo does not satisfy hosting, privacy, support, recovery or commercial obligations.
+
+**Decision:** Keep public demo, pilot and production as optional separately approved slices; never auto-promote LocalDemo.
+
+**Consequences and trade-offs:** Premature cost, personal-data and SLA exposure is prevented; later progression requires explicit evidence and approvals.
+
+**Rejected alternatives:** Reusing the local workstation publicly or treating a technical demo as a customer-ready release were rejected.
+
+**Affected documents and components:** `00.1-DocumentationRoadmap.md`, `04.3-SecurityAndPrivacy.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md`, SL-010 and SL-013 through SL-015.
+
+**Migration impact:** Each environment must use its approved data, identity, cost and recovery profile.
+
+**Trigger for reconsideration:** The readiness model is explicitly replaced with equivalent controls.
+
+## IMP-009 - No customer forks or speculative platform work
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Per-customer branches and premature distributed/platform features would destroy shared-SaaS margin and maintainability without proven demand.
+
+**Decision:** Prohibit per-customer or per-product forks and speculative microservices, brokers, billing, self-service administration or enterprise features.
+
+**Consequences and trade-offs:** The shared product stays simple and profitable to operate; some requests remain manual, rejected or deferred.
+
+**Rejected alternatives:** Dedicated ordinary-customer builds, schema branches, generic engines and preventive enterprise infrastructure were rejected.
+
+**Affected documents and components:** `00.2-CommercialStrategy.md`, `03-DataModel.md`, `05-DatabaseDesign.md`, `06-Architecture.md`, `09-DeploymentAndOperations.md`, `10-ImplementationPlan.md` and all future scope decisions.
+
+**Migration impact:** New shared capabilities require evidence, common contracts and a migration path rather than a fork.
+
+**Trigger for reconsideration:** Multiple real customers require the same extension and an approved business case funds it.
+
+## IMP-010 - Relative evidence-based estimation
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Calendar estimates before a verified baseline and measured velocity would create false precision.
+
+**Decision:** Use relative effort bands with at least plus or minus 50 percent initial uncertainty and re-estimate from measured delivery evidence.
+
+**Consequences and trade-offs:** Planning remains honest and adaptable; early calendar certainty is intentionally limited.
+
+**Rejected alternatives:** A fixed launch date derived only from document scope or optimistic feature counting was rejected.
+
+**Affected documents and components:** `10-ImplementationPlan.md`, slice planning and commercial checkpoints.
+
+**Migration impact:** Re-estimation occurs after SL-000 and the first database-backed slice without silently expanding scope.
+
+**Trigger for reconsideration:** Stable measured velocity and a decomposed backlog justify narrower ranges.
+
+## IMP-011 - Stop on canonical conflicts
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Silent interpretation of conflicts can change business rules, contracts, persisted data, tenancy, security or architecture irreversibly.
+
+**Decision:** Stop implementation for conflicts affecting those authorities and resolve them through source or decision approval.
+
+**Consequences and trade-offs:** Irreversible drift is prevented; delivery may pause for an explicit decision.
+
+**Rejected alternatives:** Choosing the newest filename, implementation convenience or developer preference as implicit precedence was rejected.
+
+**Affected documents and components:** `00.1-DocumentationRoadmap.md`, `07-DecisionLog.md`, `10-ImplementationPlan.md` and every implementation slice.
+
+**Migration impact:** Conflicting work cannot be migrated or deployed until authority and compatibility are resolved.
+
+**Trigger for reconsideration:** Never remove the approval control; only replace it with an equivalent governance rule.
+
+## IMP-012 - Separate implementation authorization
+
+Date: 2026-07-28  
+Status: Approved
+
+**Context:** Approving a delivery plan is not the same action as authorizing source code, packages, SQL, migrations or infrastructure.
+
+**Decision:** Require plan approval, a passing final implementation-readiness review and separate explicit product-owner authorization before code starts.
+
+**Execution record:** The product owner explicitly authorized SL-000 on 2026-07-28. The engineering and verification baseline, including real SQL Server 2025 Standard Developer Edition CU7 connectivity, was completed on 2026-07-28. The current task separately authorizes one reviewed commit and push after clean-checkout verification; later slices and other external actions remain separately gated.
+
+**Consequences and trade-offs:** Documentation approval remains distinct from execution authority; one final explicit gate is required.
+
+**Rejected alternatives:** Treating plan approval as automatic code authorization or beginning SL-000 while readiness blockers remain were rejected.
+
+**Affected documents and components:** `00-ProjectOverview.md`, `00.1-DocumentationRoadmap.md`, `10-ImplementationPlan.md`, `11-ImplementationReadinessReview.md` and future implementation work.
+
+**Migration impact:** No application repository structure, package installation, SQL migration or implementation artifact may be created before the separate start authorization.
+
+**Trigger for reconsideration:** The product owner explicitly replaces the readiness process with an equivalent approved authority model.

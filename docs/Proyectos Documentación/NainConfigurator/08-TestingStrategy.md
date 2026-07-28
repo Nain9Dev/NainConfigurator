@@ -1,7 +1,7 @@
 # Testing Strategy
 
-Document version: 1.1  
-Status: Proposed for product-owner approval; no test implementation is authorized yet  
+Document version: 1.3  
+Status: Approved; SL-000 baseline verification completed; later slices remain gated  
 Last updated: 2026-07-28  
 Applies to: Local prototype, synthetic-data demo, customer pilot and production release evidence
 
@@ -20,7 +20,7 @@ It implements, and does not redefine:
 - `05-DatabaseDesign.md` for physical constraints, transactions and DB-AC scenarios.
 - `06-Architecture.md` for boundaries, technology and ARC-AC scenarios.
 
-This document selects verification responsibilities and proposed tools. It contains no test code, application code, SQL, cloud deployment or billable-resource authorization.
+This document selects approved verification responsibilities and tools. It contains no test code, application code, SQL, cloud deployment or billable-resource authorization.
 
 ## 2. Direct recommendation
 
@@ -105,11 +105,11 @@ Test effort follows this order. A visual pixel difference never has priority ove
 
 Most tests remain below the browser layer. Only behavior that needs a browser, validated 3D asset, SQL or infrastructure crosses that boundary.
 
-## 7. Proposed free-first toolchain
+## 7. Approved free-first toolchain
 
 Approval-time versions are reproducible starting candidates, not permission to install packages now. Exact versions and checksums are reverified and pinned at the first implementation commit. Patch upgrades inside a compatible line require the normal dependency/security suite.
 
-| Responsibility | Proposed tool | Approval-time baseline | License/cost boundary | Reason |
+| Responsibility | Approved tool | Approval-time baseline | License/cost boundary | Reason |
 |---|---|---|---|---|
 | .NET unit/integration runner | xUnit.net v3 | `3.2.2` | Apache-2.0; no license fee | Native .NET ecosystem, parallelization and current v3 support |
 | .NET coverage | Microsoft.Testing.Platform compatible coverage extension | Compatible .NET 10 line | Free-to-use Microsoft tooling; no hosted service | Produces local machine-readable coverage without SaaS |
@@ -618,7 +618,7 @@ Every implemented test case carries one or more source identifiers/section refer
 | `04.2-NonFunctionalRequirements.md` | NFR-SC-001 through NFR-SC-012 and NFR-001 through NFR-014 |
 | `04.3-SecurityAndPrivacy.md` | SEC-SC-001 through SEC-SC-015 and SEC-001 through SEC-017 |
 | `05-DatabaseDesign.md` | DB-AC-001 through DB-AC-023 and DB-001 through DB-015 |
-| `06-Architecture.md` | ARC-AC-001 through ARC-AC-015 and ARCH-001 through ARCH-018 |
+| `06-Architecture.md` | ARC-AC-001 through ARC-AC-015 and ARCH-001 through ARCH-019 |
 
 There are 111 currently named acceptance scenarios across business, UX, NFR, security, database and architecture documents, plus flow and API contract cases. A later test inventory may split one scenario into several tests; no canonical scenario may remain unmapped.
 
@@ -666,11 +666,11 @@ Artifact retention, storage access and deletion are finalized in `09-DeploymentA
 | TST-AC-017 | Publish a glTF/GLB asset without ownership/license or validator evidence | Asset gate rejects publication |
 | TST-AC-018 | ZAP reports no high alerts | Result is accepted only as automated evidence, never called a penetration test |
 
-## 28. Proposed testing decisions
+## 28. Approved testing decisions
 
-These decisions remain `Proposed` until the product owner explicitly approves this document.
+The product owner explicitly approved TST-001 through TST-014 on 2026-07-28. Approval authorizes implementation planning only; it does not authorize test code, application code, SQL execution, deployment or paid services.
 
-| ID | Proposed decision | Benefit now | Cost/risk | Reconsider when |
+| ID | Approved decision | Benefit now | Cost/risk | Reconsider when |
 |---|---|---|---|---|
 | TST-001 | Separate documentation, prototype, demo, pilot and commercial-launch evidence gates | Prevents a working demo being misrepresented as customer-ready | More explicit gate tracking | Readiness model is replaced |
 | TST-002 | Use xUnit.net v3 and .NET test/coverage tooling for backend verification | Current supported stack and no SaaS cost | Package/version maintenance | Approved .NET test platform changes materially |
@@ -714,17 +714,13 @@ These decisions remain `Proposed` until the product owner explicitly approves th
 - [x] Real Safari/device, representative load and independent penetration-test limits are stated honestly.
 - [x] Coverage, quarantine, flakiness and evidence rules are measurable.
 - [x] Second-product verification prohibits product-specific schema/contract/UI branches.
-- [ ] Product owner has approved TST-001 through TST-014.
+- [x] Product owner approved TST-001 through TST-014 on 2026-07-28.
 
-## 31. Next documentation gate
+## 31. Current implementation-readiness boundary
 
-After explicit approval:
+TST-001 through TST-014, OPS-001 through OPS-016 and IMP-001 through IMP-012 are approved and recorded in `07-DecisionLog.md`. The final cross-document review in `11-ImplementationReadinessReview.md` passes the local implementation-readiness gate.
 
-1. Change this document to `Approved for implementation planning`.
-2. Record TST-001 through TST-014 in `07-DecisionLog.md`.
-3. Draft `09-DeploymentAndOperations.md`, including the zero-cost local demo runbook and the decision boundary for any public demo.
-4. Draft `10-ImplementationPlan.md` only after operations is approved.
-5. Do not start application code until all implementation-blocking documents are approved.
+SL-000 was separately authorized and is completed. Application or test code for SL-001 or any later slice still requires separate product-owner authorization. Public demo, customer pilot, real-data and production evidence remain separate later gates.
 
 ## 32. Official evidence reviewed
 

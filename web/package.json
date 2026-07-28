@@ -1,0 +1,32 @@
+{
+  "name": "@nainconfigurator/web",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": "24.18.0",
+    "npm": "11.16.0"
+  },
+  "scripts": {
+    "audit": "npm audit --audit-level=high",
+    "build": "tsc -b && vite build",
+    "format:check": "prettier --check \"**/*.{css,html,json,md,ts,tsx}\"",
+    "start": "vite",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.4",
+    "prettier": "3.9.6",
+    "typescript": "6.0.3",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  }
+}

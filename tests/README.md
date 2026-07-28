@@ -1,5 +1,5 @@
 # Test boundary
 
-This directory is reserved for future cross-stack test orchestration, synthetic fixtures and non-sensitive verification evidence.
+This directory contains cross-stack traceability and is reserved for future synthetic fixtures and non-sensitive verification evidence.
 
-`docs/Proyectos Documentación/NainConfigurator/08-TestingStrategy.md` remains proposed until TST-001 through TST-014 are explicitly approved. No test implementation is authorized yet.
+SL-000 includes real tests for host runtime-option validation and a separately classified SQL Server 2025 Developer connectivity harness. The Web runner intentionally contains no tests until Web behavior exists; `--passWithNoTests` must never be reported as functional coverage.

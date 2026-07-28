@@ -1,7 +1,7 @@
 # Database Design
 
-Document version: 1.1  
-Status: Approved for implementation planning; implementation is not yet authorized  
+Document version: 1.2  
+Status: Approved for implementation planning; SL-000 completed; database-domain implementation remains unauthorized  
 Last updated: 2026-07-28  
 Target: Azure SQL Database and SQL Server 2025, compatibility level `170`
 
@@ -1076,7 +1076,7 @@ The review also found one architecture delta that cannot be hidden inside SQL:
 
 3. `04.3-SecurityAndPrivacy.md` requires deletion instructions outside the restorable primary database. Approved DB-012 adds a separate private `deletion-recovery` container to the restricted Storage account, with no public route, HMAC identifiers, encryption and a minimum 42-day lifecycle. `06-Architecture.md` now contains that authorized clarification.
 
-The free-first prototype does not replace the approved production architecture. It adds an earlier zero-cost evidence phase with synthetic data. Deployment/operations must later define the exact transition gate from local prototype to optional demo, paying pilot and production.
+The free-first prototype does not replace the approved production architecture. It adds an earlier zero-cost evidence phase with synthetic data. `09-DeploymentAndOperations.md` now defines the transition gates from local prototype to optional public demo, paying pilot and production; `10-ImplementationPlan.md` orders them as separate slices.
 
 ## 26. Approval checklist
 
@@ -1093,17 +1093,18 @@ This design was approved by the product owner on 2026-07-28 with all statements 
 - [x] Local prototype and optional demo can use no-charge database profiles without changing schema.
 - [x] Developer/free services are not misrepresented as production-ready.
 - [x] Migration, seed and recovery rules prohibit startup/ad hoc/destructive schema behavior.
-- [x] A second non-desk product passes without a schema change.
+- [x] The physical-design walkthrough supports a second non-desk product without a schema change; executable proof remains an implementation test.
 - [x] Twenty-three database acceptance scenarios are defined for the testing strategy.
 - [x] Product owner has approved DB-001 through DB-015.
 
-## 27. Next documentation gate
+## 27. Current implementation-readiness boundary
 
 Approval is complete:
 
 1. DB-001 through DB-015 are recorded in `07-DecisionLog.md`.
-2. `08-TestingStrategy.md` is the immediate documentation gate.
-3. Do not write application code yet. `09-DeploymentAndOperations.md` and `10-ImplementationPlan.md` remain required before implementation begins.
+2. `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and `10-ImplementationPlan.md` are approved.
+3. `11-ImplementationReadinessReview.md` records the passing final review for local implementation eligibility.
+4. Implement no database domain table or migration during SL-000; those artifacts begin only in the applicable later authorized slice.
 
 ## 28. Official evidence reviewed
 

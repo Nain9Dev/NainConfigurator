@@ -20,7 +20,7 @@ The initial MVP publishes one escritorio gaming modular (`DESK-001`) in company 
 
 The logical domain and public contracts are client- and persistence-agnostic.
 
-`05-DatabaseDesign.md` and `06-Architecture.md` are approved and authoritative for physical persistence, exact technology baselines, topology, alternatives and revisit triggers. They permit a synthetic-only optional demo that has no SLA or customer dependency. DB-001 through DB-015 and the 42-day deletion-recovery container were approved on 2026-07-28. `08-TestingStrategy.md` is proposed; TST-001 through TST-014 require product-owner approval. Code remains unauthorized.
+`05-DatabaseDesign.md`, `06-Architecture.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and `10-ImplementationPlan.md` are approved and authoritative for physical persistence, exact technology baselines, topology, verification, operations and delivery order. DB-001 through DB-015, the 42-day deletion-recovery container, TST-001 through TST-014, OPS-001 through OPS-016 and IMP-001 through IMP-012 were approved on 2026-07-28. `11-ImplementationReadinessReview.md` passes the local implementation-readiness gate. Code, deployment and cloud-resource activation remain unauthorized until their separate permissions are given.
 
 ## Canonical documentation
 
@@ -40,7 +40,10 @@ The logical domain and public contracts are client- and persistence-agnostic.
 | `05-DatabaseDesign.md` | Approved physical tables, keys, constraints, RLS, indexes, transactions, retention and free-first database profiles |
 | `06-Architecture.md` | Approved technologies, modular boundaries, transaction ownership, hosting, caching, Babylon.js/Blender asset integration, telemetry and recovery topology |
 | `07-DecisionLog.md` | Approved and superseded cross-document decisions |
-| `08-TestingStrategy.md` | Proposed free-first test layers, tools, traceability and client-demo evidence; not yet authoritative |
+| `08-TestingStrategy.md` | Approved free-first test layers, tools, traceability and client-demo evidence |
+| `09-DeploymentAndOperations.md` | Approved environments, free demo boundaries, delivery, monitoring, recovery, support, onboarding and cost controls |
+| `10-ImplementationPlan.md` | Approved dependency-ordered vertical slices, Definition of Done, risk controls and demo/pilot/launch gates |
+| `11-ImplementationReadinessReview.md` | Passing coherence, free-tool/license and remaining-stage gate review |
 
 `04-ApiContracts.md`, `02-BusinessRules.v1.md` and `Producto inicial.md` are historical only.
 
@@ -48,7 +51,7 @@ The logical domain and public contracts are client- and persistence-agnostic.
 
 1. Load the active product catalog for a company.
 2. Build the configurable UI from option groups, options and compatibility rules.
-3. Update the 3D presentation and show a local non-authoritative estimate.
+3. Update the optional 3D presentation when available and show a local non-authoritative estimate.
 4. Validate selections and obtain the authoritative API price.
 5. Save an immutable configuration with a commercial snapshot.
 6. Submit an idempotent quote request with active privacy-notice acknowledgment and a server retention deadline.
@@ -89,7 +92,7 @@ The logical domain and public contracts are client- and persistence-agnostic.
 
 Public customer accounts, payments, product administration, multiple-product discovery, inventory, shipping, promotions, marketing consent, public file upload and quote status workflows beyond `New` are outside the MVP.
 
-Security/privacy requirements, application architecture and physical Azure SQL design are approved. Testing, operations and implementation planning still block code. Before processing real customer data, the project also requires customer-specific legal notice/lawful basis, an executed data-processing agreement, subprocessor/region disclosure, named operational contacts, implemented and tested controls, penetration-test evidence and a commercial notification workflow.
+Security/privacy requirements, application architecture, physical Azure SQL design, testing strategy, deployment/operations and implementation plan are approved, and the final implementation-readiness review passes. SL-000 is completed: its repository baseline, quality pipeline and real SQL Server 2025 Standard Developer Edition CU7 connectivity check pass. The committed revision must also pass from a clean checkout before push, and no later slice is authorized. Before processing real customer data, the project also requires customer-specific legal notice/lawful basis, an executed data-processing agreement, subprocessor/region disclosure, named operational contacts, implemented and tested controls, penetration-test evidence and a commercial notification workflow.
 
 ## Approved quality envelope
 

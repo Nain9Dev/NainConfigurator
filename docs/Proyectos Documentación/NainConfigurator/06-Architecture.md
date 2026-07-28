@@ -1,7 +1,7 @@
 # Architecture
 
-Document version: 1.4  
-Status: Approved with Blender/Babylon.js renderer and physical database design; implementation is not yet authorized  
+Document version: 1.7  
+Status: Approved; SL-000 completed; later slices remain gated  
 Decision date: 2026-07-19  
 Last updated: 2026-07-28  
 Owner: NainConfigurator product and technical owner
@@ -718,7 +718,7 @@ The following are intentionally not invented here:
 - Notification vendor: commercial/legal integration review before real quote routing.
 - Customer-specific privacy text, lawful basis, DPA, subprocessor disclosure and contractual SLA: commercial launch gate.
 
-Physical database design and its deletion-recovery storage clarification are approved. The immediate next gate is `08-TestingStrategy.md`. Code still must not begin until testing, deployment/operations and implementation planning are approved.
+Physical database design, its deletion-recovery storage clarification, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and `10-ImplementationPlan.md` are approved. The final implementation-readiness review passes in `11-ImplementationReadinessReview.md`. SL-000 is completed; no later slice may begin without separate product-owner authorization.
 
 ## 26. Official support evidence reviewed
 

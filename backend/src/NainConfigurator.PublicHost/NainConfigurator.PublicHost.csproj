@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="../NainConfigurator.Hosting/NainConfigurator.Hosting.csproj" />
+  </ItemGroup>
+</Project>

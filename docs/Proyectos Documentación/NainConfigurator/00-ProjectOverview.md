@@ -1,7 +1,7 @@
 # NainConfigurator
 
-Document version: 2.8  
-Status: Architecture and physical database approved; testing strategy proposed; implementation and real-data launch not ready  
+Document version: 3.1  
+Status: Documentation complete; SL-000 completed; SL-001 and real-data launch remain pending  
 Last updated: 2026-07-28
 
 ## 1. Product vision
@@ -46,7 +46,7 @@ Exact prices, quotas, service levels and legal terms remain required before a pa
 A public user can:
 
 1. Load the active published product catalog for a company.
-2. Select valid options in a 3D client generated from catalog data.
+2. Select valid options in a catalog-driven accessible interface, with optional 3D presentation.
 3. See an immediate non-authoritative estimated price.
 4. Ask the API to validate the selection and calculate the authoritative price.
 5. Save an immutable configuration and receive a public configuration code.
@@ -132,9 +132,12 @@ These are approved architecture choices, not permission to implement. `06-Archit
 | `05-DatabaseDesign.md` | Approved physical design: zero-cost local SQL prototype and production-compatible Azure SQL schema |
 | `06-Architecture.md` | Approved application, technology and deployment architecture |
 | `07-DecisionLog.md` | Cross-document architectural and product decisions |
-| `08-TestingStrategy.md` | Proposed free-first verification strategy and local client-demo evidence gate |
+| `08-TestingStrategy.md` | Approved free-first verification strategy and local client-demo evidence gate |
+| `09-DeploymentAndOperations.md` | Approved environments, free-demo boundaries, delivery, monitoring, recovery, support, onboarding and cost controls |
+| `10-ImplementationPlan.md` | Approved dependency-ordered vertical slices from engineering baseline to local demo, pilot and commercial launch |
+| `11-ImplementationReadinessReview.md` | Passing cross-document coherence, free-tool and remaining-gate review |
 | `AI_CONTEXT.md` | Short navigation summary; never an independent source of truth |
 
 `04-ApiContracts.md`, `02-BusinessRules.v1.md` and `Producto inicial.md` are historical inputs and are not authoritative.
 
-The product foundation, commercial operating model, quality, security/privacy, application architecture and physical persistence are approved. Testing is proposed; operations and implementation planning remain required before code. Customer-specific legal artifacts and operational evidence remain required before real personal data or a paying-customer launch.
+The product foundation, commercial operating model, quality, security/privacy, application architecture, physical persistence, testing strategy, deployment/operations and implementation plan are approved. `11-ImplementationReadinessReview.md` passes the documentation gate for local implementation eligibility. The product owner authorized SL-000 on 2026-07-28; its repository baseline, quality pipeline and real SQL Server 2025 Standard Developer Edition CU7 connectivity check are implemented and pass. The committed revision must also pass from a clean checkout before push. No later slice is authorized. Customer-specific commercial, legal and operational evidence remains required before public hosting, real personal data, a pilot or a paying-customer launch.

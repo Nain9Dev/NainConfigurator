@@ -1,0 +1,6 @@
+slice_id,source_id,test_id,test_project,evidence_type,status
+SL-000,SL-000-AC-001,HostingExtensionsTests.StartAsyncExposesSyntheticReleaseIdentity,NainConfigurator.Baseline.Tests,Unit,Implemented
+SL-000,SL-000-AC-002,HostingExtensionsTests.StartAsyncFailsWithoutReleaseIdentity,NainConfigurator.Baseline.Tests,Unit,Implemented
+SL-000,SL-000-AC-003,SqlServerConnectivityTests.CanConnectAsyncUsesConfiguredSqlServer2025Developer,NainConfigurator.Database.IntegrationTests,SQL Server integration,Implemented
+SL-000,SL-000-AC-004,Invoke-Quality.ps1,N/A,Pipeline,Implemented
+SL-001,Pending,Pending,Pending,Pending,Not implemented

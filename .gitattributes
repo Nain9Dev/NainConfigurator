@@ -11,10 +11,15 @@
 *.cs text eol=lf
 *.csproj text eol=lf
 *.sln text eol=crlf
+*.slnx text eol=lf
 *.ts text eol=lf
 *.tsx text eol=lf
 *.js text eol=lf
 *.css text eol=lf
+*.html text eol=lf
+*.ps1 text eol=lf
+*.toml text eol=lf
+*.csv text eol=lf
 *.sql text eol=lf
 *.bicep text eol=lf
 

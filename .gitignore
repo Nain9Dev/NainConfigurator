@@ -1,0 +1,79 @@
+# Operating system and editor state
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vs/
+.vscode/
+.idea/
+.local-history/
+*.user
+*.suo
+*.swp
+*~
+
+# Obsidian machine-local state
+**/.obsidian/
+
+# Local scratch and unidentified database placeholders
+docs/Proyectos Documentación/Sin título.base
+docs/Proyectos Documentación/Proyectos Documentación/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.secrets.json
+secrets.json
+**/appsettings.*.local.json
+**/appsettings.Local.json
+*.pfx
+*.p12
+*.key
+*.pem
+
+# .NET output
+**/bin/
+**/obj/
+**/TestResults/
+**/coverage/
+*.trx
+*.coverage
+*.coveragexml
+
+# JavaScript output and caches
+**/node_modules/
+**/dist/
+**/.vite/
+**/.cache/
+**/.turbo/
+**/playwright-report/
+**/test-results/
+**/blob-report/
+**/coverage-final.json
+
+# Blender temporary and recovery files
+*.blend1
+*.blend2
+*.blend@
+
+# Generated 3D validation and optimization reports
+*.gltf.report.json
+*.glb.report.json
+
+# Database and operational artifacts
+*.bak
+*.bacpac
+*.dacpac
+*.mdf
+*.ldf
+*.ndf
+*.dump
+*.har
+*.sarif
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+artifacts/
+reports/

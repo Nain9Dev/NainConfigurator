@@ -3,4 +3,24 @@ SL-000,SL-000-AC-001,HostingExtensionsTests.StartAsyncExposesSyntheticReleaseIde
 SL-000,SL-000-AC-002,HostingExtensionsTests.StartAsyncFailsWithoutReleaseIdentity,NainConfigurator.Baseline.Tests,Unit,Implemented
 SL-000,SL-000-AC-003,SqlServerConnectivityTests.CanConnectAsyncUsesConfiguredSqlServer2025Developer,NainConfigurator.Database.IntegrationTests,SQL Server integration,Implemented
 SL-000,SL-000-AC-004,Invoke-Quality.ps1,N/A,Pipeline,Implemented
-SL-001,Pending,Pending,Pending,Pending,Not implemented
+SL-001,API catalog and DB isolation,PublicApiTests.CatalogsExposeTwoDifferentProductsWithoutInternalIds,NainConfigurator.Api.IntegrationTests,Real HTTP and SQL Server,Implemented
+SL-001,DB-AC-001 through DB-AC-003,SqlServerPersistenceTests.DatabaseUsesApprovedCompatibilityAndIsolationPolicy,NainConfigurator.Database.IntegrationTests,SQL Server integration,Implemented
+SL-001,SEC company isolation,SqlServerPersistenceTests.RlsReusedConnectionNeverLeaksAnotherCompany,NainConfigurator.Database.IntegrationTests,SQL Server integration,Implemented
+SL-001,SEC write isolation,SqlServerPersistenceTests.RlsBlockPredicateRejectsCrossCompanyInsert,NainConfigurator.Database.IntegrationTests,SQL Server integration,Implemented
+SL-001,DB composite ownership,SqlServerPersistenceTests.CompositeForeignKeyRejectsCrossCompanyRelationship,NainConfigurator.Database.IntegrationTests,SQL Server integration,Implemented
+SL-002,UX catalog-driven controls,App creates controls and draft price only from catalog data,Vitest and React Testing Library,Component,Implemented
+SL-002,UX fallback and reflow,technical-demo supports keyboard entry and 320 pixel reflow,Playwright,Four browser projects,Implemented
+SL-003,BR generic validation and pricing,ConfigurationEvaluatorTests,NainConfigurator.Domain.Tests,Unit,Implemented
+SL-003,API authoritative validation,PublicApiTests.ValidationRecalculatesPriceAndRejectsCompatibilityFailure,NainConfigurator.Api.IntegrationTests,Real HTTP and SQL Server,Implemented
+SL-004,DB-AC-008 and TST-AC-004,PublicApiTests.ConfigurationConcurrentReplayCreatesOneImmutableResource,NainConfigurator.Api.IntegrationTests,20 concurrent real HTTP and SQL Server requests,Implemented
+SL-004,TST-AC-005,PublicApiTests.ConfigurationFailureBeforeCommitRollsBackAggregate,NainConfigurator.Api.IntegrationTests,Forced transactional failure,Implemented
+SL-005,FD edit as new,technical-demo completes the commercial journey without a renderer,Playwright,Four browser projects,Implemented
+SL-006,DB-AC-013 and outbox atomicity,PublicApiTests.QuoteReplayCreatesOneQuoteAndOneOutboxIntent,NainConfigurator.Api.IntegrationTests,20 concurrent real HTTP and SQL Server requests,Implemented
+SL-006,SEC synthetic contact boundary,PublicApiTests.PublicBoundaryRejectsUnknownPropertiesAndRealEmail,NainConfigurator.Api.IntegrationTests,Real HTTP boundary,Implemented
+SL-008,IMP-006 and TST-AC-014,technical-demo uses the same UI for a fundamentally different product,Playwright and API integration,Data-only bicycle fixture,Implemented
+SL-008,TST-AC-007 and TST-AC-008,technical-demo Playwright matrix and axe checks,Playwright,Chromium Firefox WebKit and mobile Chromium,Implemented
+SL-009,OPS LocalDemo package,Invoke-LocalDemoSmoke.ps1,N/A,Packaged loopback HTTP and SQL Server,Implemented
+SL-009,OPS artifact integrity,Test-LocalDemoManifest.ps1,N/A,SHA-256 package verification,Implemented
+SL-009,IMP-007 immutable source gate,Invoke-TechnicalDemoQuality.ps1,N/A,Clean checkout at authorized candidate revision,Implemented
+SL-009,TST manual assistive technology,Manual NVDA or Narrator review,N/A,Human evidence,Pending
+SL-009,IMP-007 controlled offline run,Clean controlled-machine offline checklist,N/A,Human operational evidence,Pending

@@ -1,6 +1,6 @@
 # AI Context
 
-Last updated: 2026-07-28  
+Last updated: 2026-07-31
 Purpose: Navigation summary only; this file is not an independent source of truth.
 
 ## Project
@@ -12,7 +12,7 @@ The initial MVP publishes one escritorio gaming modular (`DESK-001`) in company 
 ## Current technology direction
 
 - Modular monolith on .NET `10.0.10` LTS, C# 14, ASP.NET Core 10 and EF Core 10.
-- React `19.2.7`, TypeScript 6 and Vite 8.1 for the accessible web shell; Node 24 LTS is build-time only.
+- React `19.2.8`, TypeScript `6.0.3` and Vite `8.1.5` for the accessible web shell; Node `24.18.0` LTS is build-time only.
 - Babylon.js `9.18.0` for the optional lazy-loaded Web renderer, Blender `4.5 LTS` for offline asset authoring and validated glTF/GLB `2.0` delivery.
 - Azure App Service, Azure SQL Database compatibility level 170, Azure Managed Redis, Blob Storage and Front Door Standard.
 - Microsoft Entra ID, managed identities, Key Vault and OpenTelemetry with regional Azure Monitor.
@@ -20,7 +20,7 @@ The initial MVP publishes one escritorio gaming modular (`DESK-001`) in company 
 
 The logical domain and public contracts are client- and persistence-agnostic.
 
-`05-DatabaseDesign.md`, `06-Architecture.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and `10-ImplementationPlan.md` are approved and authoritative for physical persistence, exact technology baselines, topology, verification, operations and delivery order. DB-001 through DB-015, the 42-day deletion-recovery container, TST-001 through TST-014, OPS-001 through OPS-016 and IMP-001 through IMP-012 were approved on 2026-07-28. `11-ImplementationReadinessReview.md` passes the local implementation-readiness gate. Code, deployment and cloud-resource activation remain unauthorized until their separate permissions are given.
+`05-DatabaseDesign.md`, `06-Architecture.md`, `08-TestingStrategy.md`, `09-DeploymentAndOperations.md` and `10-ImplementationPlan.md` are approved and authoritative for physical persistence, exact technology baselines, topology, verification, operations and delivery order. DB-001 through DB-015, the 42-day deletion-recovery container, TST-001 through TST-014, OPS-001 through OPS-016 and IMP-001 through IMP-012 were approved on 2026-07-28. `11-ImplementationReadinessReview.md` passes the local implementation-readiness gate. SL-000 through SL-009 were separately authorized; required core behavior is implemented as a local Technical Demo candidate, its clean-checkout automated gate passes and optional SL-007 is deferred. SL-010 and later code, deployment, cloud resources, public exposure, real data, paid services, future commits and push remain unauthorized.
 
 ## Canonical documentation
 
@@ -92,7 +92,7 @@ The logical domain and public contracts are client- and persistence-agnostic.
 
 Public customer accounts, payments, product administration, multiple-product discovery, inventory, shipping, promotions, marketing consent, public file upload and quote status workflows beyond `New` are outside the MVP.
 
-Security/privacy requirements, application architecture, physical Azure SQL design, testing strategy, deployment/operations and implementation plan are approved, and the final implementation-readiness review passes. SL-000 is completed: its repository baseline, quality pipeline and real SQL Server 2025 Standard Developer Edition CU7 connectivity check pass. The committed revision must also pass from a clean checkout before push, and no later slice is authorized. Before processing real customer data, the project also requires customer-specific legal notice/lawful basis, an executed data-processing agreement, subprocessor/region disclosure, named operational contacts, implemented and tested controls, penetration-test evidence and a commercial notification workflow.
+Security/privacy requirements, application architecture, physical Azure SQL design, testing strategy, deployment/operations and implementation plan are approved, and the final implementation-readiness review passes. SL-001 through SL-006 and SL-008 have automated implementation evidence. SL-009 is a local Technical Demo candidate with real SQL Server, two data-only products, cross-browser/axe coverage, an SPDX SBOM, package hashes, a passing packaged smoke test and passing clean-checkout automation. Manual assistive-technology review and a clean controlled-machine offline run still block the final `Technical demo ready` label. Before processing real customer data, the project also requires customer-specific legal notice/lawful basis, an executed data-processing agreement, subprocessor/region disclosure, named operational contacts, implemented and tested controls, penetration-test evidence and a commercial notification workflow.
 
 ## Approved quality envelope
 

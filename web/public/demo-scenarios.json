@@ -1,0 +1,14 @@
+[
+  {
+    "companySlug": "naindev-demo",
+    "productCode": "DESK-001",
+    "label": "Mobiliario modular",
+    "description": "Un escritorio configurable con selección única, opciones múltiples y una regla de compatibilidad."
+  },
+  {
+    "companySlug": "nain-cycle-demo",
+    "productCode": "BIKE-001",
+    "label": "Movilidad urbana",
+    "description": "Una bicicleta y otra estructura comercial usando exactamente el mismo esquema, API e interfaz."
+  }
+]

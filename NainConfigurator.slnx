@@ -1,12 +1,18 @@
 <Solution>
   <Folder Name="/backend/">
+    <Project Path="backend/src/NainConfigurator.Application/NainConfigurator.Application.csproj" />
+    <Project Path="backend/src/NainConfigurator.DatabaseMigrator/NainConfigurator.DatabaseMigrator.csproj" />
+    <Project Path="backend/src/NainConfigurator.Domain/NainConfigurator.Domain.csproj" />
     <Project Path="backend/src/NainConfigurator.Hosting/NainConfigurator.Hosting.csproj" />
+    <Project Path="backend/src/NainConfigurator.Infrastructure/NainConfigurator.Infrastructure.csproj" />
     <Project Path="backend/src/NainConfigurator.OperationsHost/NainConfigurator.OperationsHost.csproj" />
     <Project Path="backend/src/NainConfigurator.PublicHost/NainConfigurator.PublicHost.csproj" />
     <Project Path="backend/src/NainConfigurator.Worker/NainConfigurator.Worker.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="backend/tests/NainConfigurator.Api.IntegrationTests/NainConfigurator.Api.IntegrationTests.csproj" />
     <Project Path="backend/tests/NainConfigurator.Baseline.Tests/NainConfigurator.Baseline.Tests.csproj" />
     <Project Path="backend/tests/NainConfigurator.Database.IntegrationTests/NainConfigurator.Database.IntegrationTests.csproj" />
+    <Project Path="backend/tests/NainConfigurator.Domain.Tests/NainConfigurator.Domain.Tests.csproj" />
   </Folder>
 </Solution>

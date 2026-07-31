@@ -1,12 +1,30 @@
 {
   "schemaVersion": 1,
-  "verifiedOn": "2026-07-28",
+  "verifiedOn": "2026-07-30",
   "dependencies": [
     {
       "name": "Microsoft.EntityFrameworkCore.SqlServer",
       "version": "10.0.10",
       "license": "MIT",
-      "scope": "Test harness only in SL-000"
+      "scope": "Runtime persistence"
+    },
+    {
+      "name": "Microsoft.EntityFrameworkCore.Design",
+      "version": "10.0.10",
+      "license": "MIT",
+      "scope": "Development and migrations"
+    },
+    {
+      "name": "Microsoft.Data.SqlClient",
+      "version": "6.1.1",
+      "license": "MIT",
+      "scope": "Runtime persistence"
+    },
+    {
+      "name": "Microsoft.AspNetCore.Mvc.Testing",
+      "version": "10.0.10",
+      "license": "MIT",
+      "scope": "Development"
     },
     {
       "name": "Microsoft.NET.Test.Sdk",
@@ -77,6 +95,36 @@
     {
       "name": "Vitest",
       "version": "4.1.10",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.60.0",
+      "license": "Apache-2.0",
+      "scope": "Development"
+    },
+    {
+      "name": "@axe-core/playwright",
+      "version": "4.11.3 with axe-core 4.11.4",
+      "license": "MPL-2.0",
+      "scope": "Development"
+    },
+    {
+      "name": "@testing-library/react",
+      "version": "16.3.2",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "@testing-library/user-event",
+      "version": "14.6.1",
+      "license": "MIT",
+      "scope": "Development"
+    },
+    {
+      "name": "jsdom",
+      "version": "30.0.1",
       "license": "MIT",
       "scope": "Development"
     }

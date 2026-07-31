@@ -1,8 +1,8 @@
 # NainConfigurator
 
-Document version: 3.1  
-Status: Documentation complete; SL-000 completed; SL-001 and real-data launch remain pending  
-Last updated: 2026-07-28
+Document version: 3.2
+Status: Documentation complete; local Technical Demo candidate implemented; real-data launch blocked
+Last updated: 2026-07-31
 
 ## 1. Product vision
 
@@ -140,4 +140,4 @@ These are approved architecture choices, not permission to implement. `06-Archit
 
 `04-ApiContracts.md`, `02-BusinessRules.v1.md` and `Producto inicial.md` are historical inputs and are not authoritative.
 
-The product foundation, commercial operating model, quality, security/privacy, application architecture, physical persistence, testing strategy, deployment/operations and implementation plan are approved. `11-ImplementationReadinessReview.md` passes the documentation gate for local implementation eligibility. The product owner authorized SL-000 on 2026-07-28; its repository baseline, quality pipeline and real SQL Server 2025 Standard Developer Edition CU7 connectivity check are implemented and pass. The committed revision must also pass from a clean checkout before push. No later slice is authorized. Customer-specific commercial, legal and operational evidence remains required before public hosting, real personal data, a pilot or a paying-customer launch.
+The product foundation, commercial operating model, quality, security/privacy, application architecture, physical persistence, testing strategy, deployment/operations and implementation plan are approved. `11-ImplementationReadinessReview.md` passes the documentation gate for local implementation eligibility. The product owner authorized SL-000 on 2026-07-28 and SL-001 through SL-009 on 2026-07-30. The required core is implemented as a synthetic LocalDemo candidate; optional SL-007 is deferred. The authorized candidate passed its clean-checkout automated gate on 2026-07-31. Manual assistive-technology review and a clean controlled-machine offline run still block the final Technical Demo label. SL-010 and later code, public hosting, cloud resources, real data, paid services, future commits, pushes and deployment remain unauthorized. Customer-specific commercial, legal and operational evidence remains required before public hosting, real personal data, a pilot or a paying-customer launch.

@@ -203,7 +203,7 @@ try {
         build = "Passed"
         baselineTests = "Passed"
         frontendBuild = "Passed"
-        frontendTestRunner = "Passed with zero tests; no Web behavior exists in SL-000"
+        frontendTestRunner = "Passed current frontend test suite"
         dependencyAudit = "Passed"
         secretScan = "Passed"
         sbom = "Generated"

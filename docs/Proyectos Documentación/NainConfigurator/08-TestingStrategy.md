@@ -115,7 +115,7 @@ Approval-time versions are reproducible starting candidates, not permission to i
 | .NET coverage | Microsoft.Testing.Platform compatible coverage extension | Compatible .NET 10 line | Free-to-use Microsoft tooling; no hosted service | Produces local machine-readable coverage without SaaS |
 | ASP.NET integration host | `Microsoft.AspNetCore.Mvc.Testing` | `10.0.10` | Part of approved Microsoft stack | `WebApplicationFactory`/TestServer for the real HTTP pipeline |
 | Physical test database | SQL Server 2025 Developer | Compatibility `170` | Free for development/test; prohibited for production | Exercises target RLS, constraints, rowversion and locks |
-| React unit/component runner | Vitest | `4.1.7` | MIT | Aligns with Vite and TypeScript |
+| React unit/component runner | Vitest | `4.1.10` | MIT | Aligns with Vite and TypeScript |
 | React DOM behavior | React Testing Library | Stable React 19-compatible line | MIT | Tests user-observable roles and interaction rather than component internals |
 | Browser E2E | Playwright Test for TypeScript | `1.60.x` | Apache-2.0; local browsers included | Chromium, Firefox, WebKit, traces, screenshots and network control |
 | Automated accessibility | axe-core through Playwright | `4.11.4` | MPL-2.0 | Detects common WCAG/ARIA defects inside real journeys |

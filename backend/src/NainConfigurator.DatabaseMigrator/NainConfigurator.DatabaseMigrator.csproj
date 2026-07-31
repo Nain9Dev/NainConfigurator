@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../NainConfigurator.Infrastructure/NainConfigurator.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None
+      Include="../../../database/demo/technical-demo-catalogs.json"
+      Link="demo/technical-demo-catalogs.json"
+      CopyToOutputDirectory="PreserveNewest"
+      CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

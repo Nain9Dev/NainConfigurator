@@ -1,5 +1,7 @@
 # Test boundary
 
-This directory contains cross-stack traceability and is reserved for future synthetic fixtures and non-sensitive verification evidence.
+This directory contains cross-stack traceability for the synthetic Technical Demo.
 
-SL-000 includes real tests for host runtime-option validation and a separately classified SQL Server 2025 Developer connectivity harness. The Web runner intentionally contains no tests until Web behavior exists; `--passWithNoTests` must never be reported as functional coverage.
+The solution includes domain, real SQL Server 2025 Developer, complete HTTP-pipeline and baseline tests. The Web project includes React Testing Library component checks plus Playwright/axe journeys across Chromium, Firefox, WebKit and mobile Chromium.
+
+`traceability/source-test-map.csv` maps implemented slice outcomes to executable evidence. Manual screen-reader and controlled-machine offline checks stay visibly pending because automation cannot replace them.

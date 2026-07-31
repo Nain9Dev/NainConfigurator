@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../NainConfigurator.Domain/NainConfigurator.Domain.csproj" />
+  </ItemGroup>
+</Project>

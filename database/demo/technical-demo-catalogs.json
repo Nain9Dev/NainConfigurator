@@ -1,0 +1,420 @@
+{
+  "companies": [
+    {
+      "slug": "naindev-demo",
+      "displayName": "NainDev Demo Furniture",
+      "defaultLocale": "es-ES",
+      "branding": {
+        "version": 1,
+        "mode": "CoBranded",
+        "logoAssetKey": "Brand_NainDev_Demo",
+        "primaryColor": "#173B57",
+        "onPrimaryColor": "#FFFFFF"
+      },
+      "privacyPolicy": {
+        "version": "2026-07-30",
+        "resourceUrl": "https://demo.invalid/naindev-demo/privacy/2026-07-30",
+        "contentAssetKey": "Privacy_NainDev_Demo_2026_07_30",
+        "content": "Synthetic technical-demo privacy notice. No real personal data is permitted.",
+        "publishedAtUtc": "2026-07-30T00:00:00Z",
+        "quoteRetentionDays": 365
+      },
+      "products": [
+        {
+          "code": "DESK-001",
+          "name": "Escritorio modular",
+          "description": "Configura tamaño, acabado, patas, cajonera y accesorios a partir del catálogo.",
+          "catalogVersion": 1,
+          "basePrice": 379.90,
+          "currencyCode": "EUR",
+          "priceDisclaimer": "Estimación orientativa para una demostración con datos sintéticos.",
+          "visualAssetKey": "Product_Desk_Modular",
+          "isActive": true,
+          "isPublished": true,
+          "optionGroups": [
+            {
+              "code": "DESKTOP_SIZE",
+              "name": "Tamaño del tablero",
+              "minSelections": 1,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 10,
+              "options": [
+                {
+                  "code": "SIZE_120_60",
+                  "name": "120 x 60 cm",
+                  "priceAdjustment": 0.00,
+                  "visualAssetKey": "DeskTop_120_60",
+                  "isDefault": true,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "SIZE_160_80",
+                  "name": "160 x 80 cm",
+                  "priceAdjustment": 80.00,
+                  "visualAssetKey": "DeskTop_160_80",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                }
+              ]
+            },
+            {
+              "code": "DESKTOP_FINISH",
+              "name": "Acabado del tablero",
+              "minSelections": 1,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 20,
+              "options": [
+                {
+                  "code": "FINISH_OAK",
+                  "name": "Roble natural",
+                  "priceAdjustment": 0.00,
+                  "visualAssetKey": "Material_Desk_Oak",
+                  "isDefault": true,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "FINISH_DARK_WALNUT",
+                  "name": "Nogal oscuro",
+                  "priceAdjustment": 45.00,
+                  "visualAssetKey": "Material_Desk_DarkWalnut",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                }
+              ]
+            },
+            {
+              "code": "LEG_TYPE",
+              "name": "Tipo de patas",
+              "minSelections": 1,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 30,
+              "options": [
+                {
+                  "code": "LEG_FIXED",
+                  "name": "Patas fijas",
+                  "priceAdjustment": 0.00,
+                  "visualAssetKey": "Legs_Fixed",
+                  "isDefault": true,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "LEG_ELECTRIC_STANDING",
+                  "name": "Elevables eléctricas",
+                  "priceAdjustment": 220.00,
+                  "visualAssetKey": "Legs_ElectricStanding",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                }
+              ]
+            },
+            {
+              "code": "DRAWER_POSITION",
+              "name": "Posición de la cajonera",
+              "minSelections": 0,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 40,
+              "options": [
+                {
+                  "code": "DRAWER_LEFT",
+                  "name": "Cajonera izquierda",
+                  "priceAdjustment": 65.00,
+                  "visualAssetKey": "Drawer_Left",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "DRAWER_RIGHT",
+                  "name": "Cajonera derecha",
+                  "priceAdjustment": 65.00,
+                  "visualAssetKey": "Drawer_Right",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                }
+              ]
+            },
+            {
+              "code": "ACCESSORIES",
+              "name": "Accesorios",
+              "minSelections": 0,
+              "maxSelections": 4,
+              "isActive": true,
+              "sortOrder": 50,
+              "options": [
+                {
+                  "code": "ACCESSORY_MONITOR_STAND",
+                  "name": "Soporte para monitor",
+                  "priceAdjustment": 40.00,
+                  "visualAssetKey": "Accessory_MonitorStand",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "ACCESSORY_CABLE_TRAY",
+                  "name": "Bandeja para cables",
+                  "priceAdjustment": 25.00,
+                  "visualAssetKey": "Accessory_CableTray",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                },
+                {
+                  "code": "ACCESSORY_RGB_LIGHTING",
+                  "name": "Iluminación RGB",
+                  "priceAdjustment": 30.00,
+                  "visualAssetKey": "Accessory_RgbLighting",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 30
+                },
+                {
+                  "code": "ACCESSORY_HEADPHONE_HOLDER",
+                  "name": "Soporte para auriculares",
+                  "priceAdjustment": 15.00,
+                  "visualAssetKey": "Accessory_HeadphoneHolder",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 40
+                }
+              ]
+            }
+          ],
+          "compatibilityRules": [
+            {
+              "code": "ELECTRIC_LEGS_REQUIRE_LARGE_TOP",
+              "type": "RequiresAny",
+              "message": "Las patas elevables eléctricas requieren el tablero de 160 x 80 cm.",
+              "isActive": true,
+              "sourceOptionCodes": [
+                "LEG_ELECTRIC_STANDING"
+              ],
+              "targetOptionCodes": [
+                "SIZE_160_80"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nain-cycle-demo",
+      "displayName": "Nain Cycle Demo",
+      "defaultLocale": "es-ES",
+      "branding": {
+        "version": 1,
+        "mode": "CoBranded",
+        "logoAssetKey": "Brand_Nain_Cycle_Demo",
+        "primaryColor": "#21543D",
+        "onPrimaryColor": "#FFFFFF"
+      },
+      "privacyPolicy": {
+        "version": "2026-07-30",
+        "resourceUrl": "https://demo.invalid/nain-cycle-demo/privacy/2026-07-30",
+        "contentAssetKey": "Privacy_Nain_Cycle_Demo_2026_07_30",
+        "content": "Synthetic technical-demo privacy notice. No real personal data is permitted.",
+        "publishedAtUtc": "2026-07-30T00:00:00Z",
+        "quoteRetentionDays": 365
+      },
+      "products": [
+        {
+          "code": "BIKE-001",
+          "name": "Bicicleta urbana de aventura",
+          "description": "Configura una bicicleta urbana mediante talla, cuadro, transmisión, frenos y accesorios.",
+          "catalogVersion": 1,
+          "basePrice": 749.00,
+          "currencyCode": "EUR",
+          "priceDisclaimer": "Estimación orientativa para una demostración con datos sintéticos.",
+          "visualAssetKey": "Product_Bike_Urban",
+          "isActive": true,
+          "isPublished": true,
+          "optionGroups": [
+            {
+              "code": "FRAME_SIZE",
+              "name": "Talla del cuadro",
+              "minSelections": 1,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 10,
+              "options": [
+                {
+                  "code": "FRAME_S",
+                  "name": "Pequeña",
+                  "priceAdjustment": 0.00,
+                  "visualAssetKey": "Bike_Frame_S",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "FRAME_M",
+                  "name": "Mediana",
+                  "priceAdjustment": 0.00,
+                  "visualAssetKey": "Bike_Frame_M",
+                  "isDefault": true,
+                  "isActive": true,
+                  "sortOrder": 20
+                },
+                {
+                  "code": "FRAME_L",
+                  "name": "Grande",
+                  "priceAdjustment": 20.00,
+                  "visualAssetKey": "Bike_Frame_L",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 30
+                }
+              ]
+            },
+            {
+              "code": "FRAME_STYLE",
+              "name": "Estilo del cuadro",
+              "minSelections": 1,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 20,
+              "options": [
+                {
+                  "code": "STYLE_CITY",
+                  "name": "Urbano",
+                  "priceAdjustment": 0.00,
+                  "visualAssetKey": "Bike_Style_City",
+                  "isDefault": true,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "STYLE_GRAVEL",
+                  "name": "Gravel",
+                  "priceAdjustment": 140.00,
+                  "visualAssetKey": "Bike_Style_Gravel",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                }
+              ]
+            },
+            {
+              "code": "DRIVE_TYPE",
+              "name": "Transmisión",
+              "minSelections": 1,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 30,
+              "options": [
+                {
+                  "code": "DRIVE_CHAIN",
+                  "name": "Cadena mecánica",
+                  "priceAdjustment": 0.00,
+                  "visualAssetKey": "Bike_Drive_Chain",
+                  "isDefault": true,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "DRIVE_ELECTRIC",
+                  "name": "Asistencia eléctrica",
+                  "priceAdjustment": 650.00,
+                  "visualAssetKey": "Bike_Drive_Electric",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                }
+              ]
+            },
+            {
+              "code": "BRAKES",
+              "name": "Frenos",
+              "minSelections": 1,
+              "maxSelections": 1,
+              "isActive": true,
+              "sortOrder": 40,
+              "options": [
+                {
+                  "code": "BRAKE_DISC",
+                  "name": "Disco mecánico",
+                  "priceAdjustment": 90.00,
+                  "visualAssetKey": "Bike_Brake_Disc",
+                  "isDefault": true,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "BRAKE_HYDRAULIC",
+                  "name": "Disco hidráulico",
+                  "priceAdjustment": 180.00,
+                  "visualAssetKey": "Bike_Brake_Hydraulic",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                }
+              ]
+            },
+            {
+              "code": "ACCESSORIES",
+              "name": "Accesorios",
+              "minSelections": 0,
+              "maxSelections": 3,
+              "isActive": true,
+              "sortOrder": 50,
+              "options": [
+                {
+                  "code": "BIKE_RACK",
+                  "name": "Portaequipajes trasero",
+                  "priceAdjustment": 75.00,
+                  "visualAssetKey": "Bike_Accessory_Rack",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 10
+                },
+                {
+                  "code": "BIKE_LIGHTS",
+                  "name": "Luces integradas",
+                  "priceAdjustment": 30.00,
+                  "visualAssetKey": "Bike_Accessory_Lights",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 20
+                },
+                {
+                  "code": "BIKE_FENDERS",
+                  "name": "Guardabarros completos",
+                  "priceAdjustment": 45.00,
+                  "visualAssetKey": "Bike_Accessory_Fenders",
+                  "isDefault": false,
+                  "isActive": true,
+                  "sortOrder": 30
+                }
+              ]
+            }
+          ],
+          "compatibilityRules": [
+            {
+              "code": "ELECTRIC_DRIVE_REQUIRES_HYDRAULIC_BRAKES",
+              "type": "RequiresAny",
+              "message": "La asistencia eléctrica requiere frenos de disco hidráulicos.",
+              "isActive": true,
+              "sourceOptionCodes": [
+                "DRIVE_ELECTRIC"
+              ],
+              "targetOptionCodes": [
+                "BRAKE_HYDRAULIC"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

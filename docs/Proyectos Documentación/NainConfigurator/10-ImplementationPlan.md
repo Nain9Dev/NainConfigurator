@@ -1,8 +1,8 @@
 # Implementation Plan
 
 Document version: 1.0  
-Status: Approved; SL-000 completed; SL-001 not authorized  
-Last updated: 2026-07-28  
+Status: Approved; core Technical Demo implemented; SL-009 candidate pending two manual gates
+Last updated: 2026-07-31
 Applies to: Documentation-to-implementation transition, local technical demo, optional public synthetic demo, customer pilot and commercial launch
 
 ## 1. Purpose and authority
@@ -65,7 +65,7 @@ Code may start only after:
 2. The final implementation-readiness review finds no unresolved implementation blocker.
 3. The product owner gives separate explicit authorization to begin implementation.
 
-Implementation status on 2026-07-28: the product owner explicitly authorized SL-000. Its repository baseline and quality pipeline are implemented and pass. SQL Server 2025 Standard Developer Edition CU7 (`17.0.4065.4`) is installed locally and the separate real-engine connectivity test passes. The current task separately authorizes one reviewed commit and push after clean-checkout verification; that permission does not become standing authorization. No later slice, cloud resource, public exposure, real data, paid service or deployment is authorized.
+Implementation status: SL-000 is complete. The product owner authorized SL-001 through SL-009 on 2026-07-30. SL-001 through SL-006 and SL-008 are implemented with automated evidence, optional SL-007 is deferred under its approved go/no-go rule, and SL-009 is a Technical Demo candidate. The authorized candidate passed its clean-checkout automated gate on 2026-07-31. Manual screen-reader review and a clean controlled-machine offline run still block `G3 Technical demo ready`. Authorization does not extend to SL-010 or later slices, cloud resources, public exposure, real data, paid services, future commits, push or deployment.
 
 ## 4. Outcome gates
 
@@ -840,11 +840,16 @@ The product owner explicitly approved IMP-001 through IMP-012 on 2026-07-28. App
 - [x] Product owner approved IMP-001 through IMP-012 on 2026-07-28.
 - [x] Final implementation-readiness review passed with no blocker for SL-000 through SL-009 eligibility; see `11-ImplementationReadinessReview.md`.
 - [x] Product owner separately authorized SL-000 implementation on 2026-07-28.
+- [x] Product owner separately authorized SL-001 through SL-009 implementation on 2026-07-30.
+- [x] Automated functional, security, real-SQL, cross-browser, package-integrity and LocalDemo smoke evidence passes for the required core.
+- [ ] Manual screen-reader review passes.
+- [x] The exact authorized candidate passes the automated gate from a clean checkout.
+- [ ] The exact candidate passes offline from a clean controlled machine.
 
 ## 36. Next documentation gate
 
 IMP-001 through IMP-012 are approved and recorded in `07-DecisionLog.md`. The final cross-document review is recorded in `11-ImplementationReadinessReview.md` and passes NainConfigurator for local implementation eligibility.
 
-SL-000 is completed. Its repository baseline, quality pipeline and real SQL Server 2025 Standard Developer Edition CU7 connectivity test pass; the committed revision must also pass from a clean checkout before push. SL-001 requires its own authorization. Later slices retain their own public-demo, pilot, real-data, cloud-spend and commercial-launch gates.
+SL-000 is completed. SL-001 through SL-006 and SL-008 are implemented with automated evidence. SL-007 is intentionally deferred because the approved accessible fallback preserves every commercial action. SL-009 is a candidate: its clean-checkout automated gate, real SQL migration/tests, two-product proof, SBOM, 150-file integrity manifest and packaged smoke pass; the two manual checks above remain open. SL-010 and later slices retain their own public-demo, pilot, real-data, cloud-spend and commercial-launch gates.
 
 Approval of this plan does not authorize application code, SQL, migrations, package installation, infrastructure, public exposure, real data, paid services, commit, push or deployment.

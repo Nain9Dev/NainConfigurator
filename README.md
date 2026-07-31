@@ -2,7 +2,7 @@
 
 NainConfigurator is a catalog-driven B2B product configurator designed to support fundamentally different products without customer-specific code, API contracts, database columns or deployment forks.
 
-Current phase: SL-000 engineering baseline is implemented and locally verified, including real connectivity to SQL Server 2025 Standard Developer Edition CU7. It intentionally contains no catalog, configuration, pricing, persistence schema or other domain behavior, so it is not yet a functional product demo. SL-001 and every later slice require separate authorization. Executable domain migrations, cloud deployment, public exposure, real personal data and paid services remain unauthorized.
+Current phase: SL-000 is complete. SL-001 through SL-006 and SL-008 are implemented with automated evidence; optional SL-007 is deferred. The authorized SL-009 candidate passes its clean-checkout automated gate and now awaits the two manual gates documented below. SL-010 and later slices, cloud deployment, public exposure, real personal data, paid services, future commits and push remain unauthorized.
 
 ## Product direction
 
@@ -26,14 +26,14 @@ This does not promise zero-cost production. A paying-customer environment may re
 | Path | Responsibility | Current state |
 |---|---|---|
 | `docs/Proyectos Documentación/NainConfigurator` | Canonical product and technical documentation | Active |
-| `backend` | .NET modular-monolith boundary and deployable hosts | SL-000 baseline |
-| `web` | Accessible React commercial shell | SL-000 baseline without product behavior |
+| `backend` | .NET modular monolith, public API, domain authority and SQL persistence | Technical Demo candidate |
+| `web` | Accessible catalog-driven React commercial shell | Technical Demo candidate |
 | `renderer` | Future Babylon.js adapter and browser 3D runtime | Documentation placeholder |
-| `database` | Future versioned database migration artifacts | Documentation placeholder |
-| `tests` | Cross-stack verification and traceability | SL-000 baseline |
+| `database` | Versioned SQL Server migration and synthetic product catalogs | Technical Demo candidate |
+| `tests` | Cross-stack verification and source-to-test traceability | Technical Demo candidate |
 | `assets` | Future controlled source/published 3D asset pipeline | Documentation placeholder |
-| `ops` | Future deployment, monitoring, backup and support artifacts | Documentation placeholder |
-| `eng` | Reproducible local tools, quality pipeline and dependency evidence | SL-000 baseline |
+| `ops` | LocalDemo packaging, integrity, reset, start, smoke and recovery | Technical Demo candidate |
+| `eng` | Reproducible local tools, quality gates and dependency evidence | Active |
 
 ## Canonical entrypoints
 
@@ -51,12 +51,22 @@ Historical or superseded documents are context only and must not direct implemen
 
 ## Current gates
 
-1. Preserve the completed SL-000 baseline and its reproducible quality evidence.
-2. Do not start SL-001 until the product owner separately authorizes the catalog-foundation slice.
+1. Complete the manual screen-reader check and a clean controlled-machine offline run before declaring `Technical demo ready`.
+2. Preserve the passing clean-checkout evidence for the authorized candidate and rerun it after any source change.
 3. Keep cloud resources, public exposure, real data, paid services, future commits, pushes and deployment behind their separate explicit permissions.
 4. Satisfy the documented PublicDemo, pilot and commercial-launch artifacts only when those later stages are requested.
 
-Documentation completion and SL-000 completion do not authorize later code, domain SQL, infrastructure, public exposure, real data, paid services, future commits, pushes or deployment.
+Technical-demo implementation does not authorize SL-010 or later code, cloud infrastructure, public exposure, real data, paid services, commits, pushes or deployment.
+
+## Technical Demo verification
+
+The full local gate intentionally recreates only the allowlisted synthetic Integration and Demo databases:
+
+```powershell
+.\eng\scripts\Invoke-TechnicalDemoQuality.ps1 -ConfirmSyntheticDatabaseReset
+```
+
+The generated attended-demo package and runbook are under the ignored `artifacts\release\sl-009-localdemo` directory. SQL Server Developer is valid for development, testing and demonstration, not paying-customer production.
 
 ## Repository safety
 

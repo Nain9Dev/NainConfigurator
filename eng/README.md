@@ -17,15 +17,23 @@ SL-000 uses repository-local, integrity-checked tools. It does not require admin
 
 The script downloads exact official archives into the ignored `.tools` directory and verifies their published hashes before extraction. The application targets .NET 10. A separate portable .NET 8 LTS runtime is present only because Microsoft SBOM Tool 4.1.5 currently targets .NET 8.
 
-## Deterministic quality pipeline
+## Engineering-baseline pipeline
 
 ```powershell
 .\eng\scripts\Invoke-Quality.ps1
 ```
 
-The pipeline restores locked dependencies, applies analyzers and formatting, builds the three hosts and Web shell, runs the implemented baseline tests, audits frontend dependencies, scans the working tree for secrets, publishes one local release boundary and generates an SBOM plus a sanitized evidence manifest under ignored `artifacts`.
+This preserves the original SL-000 engineering-baseline evidence. It is not the release gate for the implemented Technical Demo.
 
-The Vitest command explicitly permits no Web tests in SL-000 because no Web behavior exists yet. It must not be reported as functional coverage.
+## Technical Demo quality gate
+
+```powershell
+.\eng\scripts\Invoke-TechnicalDemoQuality.ps1 -ConfirmSyntheticDatabaseReset
+```
+
+The command restores locked dependencies, verifies formatting, builds the complete solution, recreates only the allowlisted synthetic Integration and Demo databases, applies the real SQL Server migration and fixtures, runs all .NET and frontend tests, executes Chromium/Firefox/WebKit/mobile journeys with axe, audits dependencies, scans secrets, packages LocalDemo, generates its SBOM and hashes, and runs its end-to-end smoke test.
+
+The generated evidence remains a `Technical demo candidate` while the source tree is dirty or the manual screen-reader and clean controlled-machine offline checks are pending.
 
 ## SQL Server connectivity
 

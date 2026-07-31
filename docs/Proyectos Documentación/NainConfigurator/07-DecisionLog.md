@@ -1,7 +1,7 @@
 # Decision Log
 
 Status: Active  
-Last updated: 2026-07-28
+Last updated: 2026-07-31
 
 This document records approved product, commercial, UX, quality, security, privacy, domain, data, architecture, testing, operations and implementation decisions that affect more than one canonical document. Draft proposals remain in their design document until approved.
 
@@ -961,6 +961,8 @@ Status: Approved
 **Context:** The commercial interface must remain small, accessible and independent from any optional renderer while supporting rich catalog-driven interaction.
 
 **Decision:** Use React 19.2.7, TypeScript 6 and Vite 8.1 for a client-rendered document shell; Node 24 LTS is build-time only.
+
+**Execution record:** The compatible React/React DOM patch pinned by the SL-000 dependency lock is `19.2.8`. This follows the approved patch-adoption rule and does not change the React 19.2 architecture line.
 
 **Consequences:** Blazor WebAssembly and Blazor Server are excluded from the public MVP; the React shell and approved Babylon.js adapter share one TypeScript/browser toolchain.
 
@@ -2266,7 +2268,7 @@ Status: Approved
 
 **Decision:** Require plan approval, a passing final implementation-readiness review and separate explicit product-owner authorization before code starts.
 
-**Execution record:** The product owner explicitly authorized SL-000 on 2026-07-28. The engineering and verification baseline, including real SQL Server 2025 Standard Developer Edition CU7 connectivity, was completed on 2026-07-28. The current task separately authorizes one reviewed commit and push after clean-checkout verification; later slices and other external actions remain separately gated.
+**Execution record:** The product owner explicitly authorized SL-000 on 2026-07-28, and its engineering/verification baseline was completed. On 2026-07-30 the product owner explicitly authorized SL-001 through SL-009 for the local synthetic Technical Demo. The required core through SL-008 is implemented with automated evidence, optional SL-007 is deferred under its approved go/no-go rule, and the SL-009 candidate passed its authorized clean-checkout automated gate on 2026-07-31. Manual screen-reader and clean controlled-machine offline evidence remain pending. SL-010 and later slices, cloud resources, public exposure, real data, paid services, future commits, push and deployment remain separately gated.
 
 **Consequences and trade-offs:** Documentation approval remains distinct from execution authority; one final explicit gate is required.
 

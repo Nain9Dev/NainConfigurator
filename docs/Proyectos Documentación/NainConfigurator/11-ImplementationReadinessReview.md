@@ -1,8 +1,9 @@
 # Implementation Readiness Review
 
 Document version: 1.0  
-Status: Passed for SL-000 through SL-009 implementation eligibility; SL-000 completed; SL-001 not authorized  
+Status: Passed for implementation; Technical Demo candidate pending two manual gates
 Review date: 2026-07-28  
+Implementation evidence updated: 2026-07-31
 Applies to: Documentation completeness, local implementation and synthetic LocalDemo readiness boundary
 
 ## 1. Purpose and authority
@@ -20,7 +21,7 @@ No review can guarantee that a future implementation is defect-free or commercia
 
 ## 2. Direct conclusion
 
-NainConfigurator is documentation-complete for implementation eligibility through the synthetic LocalDemo path, SL-000 through SL-009. Each slice still requires its documented entry conditions and execution authority.
+NainConfigurator is documentation-complete for implementation eligibility through the synthetic LocalDemo path, SL-000 through SL-009. The required core implementation now has automated evidence; optional SL-007 is deferred and the final Technical Demo label remains gated as recorded in section 8.2.
 
 The review found no blocking contradiction in the approved implementation scope. It corrected stale navigation text that still described already completed gates; those corrections do not change product behavior, public contracts, data design, architecture or commercial policy.
 
@@ -209,22 +210,28 @@ A tool that introduces a runtime dependency, hosted account, commercial restrict
 
 Blocking documentation: none.
 
-Authorization was received on 2026-07-28. The repository baseline and quality pipeline are implemented and pass. SQL Server 2025 Standard Developer Edition CU7 (`17.0.4065.4`) is installed locally and the separate real-engine connectivity test passes. The committed revision must also pass from a clean checkout before push. The current task separately authorizes one reviewed commit and push; cloud resources, future commits or pushes, and deployment remain unauthorized.
+Authorization was received on 2026-07-28. The repository baseline and quality pipeline are implemented and pass. SQL Server 2025 Standard Developer Edition CU7 (`17.0.4065.4`) is installed locally and the separate real-engine connectivity test passes. The SL-000 revision was previously preserved; no new commit, push, cloud resource or deployment is authorized by this review.
 
 ### 8.2 Before declaring Technical demo ready
 
-These artifacts are produced from implementation and therefore cannot truthfully be completed in advance:
+Completed automated evidence:
 
-- Build, test, audit and source-to-test traceability results.
-- LocalDemo release manifest, hashes, dependency inventory and SBOM.
-- First-product and fundamentally different second-product evidence.
-- SQL Server migration, RLS, idempotency and concurrency evidence.
-- Accessibility, browser and no-renderer journey evidence.
-- 3D asset ownership, source, export, hash, malware/type and Khronos validation records.
-- Synthetic fixture manifest and proof that no real personal data exists.
-- Completed controlled-demo run record.
+- [x] Locked restore, formatting, zero-warning release build and 24 passing .NET tests.
+- [x] Four component tests and 12 Playwright journeys across Chromium, Firefox, WebKit and mobile Chromium.
+- [x] Automated axe checks, keyboard entry, 320-pixel reflow and complete no-renderer commercial journey.
+- [x] Real SQL Server migration plus RLS, cross-company constraint, transactional rollback, idempotency and 20-request concurrency evidence.
+- [x] First product and fundamentally different bicycle fixture use the same schema, contracts, evaluator, UI and release through data only.
+- [x] Dependency audit, reviewed direct-dependency inventory, secret scan, SPDX 2.2 SBOM and 150-file SHA-256 package manifest.
+- [x] Synthetic fixture controls, `.invalid` quote boundary, no external notification and passing packaged LocalDemo smoke.
+- [x] SL-007 asset/renderer records are not applicable because the approved optional slice is explicitly deferred and the accessible fallback passes.
 
-They block the `Technical demo ready` claim, not implementation start.
+Remaining evidence:
+
+- [ ] Manual NVDA or Narrator review of the critical journey.
+- [ ] Offline execution of the exact package on a clean controlled machine.
+- [x] Explicitly authorized source revision followed by a passing clean-checkout gate on 2026-07-31.
+
+The two manual items block the `Technical demo ready` claim, not the implemented candidate. They cannot be replaced by automated assertions.
 
 ### 8.3 Before SL-010 or any public demo
 
@@ -296,6 +303,9 @@ These items depend on a concrete customer, provider, prices and measured impleme
 - [x] Public demo, pilot, real data, paid services and production retain separate gates.
 - [x] Later missing artifacts have an owner, required stage and stop condition.
 - [x] Product owner separately authorized SL-000 implementation on 2026-07-28.
+- [x] Product owner separately authorized SL-001 through SL-009 implementation on 2026-07-30.
+- [x] Required core Technical Demo automated evidence passes.
+- [ ] Manual Technical Demo evidence in section 8.2 passes.
 
 ## 11. Next authority
 
@@ -303,7 +313,7 @@ The product owner supplied the following unambiguous authorization on 2026-07-28
 
 `Autorizo comenzar la implementación de SL-000.`
 
-That authorization permitted only the repository baseline described by SL-000 and its verification. SL-000 is completed. The current task separately authorizes one reviewed commit and push after clean-checkout verification. It does not permit cloud-resource creation, public deployment, real data, paid services, later slices, future commits or future pushes.
+SL-000 is completed. On 2026-07-30 the product owner separately authorized SL-001 through SL-009 for the local synthetic Technical Demo. The core candidate is implemented, optional SL-007 is deferred, the clean-checkout automated gate passes and the remaining manual G3 evidence is listed in section 8.2. This does not permit SL-010 or later slices, cloud-resource creation, public deployment, real data, paid services, future commits or push.
 
 ## 12. Official evidence reviewed
 

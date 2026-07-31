@@ -61,7 +61,7 @@ Approval-time versions are exact reproducible starting points. Patch updates ins
 | HTTP framework | ASP.NET Core | ASP.NET Core `10.0.10`, patched with the .NET runtime | Public and operations hosts |
 | Relational mapper | Entity Framework Core | EF Core and `Microsoft.EntityFrameworkCore.SqlServer` `10.0.10` | Persistence adapter and migrations |
 | Database service | Azure SQL Database | General Purpose, serverless, standard-series Gen5; compatibility level `170` | Authoritative data |
-| Public web UI | React | React/React DOM `19.2.7` | Accessible document interface |
+| Public web UI | React | React/React DOM `19.2.8` | Accessible document interface |
 | Web language | TypeScript | TypeScript `6.0.3`, strict mode | Browser application and renderer bridge |
 | Web build tool | Vite | Vite `8.1.5` | Build-time only |
 | JavaScript build runtime | Node.js LTS | Node.js `24.18.0` LTS | CI/local build-time only; no Node production server |

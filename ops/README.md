@@ -1,5 +1,7 @@
 # Operations boundary
 
-This directory is reserved for future deployment, monitoring, backup, recovery and support artifacts defined by the approved `docs/Proyectos Documentación/NainConfigurator/09-DeploymentAndOperations.md`.
+This directory contains the synthetic attended LocalDemo operations package defined by the approved `docs/Proyectos Documentación/NainConfigurator/09-DeploymentAndOperations.md`.
 
-The local prototype and controlled demo must require no cloud resource or payment card. `10-ImplementationPlan.md` and `11-ImplementationReadinessReview.md` are approved/passing, but operations implementation and paying-customer infrastructure still require separate execution/cost authorization and completed legal/security launch gates.
+`local-demo` builds, verifies, resets, starts, smokes and recovers the loopback-only package with no cloud resource, payment card or recurring software cost. It is not a public deployment, customer pilot or production environment.
+
+Paying-customer infrastructure still requires separate execution/cost authorization and completed legal, privacy, security, recovery and support gates.

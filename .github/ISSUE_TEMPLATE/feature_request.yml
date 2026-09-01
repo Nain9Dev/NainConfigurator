@@ -1,0 +1,47 @@
+name: Capability proposal
+description: Propose a platform capability. Product-specific requests are out of scope by design.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        NainConfigurator exists to prove that different products share one schema,
+        one API and one release. A request that needs a product-specific field,
+        branch or fork will be declined.
+
+        Before opening this, check whether your need is already expressible as
+        catalog data — option groups, options, selection limits and compatibility rules.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What cannot be expressed today?
+      description: Describe the configuration you cannot model with the current catalog schema.
+    validations:
+      required: true
+
+  - type: textarea
+    id: generality
+    attributes:
+      label: Why is this a platform capability rather than one product's need?
+      description: Give at least two unrelated products that would use it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: contract
+    attributes:
+      label: Contract impact
+      description: Which public routes, payloads, catalog fields or error codes would change?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: This does not require a customer-specific column, branch, repository or deployment fork
+          required: true
+        - label: Validation and pricing remain server-authoritative
+          required: true

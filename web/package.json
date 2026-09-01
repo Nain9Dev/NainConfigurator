@@ -2,7 +2,7 @@
   "name": "@nainconfigurator/web",
   "version": "0.1.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-or-later",
   "type": "module",
   "engines": {
     "node": "24.18.0",
@@ -10,11 +10,16 @@
   },
   "scripts": {
     "audit": "npm audit --audit-level=high",
-    "build": "tsc -b && vite build",
+    "build": "npm run catalog && tsc -b && vite build",
+    "catalog": "node scripts/build-offline-catalog.mjs",
     "format:check": "prettier --check \"**/*.{css,html,json,md,ts,tsx}\"",
-    "start": "vite",
-    "test": "vitest run",
-    "test:e2e": "playwright test"
+    "format:write": "prettier --write \"**/*.{css,html,json,md,ts,tsx}\"",
+    "preview": "vite preview",
+    "start": "npm run catalog && vite",
+    "dev": "npm run start",
+    "test": "npm run catalog && vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:offline": "npm run catalog && playwright test --config playwright.offline.config.ts"
   },
   "dependencies": {
     "react": "19.2.8",

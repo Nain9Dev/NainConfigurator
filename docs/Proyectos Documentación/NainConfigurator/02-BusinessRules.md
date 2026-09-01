@@ -25,7 +25,7 @@ The MVP supports one published product, but no rule may depend on desk-specific 
 | `03.2-UXRequirements.md` | Public presentation, accessibility, branding and locale behavior |
 | `04.1-ApiContracts.md` | Public HTTP routes, request fields, response fields and error representation |
 | `05-DatabaseDesign.md` | Approved physical SQL Server implementation of the logical model |
-| `AI_CONTEXT.md` | Short project summary only; it is not an independent source of truth |
+| `00.3-RepositoryContext.md` | Short project summary only; it is not an independent source of truth |
 
 If documents conflict:
 

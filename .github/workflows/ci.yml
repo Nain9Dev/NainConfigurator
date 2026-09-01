@@ -1,0 +1,153 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+  DOTNET_NOLOGO: "1"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "1"
+
+jobs:
+  backend:
+    name: Backend (.NET)
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore with locked dependencies
+        run: dotnet restore NainConfigurator.slnx --locked-mode --configfile NuGet.Config
+
+      - name: Verify formatting
+        run: dotnet format NainConfigurator.slnx --verify-no-changes --no-restore
+
+      - name: Build
+        run: dotnet build NainConfigurator.slnx --configuration Release --no-restore
+
+      # The SQL Server integration suites need a local SQL Server 2025 Developer
+      # instance and are part of the local release gate, not of CI. The domain
+      # and hosting suites carry no infrastructure dependency.
+      - name: Domain tests
+        run: >
+          dotnet test backend/tests/NainConfigurator.Domain.Tests/NainConfigurator.Domain.Tests.csproj
+          --configuration Release --no-build --no-restore
+
+      - name: Hosting baseline tests
+        run: >
+          dotnet test backend/tests/NainConfigurator.Baseline.Tests/NainConfigurator.Baseline.Tests.csproj
+          --configuration Release --no-build --no-restore
+
+      - name: Fail on vulnerable or deprecated packages
+        shell: pwsh
+        run: |
+          $report = dotnet list NainConfigurator.slnx package --vulnerable --include-transitive
+          $report
+          if ($report -match "has the following vulnerable packages") {
+            throw "Vulnerable NuGet packages detected."
+          }
+
+  frontend:
+    name: Frontend (React)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: web/package.json
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install with locked dependencies
+        run: npm ci
+
+      - name: Verify formatting
+        run: npm run format:check
+
+      - name: Type-check and build
+        run: npm run build
+
+      - name: Component and unit tests
+        run: npm test
+
+      - name: Dependency audit
+        run: npm run audit
+
+      - name: Upload production bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: web/dist
+          retention-days: 7
+
+  e2e:
+    name: Accessible journeys (offline mode)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: frontend
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: web/package.json
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: npm ci
+
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      # These journeys exercise the offline demo mode, so they need no
+      # SQL Server and no .NET host. The full-stack journeys stay in the
+      # local release gate, where a real database is available.
+      - name: Cross-browser journeys with axe
+        run: npm run test:e2e:offline
+
+      - name: Upload report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: artifacts/playwright-report
+          retention-days: 7

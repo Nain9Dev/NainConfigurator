@@ -600,7 +600,7 @@ Company count alone is not a reason to create microservices or databases per com
 - Staging is started for release validation and recovery exercises where practical; it must not silently become an always-on duplicate production environment.
 - Production begins with Front Door Standard, one shared App Service plan, one Azure SQL database and Redis `B0` HA.
 - Azure budgets and anomaly alerts track total cost and cost per active company.
-- Monthly architecture review compares direct recurring infrastructure with subscription revenue and the approved 25-percent guardrail.
+- A monthly architecture review compares direct recurring infrastructure against the approved cost budget for the current operating point.
 - Capacity upgrades require a metric, threshold, forecast and resulting gross-margin check.
 
 ### 20.3 Approval-time monthly cost model
@@ -619,9 +619,9 @@ Planning workload: 20 paying companies, 25,000 public sessions/month, at most 2 
 | Front Door request and public egress usage | Model USD 20-100; the upper edge depends on cache hits, geography and actual renderer downloads | Lazy load Babylon.js, content-addressed cache and compressed product packages |
 | **Expected direct baseline** | **USD 570-980/month** | Budget warning at USD 850 and critical review at USD 980 until real data replaces the model |
 
-The wide range is intentional: SQL utilization and 3D egress are not yet measured, and false precision would be commercially dangerous. At 20 customers, the 25-percent infrastructure guardrail requires at least USD 2,280-3,920 in monthly recurring subscription revenue, or approximately USD 114-196 average recurring revenue per company, solely to satisfy infrastructure margin. Commercial pricing must sit above that floor because it must also fund support, sales, asset work, tax and owner time.
+The wide range is intentional: SQL utilization and 3D egress are not yet measured, and false precision would be misleading. The commercial ratio between this infrastructure cost and service revenue is a private business decision and is deliberately not published in this repository.
 
-At the planning point, a production pricing proposal is invalid if its subscription revenue cannot keep measured infrastructure below the 25-percent target. The solution is not to remove isolation, backup or security controls; pricing, packaging or paid scale must change. After two representative months, replace every modeled range with Azure Cost Management actuals and cost per public session/company.
+The engineering rule that does belong here: a topology whose measured cost exceeds its approved budget is corrected by changing packaging, the supported envelope or the funded scale — never by removing isolation, backup or security controls. After two representative months, every modeled range must be replaced with Azure Cost Management actuals and cost per public session and per company.
 
 ## 21. Explicitly rejected alternatives
 

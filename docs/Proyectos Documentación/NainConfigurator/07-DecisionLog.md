@@ -284,9 +284,9 @@ Status: Approved
 
 **Context:** Catalog normalization, onboarding and 3D asset work create material upfront cost, while hosting and support create recurring cost.
 
-**Decision:** Require a paid onboarding/setup engagement and a recurring hosted-service subscription. Additional products, substantial asset work and approved integrations are separately scoped professional services. The MVP has no per-lead commission or primary metered-usage charge.
+**Decision:** Separate one-time onboarding effort from recurring service operation, and keep both outside the public configurator domain. The specific commercial structure is recorded in the private commercial strategy record and is deliberately not published in this repository.
 
-**Consequences:** Pricing can protect onboarding margin without coupling invoices to the public configurator domain. Exact rates, quotas and terms require validation before the first paid proposal.
+**Consequences:** The billing model can change without touching the public catalog schema, the public API contracts or the configurator domain.
 
 **Affected documents:** `00.2-CommercialStrategy.md`, future operations, capacity and commercial rate-card artifacts.
 
@@ -700,7 +700,7 @@ Status: Approved
 
 **Context:** A technically fast platform that costs more to operate than it earns is not commercially scalable.
 
-**Decision:** Direct recurring infrastructure and managed-service cost target at most 25 percent of recurring subscription revenue at the planned 20-customer point, producing at least 75 percent direct gross margin before onboarding and overhead.
+**Decision:** Cap direct recurring infrastructure and managed-service cost as a bounded proportion of recurring service revenue at the planned operating point. The specific ratio is a private business decision and is deliberately not published in this repository.
 
 **Consequences:** Architecture requires a monthly cost model and attributable cost telemetry; overprovisioning cannot be hidden as performance success.
 
@@ -951,7 +951,7 @@ Status: Approved
 
 **Consequences:** Microservices, broker-mediated internal calls and generic CQRS ceremony are excluded until a measured independent boundary exists.
 
-**Affected documents:** `00-ProjectOverview.md`, `00.1-DocumentationRoadmap.md`, `06-Architecture.md`, `AI_CONTEXT.md` and future implementation documents.
+**Affected documents:** `00-ProjectOverview.md`, `00.1-DocumentationRoadmap.md`, `06-Architecture.md`, `00.3-RepositoryContext.md` and future implementation documents.
 
 ## ARCH-002 - React accessible commercial shell
 
@@ -1170,9 +1170,9 @@ Status: Approved
 
 **Context:** Premature distributed infrastructure would consume margin, while underpricing a secure production baseline would make the business nonviable.
 
-**Decision:** Optimize and scale selected PaaS resources before splitting services/tenant databases; use the approval-time USD 570-980 monthly planning envelope and keep direct recurring infrastructure at or below 25 percent of recurring revenue.
+**Decision:** Optimize and scale selected PaaS resources before splitting services or tenant databases, and keep direct recurring infrastructure inside the approval-time monthly planning envelope recorded in `06-Architecture.md`.
 
-**Consequences:** At 20 customers the modeled infrastructure-only recurring-revenue floor is approximately USD 114-196 per company/month; measured Azure actuals replace the model after representative operation.
+**Consequences:** Scale decisions are driven by measured Azure actuals rather than by the planning model once representative operation exists. The infrastructure-to-revenue ratio is a private business decision and is deliberately not published in this repository.
 
 **Affected documents:** `00-ProjectOverview.md`, `00.1-DocumentationRoadmap.md`, `00.2-CommercialStrategy.md`, `04.2-NonFunctionalRequirements.md`, `06-Architecture.md` and future operations/commercial rate card.
 
@@ -1189,7 +1189,7 @@ Status: Approved
 
 **Rejected alternatives:** Unity Web was rejected for the zero-budget MVP because compliant commercial use may require a paid plan and its runtime/build pipeline adds cost. Godot 4 was rejected because C# projects cannot currently export to Web and GDScript would add another language/runtime. Three.js remains a viable fallback but requires more renderer infrastructure to be assembled manually.
 
-**Affected documents and components:** `00-ProjectOverview.md`, `00.1-DocumentationRoadmap.md`, `02-BusinessRules.md`, `03-DataModel.md`, `03.1-UserFlows.md`, `03.2-UXRequirements.md`, `04.1-ApiContracts.md`, `04.2-NonFunctionalRequirements.md`, `04.3-SecurityAndPrivacy.md`, `06-Architecture.md`, `08-TestingStrategy.md`, `AI_CONTEXT.md` and the future `renderer`/asset pipeline.
+**Affected documents and components:** `00-ProjectOverview.md`, `00.1-DocumentationRoadmap.md`, `02-BusinessRules.md`, `03-DataModel.md`, `03.1-UserFlows.md`, `03.2-UXRequirements.md`, `04.1-ApiContracts.md`, `04.2-NonFunctionalRequirements.md`, `04.3-SecurityAndPrivacy.md`, `06-Architecture.md`, `08-TestingStrategy.md`, `00.3-RepositoryContext.md` and the future `renderer`/asset pipeline.
 
 **Migration impact:** No application or data migration exists because implementation has not begun. The empty `unity` placeholder is replaced by a generic future `renderer` boundary before the first implementation commit.
 
@@ -1962,7 +1962,7 @@ Status: Approved
 
 **Context:** Free allowances, consumption billing and customer customization can create costs faster than early revenue.
 
-**Decision:** Apply GitHub/Azure budgets, anomaly alerts, explicit capacity limits and a 25-percent infrastructure-to-recurring-revenue guardrail; do not treat provider budgets as guaranteed hard stops.
+**Decision:** Apply GitHub/Azure budgets, anomaly alerts, explicit capacity limits and a private infrastructure-to-recurring-revenue guardrail; do not treat provider budgets as guaranteed hard stops.
 
 **Consequences and trade-offs:** Cost and margin problems are surfaced early; monthly human review and conservative resource limits remain necessary.
 

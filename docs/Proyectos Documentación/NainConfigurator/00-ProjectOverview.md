@@ -39,7 +39,7 @@ Furniture is the first go-to-market segment, not a platform boundary. Expansion 
 - NainConfigurator ownership of technical validation, platform operation and B2B technical support.
 - No customer-specific code, schema, repository or permanent deployment forks.
 
-Exact prices, quotas, service levels and legal terms remain required before a paid proposal or commercial launch. See `00.2-CommercialStrategy.md`.
+Prices, quotas, service levels and legal terms remain required before a paid proposal or commercial launch. They live in the private commercial strategy record and are deliberately not published in this repository.
 
 ## 4. MVP outcome
 
@@ -120,7 +120,7 @@ These are approved architecture choices, not permission to implement. `06-Archit
 | Document | Purpose |
 |---|---|
 | `00.1-DocumentationRoadmap.md` | Documentation gates from product foundation to commercial launch |
-| `00.2-CommercialStrategy.md` | Approved target market, service, revenue, onboarding, branding and operating responsibilities |
+| `00.2-CommercialStrategy.md` | Private, not published in this repository: target market, service, revenue, onboarding and operating responsibilities |
 | `01-ProductDefinition.md` | Approved catalog values for `DESK-001` |
 | `02-BusinessRules.md` | Authoritative business invariants and lifecycle behavior |
 | `03-DataModel.md` | Technology-independent logical data model |
@@ -136,7 +136,9 @@ These are approved architecture choices, not permission to implement. `06-Archit
 | `09-DeploymentAndOperations.md` | Approved environments, free-demo boundaries, delivery, monitoring, recovery, support, onboarding and cost controls |
 | `10-ImplementationPlan.md` | Approved dependency-ordered vertical slices from engineering baseline to local demo, pilot and commercial launch |
 | `11-ImplementationReadinessReview.md` | Passing cross-document coherence, free-tool and remaining-gate review |
-| `AI_CONTEXT.md` | Short navigation summary; never an independent source of truth |
+| `00.3-RepositoryContext.md` | Short navigation summary; never an independent source of truth |
+
+`00.2-CommercialStrategy.md` is referenced throughout this documentation set but is **not published in this repository**. Target market, revenue structure, packaging and cost-to-revenue ratios are private business decisions maintained outside version control. Every cross-reference to it is a pointer to that private record, not a missing file.
 
 `04-ApiContracts.md`, `02-BusinessRules.v1.md` and `Producto inicial.md` are historical inputs and are not authoritative.
 

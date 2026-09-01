@@ -145,6 +145,30 @@ export interface CreatedQuoteRequest {
   wasExisting: boolean;
 }
 
+export interface QuoteRequestInput {
+  clientRequestId: string;
+  configurationCode: string;
+  contact: {
+    name: string;
+    email: string;
+    phone: string | null;
+  };
+  message: string | null;
+  privacyPolicy: {
+    acknowledged: boolean;
+    version: string;
+  };
+}
+
+/**
+ * Where the answers on screen come from.
+ *
+ * `live` means an ASP.NET Core host revalidated and repriced the selection
+ * against SQL Server. `offline` means the browser evaluated the bundled
+ * synthetic catalog by itself, with no server authority behind any number.
+ */
+export type RuntimeMode = "live" | "offline";
+
 export interface DemoScenario {
   companySlug: string;
   productCode: string;

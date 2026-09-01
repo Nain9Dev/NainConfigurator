@@ -45,7 +45,7 @@ This does not promise zero-cost production. A paying-customer environment may re
 - [Approved deployment and operations](<docs/Proyectos Documentación/NainConfigurator/09-DeploymentAndOperations.md>)
 - [Approved implementation plan](<docs/Proyectos Documentación/NainConfigurator/10-ImplementationPlan.md>)
 - [Passing implementation-readiness review](<docs/Proyectos Documentación/NainConfigurator/11-ImplementationReadinessReview.md>)
-- [AI navigation context](<docs/Proyectos Documentación/NainConfigurator/AI_CONTEXT.md>)
+- [Repository navigation context](<docs/Proyectos Documentación/NainConfigurator/00.3-RepositoryContext.md>)
 
 Historical or superseded documents are context only and must not direct implementation.
 

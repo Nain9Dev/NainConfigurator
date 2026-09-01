@@ -1,0 +1,71 @@
+name: Bug report
+description: Something behaves differently from the documented contract.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report security vulnerabilities here. Use the Security tab.
+
+        Never paste real personal data, credentials or customer data into an issue.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Web shell (React)
+        - Public API (ASP.NET Core)
+        - Domain rules and pricing
+        - Persistence and company isolation (SQL Server)
+        - Offline demo mode
+        - Build, tooling or CI
+        - Documentation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: How were you running it?
+      options:
+        - Offline demo mode (npm run dev, no backend)
+        - Published GitHub Pages demo
+        - Full local stack with SQL Server
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: Quote the document or contract that defines it, if you can.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: Include the error code, `traceId` or console output. Redact anything identifying.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open /configure/naindev-demo/DESK-001
+        2. Select ...
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Windows 11, Chrome 141, commit abc1234"
+    validations:
+      required: true

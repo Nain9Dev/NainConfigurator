@@ -106,7 +106,7 @@ An unattended self-hosted GitHub runner on the owner's personal workstation is p
 - Every future subscription/resource group receives an owner, environment, expiry where applicable, budget and anomaly notification before workload deployment.
 - Free resources select the provider option that stops service rather than bills beyond the free allowance.
 - Azure budgets provide delayed notification, not a guaranteed hard spending cap; production cannot rely on a budget alert to prevent charges.
-- Production cost is approved separately against the architecture planning envelope and the 25-percent recurring-infrastructure guardrail.
+- Production cost is approved separately against the architecture planning envelope and the private recurring-infrastructure guardrail.
 
 ## 7. Controlled local demo runbook
 
@@ -632,8 +632,8 @@ Offboarding never deletes shared application code, schema or another company's d
 - Configure actual and forecast budgets at 50, 75, 90 and 100 percent of the approved monthly amount.
 - Enable daily anomaly and monthly cost review.
 - Tag and report cost by environment/service and attribute company/product/asset egress where safe.
-- Compare direct recurring infrastructure with recurring subscription revenue monthly.
-- At more than 25 percent for two representative months, stop unfunded scale/customization and change pricing, packaging or capacity plan.
+- Compare direct recurring infrastructure with recurring service revenue monthly against the private guardrail.
+- When the guardrail is exceeded for two representative months, stop unfunded scale and customization, and change pricing, packaging or the capacity plan.
 - Never remove backup, isolation, security or privacy controls to preserve an underpriced offer.
 
 Azure budget evaluation can lag usage and does not stop production automatically. Cost safety requires quotas, resource limits, reviewed scale settings and human ownership in addition to alerts.
@@ -738,7 +738,7 @@ The product owner explicitly approved OPS-001 through OPS-016 on 2026-07-28.
 | OPS-009 | Operate OpenTelemetry/Azure Monitor dashboards and the named alert catalog with redacted data | Actionable evidence for SLO, recovery and cost | Telemetry ingestion and maintenance cost | Approved provider changes |
 | OPS-010 | Enforce quarterly isolated restore, twice-yearly regional recovery and deletion reconciliation before traffic | Proves RPO/RTO and prevents erased-data resurrection | Drill time and temporary resource cost | Contract or measured drills require stronger recovery |
 | OPS-011 | Use standard business-hours technical support plus narrow 24/7 Security S1 escalation | Honest affordable MVP support | Single-person continuity risk until backup contact exists | Premium support is funded |
-| OPS-012 | Apply GitHub/Azure budgets, anomaly alerts and the 25-percent infrastructure/revenue guardrail without treating budgets as hard stops | Protects cash and margin | Requires monthly review | Measured business model changes |
+| OPS-012 | Apply GitHub/Azure budgets, anomaly alerts and the private infrastructure/revenue guardrail without treating budgets as hard stops | Protects cash and margin | Requires monthly review | Measured business model changes |
 | OPS-013 | Use controlled company/catalog/asset onboarding and offboarding with no product-specific schema, code or deployment | Keeps onboarding repeatable and profitable | Managed manual work during MVP | Self-service is validated and approved |
 | OPS-014 | Retain release manifests/SBOM/hashes/deployment evidence for at least 400 days and ordinary CI artifacts for 7 days | Traceability without exhausting free storage | Protected evidence store may cost in production | Legal/audit requirement changes |
 | OPS-015 | Keep real personal data out of every demo/non-production default and require legal/security/operations gates before pilot | Reduces privacy and reputation risk | Less realistic support reproduction | A separately approved masked-data process is necessary |
@@ -776,7 +776,7 @@ The product owner explicitly approved OPS-001 through OPS-016 on 2026-07-28.
 - [x] Health, dashboards, alerts, SLO/error budget and telemetry retention are measurable.
 - [x] Backup, deletion reconciliation and regional recovery prove the approved RPO/RTO.
 - [x] Support, incident, onboarding, offboarding and privileged-access workflows have clear ownership.
-- [x] Cost budgets, free-tier limits and the 25-percent revenue guardrail are explicit.
+- [x] Cost budgets, free-tier limits and the revenue guardrail are explicit and owned.
 - [x] Adding a second product or company cannot create a code/schema/build/deployment fork.
 - [x] Product owner approved OPS-001 through OPS-016 on 2026-07-28.
 - [ ] Before any public demo: owner revalidates the current free plan and explicitly authorizes resource creation.

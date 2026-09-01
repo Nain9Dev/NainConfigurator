@@ -617,7 +617,7 @@ SL-007 may finish after SL-009 if 3D asset work would delay customer conversatio
 
 **Excludes:** Real customer data, production DNS/traffic, contractual SLA and public launch.
 
-**Go/no-go:** Do not activate resources until an explicit cost ceiling is approved. Stop if the 25-percent infrastructure/revenue guardrail cannot be supported by the pilot terms.
+**Go/no-go:** Do not activate resources until an explicit cost ceiling is approved. Stop if the private infrastructure/revenue guardrail cannot be supported by the pilot terms.
 
 ## 25. SL-014 - Customer pilot readiness and activation
 
@@ -667,7 +667,7 @@ SL-007 may finish after SL-009 if 3D asset work would delay customer conversatio
 **Acceptance:**
 
 - Commercial claims match implemented, measured and funded capability.
-- Unit economics and the 25-percent infrastructure/revenue guardrail are reviewed with visible assumptions.
+- Unit economics and the private infrastructure/revenue guardrail are reviewed with visible assumptions.
 - Support and recovery ownership is sustainable beyond one unplanned absence.
 - New companies/products remain data-driven under one release.
 - Any dedicated/premium option is separately priced and approved.

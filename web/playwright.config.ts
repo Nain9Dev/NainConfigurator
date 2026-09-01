@@ -5,6 +5,7 @@ const webUrl = "http://127.0.0.1:4173";
 
 export default defineConfig({
   testDir: "./e2e",
+  testMatch: /technical-demo\.spec\.ts/,
   fullyParallel: false,
   forbidOnly: true,
   retries: 0,

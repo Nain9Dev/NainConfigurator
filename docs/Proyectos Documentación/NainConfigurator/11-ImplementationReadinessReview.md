@@ -44,7 +44,7 @@ Public demo, pilot and commercial launch are deliberately not documentation-comp
 |---|---|---|
 | `00-ProjectOverview.md` | Aligned | Product objective, scope and current readiness |
 | `00.1-DocumentationRoadmap.md` | Aligned | Gate authority and phase boundaries |
-| `00.2-CommercialStrategy.md` | Approved and aligned | Initial customer, service model, revenue structure and operating responsibilities |
+| `00.2-CommercialStrategy.md` | Approved and aligned; private, not published in this repository | Initial customer, service model, revenue structure and operating responsibilities |
 | `01-ProductDefinition.md` | Approved | Initial product catalog values only |
 | `02-BusinessRules.md` | Approved | Authoritative shared and initial-product behavior |
 | `03-DataModel.md` | Approved | Generic logical entities and invariants |
@@ -130,7 +130,7 @@ The following stale statements were corrected:
 - `10-ImplementationPlan.md` now records IMP-001 through IMP-012 as approved and the final review as passed.
 - `08-TestingStrategy.md` no longer calls its approved toolchain proposed or names deployment/operations as the next gate.
 - `05-DatabaseDesign.md`, `06-Architecture.md`, `09-DeploymentAndOperations.md` and the commercial strategy now point to the current readiness boundary.
-- Project overview, roadmap, AI context and repository navigation identify this final review and separate implementation authorization.
+- Project overview, roadmap, repository context and navigation identify this final review and separate implementation authorization.
 
 No decision identifier, rule, endpoint, table, technology boundary, security control or slice scope was changed.
 

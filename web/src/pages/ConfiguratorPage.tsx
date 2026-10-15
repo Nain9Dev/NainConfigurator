@@ -16,6 +16,7 @@ import {
   defaultSelections,
   formatMoney,
   pendingRuleWarnings,
+  pluralize,
   unsatisfiedGroups,
   updateSelection,
 } from "../catalog";
@@ -211,10 +212,15 @@ export function ConfiguratorPage({
           <h1>{catalog.product.name}</h1>
           <p className="product-description">{catalog.product.description}</p>
           <p className="catalog-version">
-            Catálogo v{catalog.product.catalogVersion} ·{" "}
-            {catalog.product.optionGroups.length} grupos ·{" "}
-            {catalog.product.compatibilityRules.length} reglas de
-            compatibilidad
+            {`Catálogo v${catalog.product.catalogVersion} · ${pluralize(
+              catalog.product.optionGroups.length,
+              "grupo",
+              "grupos",
+            )} · ${pluralize(
+              catalog.product.compatibilityRules.length,
+              "regla de compatibilidad",
+              "reglas de compatibilidad",
+            )}`}
           </p>
         </div>
         <div className="price-block" aria-live="polite">

@@ -12,7 +12,10 @@ import { devices, defineConfig } from "@playwright/test";
  * release gate, where a real database exists.
  */
 
-const webUrl = "http://127.0.0.1:4174";
+// Reserved in eng/local-development.json so a parallel checkout of another
+// project cannot take this socket mid-run.
+const webPort = Number(process.env.NAINCONFIGURATOR_E2E_OFFLINE_PORT ?? 5182);
+const webUrl = `http://127.0.0.1:${webPort}`;
 
 export default defineConfig({
   testDir: "./e2e",
@@ -41,7 +44,7 @@ export default defineConfig({
     video: "off",
   },
   webServer: {
-    command: "npm run start -- --host 127.0.0.1 --port 4174",
+    command: `npm run start -- --host 127.0.0.1 --port ${webPort} --strictPort`,
     url: `${webUrl}/demo-scenarios.json`,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,

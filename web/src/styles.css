@@ -759,10 +759,20 @@ code {
 }
 
 .preview-column {
-  position: sticky;
-  top: 5rem;
   display: grid;
   gap: 1rem;
+  align-content: start;
+}
+
+/* Only pin the panel when the viewport is tall enough to show all of it. */
+@media (width >= 62rem) and (height >= 56rem) {
+  .preview-column {
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
 }
 
 fieldset {

@@ -1,0 +1,58 @@
+{
+  "$comment": "Local development reservation for this repository. One project owns one contiguous port block so two checkouts never fight for the same socket, and one hostname so two projects never share a browser origin. Ports may be overridden per machine with the environment variables named below.",
+  "schemaVersion": 1,
+  "project": "NainConfigurator",
+  "hostname": "nainconfigurator.localhost",
+  "loopbackAddress": "127.0.0.1",
+  "portBlock": {
+    "start": 5180,
+    "end": 5189
+  },
+  "services": [
+    {
+      "name": "web-dev",
+      "port": 5180,
+      "environmentVariable": "NAINCONFIGURATOR_WEB_PORT",
+      "command": "npm run dev --prefix web",
+      "description": "Vite development server for the React shell"
+    },
+    {
+      "name": "web-preview",
+      "port": 5181,
+      "environmentVariable": "NAINCONFIGURATOR_WEB_PREVIEW_PORT",
+      "command": "npm run preview --prefix web",
+      "description": "Static preview of the production bundle"
+    },
+    {
+      "name": "e2e-offline",
+      "port": 5182,
+      "environmentVariable": "NAINCONFIGURATOR_E2E_OFFLINE_PORT",
+      "command": "npm run test:e2e:offline --prefix web",
+      "description": "Playwright web server for the offline journeys"
+    },
+    {
+      "name": "e2e-full-stack",
+      "port": 5183,
+      "environmentVariable": "NAINCONFIGURATOR_E2E_PORT",
+      "command": "npm run test:e2e --prefix web",
+      "description": "Playwright web server for the full-stack journeys"
+    },
+    {
+      "name": "public-api",
+      "port": 5187,
+      "environmentVariable": "NAINCONFIGURATOR_API_PORT",
+      "command": "dotnet run --project backend/src/NainConfigurator.PublicHost",
+      "description": "ASP.NET Core public host, also serves the built shell in LocalDemo"
+    }
+  ],
+  "reservedForFutureUse": [
+    {
+      "port": 5188,
+      "intendedService": "operations-host"
+    },
+    {
+      "port": 5189,
+      "intendedService": "worker-health"
+    }
+  ]
+}

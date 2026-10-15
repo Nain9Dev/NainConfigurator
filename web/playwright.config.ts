@@ -1,7 +1,10 @@
 import { devices, defineConfig } from "@playwright/test";
 
-const apiUrl = "http://127.0.0.1:5187";
-const webUrl = "http://127.0.0.1:4173";
+// Reserved in eng/local-development.json.
+const apiPort = Number(process.env.NAINCONFIGURATOR_API_PORT ?? 5187);
+const webPort = Number(process.env.NAINCONFIGURATOR_E2E_PORT ?? 5183);
+const apiUrl = `http://127.0.0.1:${apiPort}`;
+const webUrl = `http://127.0.0.1:${webPort}`;
 
 export default defineConfig({
   testDir: "./e2e",
@@ -44,7 +47,7 @@ export default defineConfig({
       },
     },
     {
-      command: "npm run start -- --host 127.0.0.1 --port 4173",
+      command: `npm run start -- --host 127.0.0.1 --port ${webPort} --strictPort`,
       url: `${webUrl}/demo-scenarios.json`,
       reuseExistingServer: false,
       timeout: 60_000,

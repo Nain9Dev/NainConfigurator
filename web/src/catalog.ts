@@ -175,6 +175,15 @@ export function formatSignedMoney(
   return `${amount > 0 ? "+" : "−"} ${formatted}`;
 }
 
+/** Spanish count plus noun, agreeing in number. */
+export function pluralize(
+  count: number,
+  singular: string,
+  plural: string,
+): string {
+  return `${count} ${count === 1 ? singular : plural}`;
+}
+
 export function formatDate(value: string, locale: string): string {
   const parsed = new Date(value);
 

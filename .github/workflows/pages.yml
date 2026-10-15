@@ -38,9 +38,9 @@ jobs:
 
       - name: Build
         env:
-          # Serve from https://<owner>.github.io/<repo>/ and force offline mode,
+          # Serve from custom domain https://configurator.naindev.com/ and force offline mode,
           # since there is no API behind a static host.
-          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_BASE_PATH: /
           VITE_FORCE_OFFLINE: "true"
         run: npm run build
 

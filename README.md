@@ -1,5 +1,11 @@
 # NainConfigurator
 
+[![Live Demo](https://img.shields.io/badge/Demo%20Online-configurator.naindev.com-38bdf8?style=flat-square&logo=googlechrome&logoColor=white)](https://configurator.naindev.com/)
+[![React](https://img.shields.io/badge/React%2019-Vite%208-blue?style=flat-square)](https://configurator.naindev.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-16%2F16%20Passing-emerald?style=flat-square)](https://configurator.naindev.com/)
+
+**Demo Online Interactiva:** [https://configurator.naindev.com/](https://configurator.naindev.com/) (Motor de compatibilidad y catálogo determinista en navegador, coste 0,00 €)
+
 NainConfigurator is a catalog-driven B2B product configurator designed to support fundamentally different products without customer-specific code, API contracts, database columns or deployment forks.
 
 Current phase: SL-000 is complete. SL-001 through SL-006 and SL-008 are implemented with automated evidence; optional SL-007 is deferred. The authorized SL-009 candidate passes its clean-checkout automated gate and now awaits the two manual gates documented below. SL-010 and later slices, cloud deployment, public exposure, real personal data, paid services, future commits and push remain unauthorized.

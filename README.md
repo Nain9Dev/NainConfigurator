@@ -1,12 +1,63 @@
-# NainConfigurator
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg">
+  <img src="docs/assets/banner-dark.svg" alt="NainConfigurator - Catalog-Driven B2B Product Configurator" width="100%">
+</picture>
+
+<div align="center">
 
 [![Live Demo](https://img.shields.io/badge/Demo%20Online-configurator.naindev.com-38bdf8?style=flat-square&logo=googlechrome&logoColor=white)](https://configurator.naindev.com/)
-[![React](https://img.shields.io/badge/React%2019-Vite%208-blue?style=flat-square)](https://configurator.naindev.com/)
-[![Vitest](https://img.shields.io/badge/Vitest-16%2F16%20Passing-emerald?style=flat-square)](https://configurator.naindev.com/)
+[![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![React 19](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vitest Passing](https://img.shields.io/badge/Vitest-16%2F16%20Passing-80FF00?style=flat-square&logo=vitest&logoColor=white)](https://configurator.naindev.com/)
+[![Domain Tests](https://img.shields.io/badge/Domain%20Tests-9%20Passing-80FF00?style=flat-square&logo=checkmarx&logoColor=black)](backend)
+
+</div>
 
 **Demo Online Interactiva:** [https://configurator.naindev.com/](https://configurator.naindev.com/) (Motor de compatibilidad y catálogo determinista en navegador, coste 0,00 €)
 
 NainConfigurator is a catalog-driven B2B product configurator designed to support fundamentally different products without customer-specific code, API contracts, database columns or deployment forks.
+
+---
+
+## Architecture Overview
+
+```mermaid
+graph TB
+    subgraph ClientLayer["Frontend Layer (:5280 / configurator.naindev.com)"]
+        ReactShell["React 19 Commercial Shell<br/><code>Vite + TypeScript</code><br/><i>Accessible UI, WCAG 2.1 AA</i>"]
+        ClientEvaluator["Browser Rule Evaluator<br/><i>Offline Deterministic Catalog &amp; Cart</i>"]
+        BabylonRenderer["Babylon.js 3D Viewer<br/><i>(Optional / Lazy-Loaded Runtime)</i>"]
+    end
+
+    subgraph BackendLayer["Backend Monolith Layer (:8080)"]
+        ApiHost["ASP.NET Core Public API Host<br/><code>.NET 10 + Modular Monolith</code>"]
+        DomainEngine["Catalog &amp; Pricing Authority<br/><i>Invariants, Matrix Pricing &amp; Quotes</i>"]
+        Migrator["SQL Database Migrator<br/><i>Deterministic Migration Engine</i>"]
+    end
+
+    subgraph PersistenceLayer["Data &amp; Persistence Layer"]
+        SqlServer[("SQL Server 2025 / Azure SQL<br/><i>Multi-Company Tenant Schema</i>")]
+    end
+
+    ReactShell --> ClientEvaluator
+    ReactShell -.-> BabylonRenderer
+    ReactShell -->|"HTTP / REST API (Quotes &amp; Catalogs)"| ApiHost
+    ApiHost --> DomainEngine
+    DomainEngine --> SqlServer
+    Migrator --> SqlServer
+
+    classDef client fill:#0047AB,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
+    classDef backend fill:#002B66,stroke:#80FF00,stroke-width:2px,color:#FFFFFF;
+    classDef db fill:#060D1A,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
+
+    class ReactShell,ClientEvaluator,BabylonRenderer client;
+    class ApiHost,DomainEngine,Migrator backend;
+    class SqlServer db;
+```
+
+---
 
 Current phase: SL-000 is complete. SL-001 through SL-006 and SL-008 are implemented with automated evidence; optional SL-007 is deferred. The authorized SL-009 candidate passes its clean-checkout automated gate and now awaits the two manual gates documented below. SL-010 and later slices, cloud deployment, public exposure, real personal data, paid services, future commits and push remain unauthorized.
 

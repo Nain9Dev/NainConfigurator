@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="NainConfigurator: un motor, cualquier producto, cero ramas por cliente">
+  <title>NainConfigurator</title>
+
+  <!--
+    Flat fills only, on purpose. The card is rasterised to a PNG that ships in
+    the repository, and a gradient across 1200x630 turns a 40 KB file into a
+    600 KB one for a difference nobody sees in a link preview.
+  -->
+  <rect width="1200" height="630" fill="#0f1714"/>
+  <circle cx="1060" cy="150" r="430" fill="#d8ff63" opacity="0.05"/>
+  <rect y="624" width="1200" height="6" fill="#7fc4ef"/>
+
+  <!-- Wordmark -->
+  <g transform="translate(72 66)">
+    <rect width="34" height="34" rx="9" fill="#7fc4ef"/>
+    <rect x="7" y="9" width="20" height="4" rx="2" fill="#06202f"/>
+    <rect x="7" y="15" width="13" height="4" rx="2" fill="#06202f"/>
+    <rect x="7" y="21" width="16" height="4" rx="2" fill="#06202f"/>
+    <text x="48" y="25" fill="#e8eeea" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="25" font-weight="700">
+      Nain<tspan font-weight="400">Configurator</tspan>
+    </text>
+  </g>
+
+  <text x="72" y="214" fill="#8a978f" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="19" font-weight="700" letter-spacing="3.2">CONFIGURADOR B2B DIRIGIDO POR CATÁLOGO</text>
+
+  <text x="72" y="304" fill="#f2f6f3" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="72" font-weight="800" letter-spacing="-2.4">Un motor.</text>
+  <text x="72" y="382" fill="#7fc4ef" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="72" font-weight="800" letter-spacing="-2.4">Cualquier producto.</text>
+
+  <text x="72" y="452" fill="#c2cdc6" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="27" font-weight="600">Cero ramas de código por cliente.</text>
+  <text x="72" y="490" fill="#8a978f" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="23">La interfaz, las reglas, el precio y la escena salen del catálogo.</text>
+
+  <rect x="72" y="536" width="300" height="2" fill="#2e3a34"/>
+  <text x="72" y="578" fill="#a7b4ac" font-family="ui-monospace, 'Cascadia Code', Consolas, monospace" font-size="22">configurator.naindev.com</text>
+
+  <!-- Isometric desk: the same massing the live renderer draws from the catalog. -->
+  <g transform="translate(958 300) scale(0.74)">
+    <ellipse cx="0" cy="150" rx="225" ry="54" fill="#000000" opacity="0.4"/>
+
+    <polygon points="-150,-14 -136,-6 -136,96 -150,88" fill="#2d333c"/>
+    <polygon points="136,-14 150,-6 150,88 136,96" fill="#262c34"/>
+
+    <polygon points="0,-96 210,-14 0,68 -210,-14" fill="#c8975a"/>
+    <polygon points="-210,-14 0,68 0,86 -210,4" fill="#a97b45"/>
+    <polygon points="210,-14 0,68 0,86 210,4" fill="#8e652f"/>
+
+    <polygon points="-150,22 -136,30 -136,132 -150,124" fill="#39414c"/>
+    <polygon points="-136,30 -122,22 -122,124 -136,132" fill="#2a3038"/>
+    <polygon points="136,22 150,30 150,124 136,132" fill="#39414c"/>
+    <polygon points="122,22 136,30 136,132 122,124" fill="#2a3038"/>
+  </g>
+</svg>

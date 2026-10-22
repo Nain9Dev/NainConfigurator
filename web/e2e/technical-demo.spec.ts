@@ -9,7 +9,8 @@ test.describe("synthetic technical demo", () => {
 
     await expect(
       page.getByRole("heading", {
-        name: "Una experiencia de configuración, productos distintos.",
+        level: 1,
+        name: /Un motor\..*Cualquier producto\./s,
       }),
     ).toBeVisible();
     await expect(
@@ -34,8 +35,11 @@ test.describe("synthetic technical demo", () => {
     ).toBeVisible();
     await expect(page.locator("canvas")).toHaveCount(0);
     await expect(
+      page.getByRole("button", { name: "Restablecer vista" }),
+    ).toBeVisible();
+    await expect(
       page.getByText(
-        "Vista accesible de respaldo. Su estado nunca altera reglas ni precio.",
+        "La escena se interpreta desde el catálogo. Su estado nunca altera reglas ni precio.",
       ),
     ).toBeVisible();
 
@@ -190,10 +194,16 @@ test.describe("synthetic technical demo", () => {
   });
 });
 
+/**
+ * `nain-ecosystem-bar` is a shared web component served from www.naindev.com.
+ * It is not built, versioned or fixable from this repository, so scanning it
+ * here would make this gate depend on another repository's deployment.
+ */
 async function assertNoAutomaticAccessibilityViolations(
   page: Page,
 ): Promise<void> {
   const results = await new AxeBuilder({ page })
+    .exclude("nain-ecosystem-bar")
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
     .analyze();
 

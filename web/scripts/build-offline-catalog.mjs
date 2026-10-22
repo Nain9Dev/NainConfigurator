@@ -9,13 +9,15 @@
 // Output: web/public/offline-catalog.json (generated, not committed).
 
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seedPath = resolve(here, "../../database/demo/technical-demo-catalogs.json");
 const outputPath = resolve(here, "../public/offline-catalog.json");
+const packSourceDir = resolve(here, "../../assets/visual-packs");
+const packOutputDir = resolve(here, "../public/visual-packs");
 
 const seed = JSON.parse(await readFile(seedPath, "utf8"));
 
@@ -106,3 +108,66 @@ await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(catalogs, null, 2)}\n`, "utf8");
 
 console.log(`offline catalog: ${entries.length} products -> ${outputPath}`);
+
+/*
+ * Visual packs are published assets addressed by `visualAssetKey`, exactly as a
+ * GLB would be. They are authored under `assets/visual-packs` and staged into
+ * `public/` so a static host serves them without a build step of their own.
+ *
+ * Every pack is re-serialized rather than copied: a document that is not JSON,
+ * or whose file name does not match its own `key`, fails the build instead of
+ * reaching the browser.
+ */
+const packNames = await listPacks(packSourceDir);
+const declaredKeys = new Set(
+  entries
+    .map((entry) => catalogs[entry].product.visualAssetKey)
+    .filter((key) => key !== null),
+);
+
+await rm(packOutputDir, { force: true, recursive: true });
+await mkdir(packOutputDir, { recursive: true });
+
+for (const name of packNames) {
+  const key = name.replace(/\.json$/u, "");
+  const pack = JSON.parse(await readFile(resolve(packSourceDir, name), "utf8"));
+
+  if (pack.key !== key) {
+    throw new Error(`Visual pack ${name} declares key "${pack.key}".`);
+  }
+
+  if (pack.schemaVersion !== 1) {
+    throw new Error(`Visual pack ${name} has unsupported schemaVersion.`);
+  }
+
+  await writeFile(
+    resolve(packOutputDir, name),
+    `${JSON.stringify(pack)}\n`,
+    "utf8",
+  );
+}
+
+const unmatched = [...declaredKeys].filter(
+  (key) => !packNames.includes(`${key}.json`),
+);
+
+console.log(
+  `visual packs: ${packNames.length} staged -> ${packOutputDir}` +
+    (unmatched.length > 0
+      ? ` (no pack for ${unmatched.join(", ")}; those products use the fallback view)`
+      : ""),
+);
+
+async function listPacks(directory) {
+  try {
+    const names = await readdir(directory);
+
+    return names.filter((name) => name.endsWith(".json")).sort();
+  } catch (reason) {
+    if (reason.code === "ENOENT") {
+      return [];
+    }
+
+    throw reason;
+  }
+}

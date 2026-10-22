@@ -38,9 +38,7 @@ export function applyThemePreference(preference: ThemePreference): void {
 }
 
 /** Cycles system → light → dark → system. */
-export function nextThemePreference(
-  current: ThemePreference,
-): ThemePreference {
+export function nextThemePreference(current: ThemePreference): ThemePreference {
   const index = PREFERENCES.indexOf(current);
 
   return PREFERENCES[(index + 1) % PREFERENCES.length] ?? "system";
@@ -59,7 +57,6 @@ export function describeTheme(preference: ThemePreference): string {
 
 function isThemePreference(value: unknown): value is ThemePreference {
   return (
-    typeof value === "string" &&
-    PREFERENCES.includes(value as ThemePreference)
+    typeof value === "string" && PREFERENCES.includes(value as ThemePreference)
   );
 }

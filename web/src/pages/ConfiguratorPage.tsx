@@ -6,28 +6,20 @@ import {
   useState,
 } from "react";
 
-import {
-  createConfiguration,
-  getProduct,
-  validateConfiguration,
-} from "../api";
+import { createConfiguration, getProduct, validateConfiguration } from "../api";
 import {
   calculateDraftPrice,
   defaultSelections,
   formatMoney,
-  pendingRuleWarnings,
-  pluralize,
+  formatSignedMoney,
   unsatisfiedGroups,
+  unsatisfiedRules,
   updateSelection,
 } from "../catalog";
 import { CopyButton } from "../components/CopyButton";
 import { Skeleton } from "../components/Chrome";
 import { OptionGroups } from "../components/OptionGroups";
-import {
-  ErrorList,
-  SuccessNotice,
-  WarningNotice,
-} from "../components/Notices";
+import { ErrorList, SuccessNotice, WarningNotice } from "../components/Notices";
 import { PriceBreakdown } from "../components/PriceBreakdown";
 import { ProductVisual } from "../components/ProductVisual";
 import { toApiErrors } from "../errors";
@@ -38,7 +30,14 @@ import type {
   ProductCatalog,
   ValidationData,
 } from "../types";
+import { useVisualPack } from "../visual/useVisualPack";
 
+/**
+ * The studio: the scene is the largest thing on the page, the controls sit
+ * beside it, and the estimate with its two actions stays docked at the bottom
+ * of the viewport. Document order is scene, controls, results, dock, which is
+ * also the reading order a narrow viewport gets.
+ */
 export function ConfiguratorPage({
   companySlug,
   productCode,
@@ -59,6 +58,7 @@ export function ConfiguratorPage({
   const saveAttempt = useRef<{ payload: string; requestId: string } | null>(
     null,
   );
+  const packState = useVisualPack(catalog?.product.visualAssetKey ?? null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -95,8 +95,8 @@ export function ConfiguratorPage({
     [catalog, selected],
   );
 
-  const ruleWarnings = useMemo(
-    () => (catalog === null ? [] : pendingRuleWarnings(catalog, selected)),
+  const brokenRules = useMemo(
+    () => (catalog === null ? [] : unsatisfiedRules(catalog, selected)),
     [catalog, selected],
   );
 
@@ -126,6 +126,12 @@ export function ConfiguratorPage({
   } as CSSProperties;
 
   const shareUrl = buildShareUrl(companySlug, productCode, selected);
+  const pendingCount = brokenRules.length + missingGroups.length;
+  const hasResults =
+    pendingCount > 0 ||
+    validation?.isValid === true ||
+    created !== null ||
+    errors.length > 0;
 
   function changeSelection(
     groupCodes: string[],
@@ -200,31 +206,97 @@ export function ConfiguratorPage({
 
   return (
     <main id="main-content" className="configurator" style={brandStyle}>
-      <div className="breadcrumb">
-        <a className="text-link" href={href("/")}>
+      <header className="studio-bar">
+        <a className="text-link back-link" href={href("/")}>
           <span aria-hidden="true">←</span> Escenarios
         </a>
-      </div>
-
-      <header className="product-header">
-        <div>
+        <div className="studio-title">
           <p className="eyebrow">{catalog.company.name}</p>
           <h1>{catalog.product.name}</h1>
-          <p className="product-description">{catalog.product.description}</p>
-          <p className="catalog-version">
-            {`Catálogo v${catalog.product.catalogVersion} · ${pluralize(
-              catalog.product.optionGroups.length,
-              "grupo",
-              "grupos",
-            )} · ${pluralize(
-              catalog.product.compatibilityRules.length,
-              "regla de compatibilidad",
-              "reglas de compatibilidad",
-            )}`}
-          </p>
         </div>
-        <div className="price-block" aria-live="polite">
-          <span>Estimación local</span>
+        <div className="studio-bar-actions">
+          <span className="chip">
+            Catálogo v{catalog.product.catalogVersion}
+          </span>
+          <CopyButton label="Copiar enlace" value={shareUrl} />
+        </div>
+      </header>
+
+      <div className="studio">
+        <ProductVisual
+          catalog={catalog}
+          packState={packState}
+          selectedOptionCodes={selected}
+        />
+
+        <OptionGroups
+          brokenRules={brokenRules}
+          catalog={catalog}
+          disabled={busyAction !== null}
+          onChange={changeSelection}
+          pack={packState.pack}
+          selectedOptionCodes={selected}
+        />
+
+        <div
+          aria-live="polite"
+          className={`studio-results${hasResults ? "" : " is-empty"}`}
+          id="studio-results"
+        >
+          {pendingCount > 0 && (
+            <WarningNotice
+              title="Antes de validar"
+              messages={[
+                ...missingGroups.map(
+                  (group) => `Falta elegir una opción en ${group.name}.`,
+                ),
+                ...brokenRules.map((rule) => rule.message),
+              ]}
+            />
+          )}
+
+          {validation?.isValid && (
+            <>
+              <SuccessNotice>
+                {`Selección válida: ${formatMoney(
+                  validation.estimatedPrice ?? 0,
+                  validation.contentLocale,
+                  validation.currencyCode,
+                )}`}
+              </SuccessNotice>
+              {validation.priceBreakdown !== null && (
+                <PriceBreakdown
+                  caption="Desglose devuelto por la API"
+                  components={validation.priceBreakdown}
+                  currencyCode={validation.currencyCode}
+                  locale={validation.contentLocale}
+                  total={validation.estimatedPrice ?? 0}
+                />
+              )}
+            </>
+          )}
+
+          {created !== null && (
+            <SuccessNotice>
+              <strong>Configuración guardada</strong>
+              <span className="public-code">{created.configurationCode}</span>
+              <a
+                className="text-link"
+                href={href(`/configurations/${created.configurationCode}`)}
+              >
+                Ver configuración y solicitar presupuesto{" "}
+                <span aria-hidden="true">→</span>
+              </a>
+            </SuccessNotice>
+          )}
+
+          {errors.length > 0 && <ErrorList errors={errors} />}
+        </div>
+      </div>
+
+      <div className="dock">
+        <div className="dock-price" aria-live="polite">
+          <span className="dock-label">Estimación local</span>
           <strong>
             {formatMoney(
               draftPrice,
@@ -232,109 +304,42 @@ export function ConfiguratorPage({
               catalog.product.currencyCode,
             )}
           </strong>
-          <small>{catalog.product.priceDisclaimer}</small>
+          <small>
+            {draftPrice === catalog.product.basePrice
+              ? "Precio base"
+              : `${formatSignedMoney(
+                  draftPrice - catalog.product.basePrice,
+                  catalog.company.locale,
+                  catalog.product.currencyCode,
+                )} sobre el precio base`}
+          </small>
         </div>
-      </header>
 
-      <div className="configurator-grid">
-        <OptionGroups
-          catalog={catalog}
-          disabled={busyAction !== null}
-          onChange={changeSelection}
-          selectedOptionCodes={selected}
-        />
+        <p className="dock-note">{catalog.product.priceDisclaimer}</p>
 
-        <aside className="preview-column">
-          <ProductVisual catalog={catalog} selectedOptionCodes={selected} />
-
-          <div className="action-card">
-            <p className="action-label">Validación autoritativa</p>
-            <p>
-              El servidor vuelve a comprobar reglas y precio antes de guardar.
-            </p>
-
-            {(ruleWarnings.length > 0 || missingGroups.length > 0) && (
-              <WarningNotice
-                title="Previsualización de reglas del catálogo"
-                messages={[
-                  ...missingGroups.map(
-                    (group) => `Falta elegir una opción en ${group.name}.`,
-                  ),
-                  ...ruleWarnings,
-                ]}
-              />
-            )}
-
-            <div className="action-row">
-              <button
-                className="button secondary"
-                disabled={busyAction !== null}
-                onClick={validate}
-                type="button"
-              >
-                {busyAction === "validate" ? "Validando…" : "Validar selección"}
-              </button>
-              <button
-                className="button"
-                disabled={busyAction !== null}
-                onClick={save}
-                type="button"
-              >
-                {busyAction === "save" ? "Guardando…" : "Guardar configuración"}
-              </button>
-            </div>
-
-            <div aria-live="polite" className="result-region">
-              {validation?.isValid && (
-                <>
-                  <SuccessNotice>
-                    {`Selección válida: ${formatMoney(
-                      validation.estimatedPrice ?? 0,
-                      validation.contentLocale,
-                      validation.currencyCode,
-                    )}`}
-                  </SuccessNotice>
-                  {validation.priceBreakdown !== null && (
-                    <PriceBreakdown
-                      caption="Desglose devuelto por la API"
-                      components={validation.priceBreakdown}
-                      currencyCode={validation.currencyCode}
-                      locale={validation.contentLocale}
-                      total={validation.estimatedPrice ?? 0}
-                    />
-                  )}
-                </>
-              )}
-
-              {created !== null && (
-                <SuccessNotice>
-                  <strong>Configuración guardada</strong>
-                  <span className="public-code">
-                    {created.configurationCode}
-                  </span>
-                  <a
-                    className="text-link"
-                    href={href(`/configurations/${created.configurationCode}`)}
-                  >
-                    Ver configuración y solicitar presupuesto{" "}
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </SuccessNotice>
-              )}
-
-              {errors.length > 0 && <ErrorList errors={errors} />}
-            </div>
-          </div>
-
-          <div className="share-card">
-            <p className="action-label">Compartir esta selección</p>
-            <p>
-              La selección viaja en la dirección, así que un enlace reabre
-              exactamente esta configuración sin guardarla.
-            </p>
-            <CopyButton label="Copiar enlace" value={shareUrl} />
-          </div>
-        </aside>
+        <div className="dock-actions">
+          {pendingCount > 0 && (
+            <a className="dock-status" href="#studio-results">
+              {pendingCount === 1 ? "1 aviso" : `${pendingCount} avisos`}
+            </a>
+          )}
+          <button
+            className="button secondary"
+            disabled={busyAction !== null}
+            onClick={validate}
+            type="button"
+          >
+            {busyAction === "validate" ? "Validando…" : "Validar selección"}
+          </button>
+          <button
+            className="button"
+            disabled={busyAction !== null}
+            onClick={save}
+            type="button"
+          >
+            {busyAction === "save" ? "Guardando…" : "Guardar configuración"}
+          </button>
+        </div>
       </div>
     </main>
   );

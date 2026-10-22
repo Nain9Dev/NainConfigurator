@@ -1195,6 +1195,25 @@ Status: Approved
 
 **Trigger for reconsideration:** Revisit only if Babylon.js fails an approved browser, payload, maintainability or visual requirement in a measured prototype, or a funded customer pays for and requires a capability available only in another compliant renderer.
 
+## ARCH-020 - Declarative visual packs as the product preview source
+
+Date: 2026-10-21  
+Status: Proposed
+
+**Context:** The commercial shell builds its controls, its rules and its price from catalog data, which is the claim the product exists to make. Its preview panel did not: it drew one coloured isometric plate per selected `visualAssetKey`, which is product-agnostic and accessible but shows neither a desk nor a bicycle. A buyer evaluating the product reads the picture before the option list, so the one part of the screen that did not look finished was hiding the part that is. The obvious repair — a `DeskPreview` and a `BikePreview` — reintroduces exactly the per-customer fork `ARCH-002` and `DM-002` exist to prevent, and `ARCH-019` defers the Babylon.js runtime and its GLB pipeline, which no authored asset currently feeds.
+
+**Decision:** Introduce a **visual pack**: a declarative scene document, schema version `1`, addressed by the product's existing `visualAssetKey` and published as an asset exactly as a GLB would be. A pack declares named dimensions, material slots, materials and parts built from three primitives (`box`, `tube`, `ring`), where part visibility, dimension values and material slots bind to the `visualAssetKey` values the catalog already carries on every option. A generic renderer under `web/src/visual` interprets any pack and contains no identifier specific to a product, a company or an option. Packs are authored under `assets/visual-packs` and staged into the web application by the catalog build step. A missing, unreachable or malformed pack degrades to the existing accessible plate view.
+
+**Consequences and trade-offs:** A product gains a recognisable preview by publishing data, so the no-fork claim now covers the picture as well as the controls. The public API contract, the database schema, the migrations and the domain are unchanged: `visualAssetKey` was already the join, and no new column, endpoint or deployment is required. Authoring a pack is modelling work and a pack can misdescribe a product; it cannot misprice one, because the visual stays outside validation, pricing and persistence as `UX-00x` and the existing tests already require. The renderer is SVG, so it needs no WebGL context, no binary asset and no network call beyond the pack document. A pack is projection-independent, so the deferred Babylon.js adapter of `ARCH-019` may consume the same document rather than competing with it. Arithmetic in a pack is evaluated by a closed parser with no identifier resolution beyond the pack's own variables, so a document fetched at runtime cannot reach a global.
+
+**Rejected alternatives:** Per-product rendering components were rejected as the customer fork the product forbids. Moving the pack into SQL Server was rejected because a published scene is an asset addressed by key, not relational state, and it would force a schema and contract change for a presentation concern. Bringing the Babylon.js runtime forward was rejected because `ARCH-019` defers it, no sanitized GLB exists yet, and a WebGL dependency would regress the renderer-independent commercial flow. Rendered bitmaps per configuration were rejected because the combination count is the product of every option group.
+
+**Affected documents and components:** `03.2-UXRequirements.md`, `06-Architecture.md`, `00.3-RepositoryContext.md`, `specs/001-catalog-driven-visualization`, `assets`, `web`.
+
+**Migration impact:** None. No schema, migration, contract or persisted value changes. Removing every pack restores the previous behaviour exactly.
+
+**Trigger for reconsideration:** Revisit if a product needs geometry the three primitives cannot express, if pack authoring becomes a bottleneck that a GLB pipeline would relieve, or when `ARCH-019` is activated and the Babylon.js adapter can consume the same document.
+
 ## DB-001 - Shared-schema physical database
 
 Date: 2026-07-28  

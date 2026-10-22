@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "key": "Product_Desk_Modular",
+  "label": "Escritorio modular",
+  "camera": { "yaw": 36, "pitch": 20, "scale": 1, "target": [0, 0, 0] },
+  "frame": { "width": 760, "height": 560 },
+  "light": { "yaw": -42, "pitch": 50 },
+  "ground": { "spreadX": 1.1, "spreadZ": 1.6 },
+
+  "vars": {
+    "W": { "base": 120, "when": [{ "key": "DeskTop_160_80", "value": 160 }] },
+    "D": { "base": 60, "when": [{ "key": "DeskTop_160_80", "value": 80 }] },
+    "T": { "base": 3.6 },
+    "H": {
+      "base": 74,
+      "when": [{ "key": "Legs_ElectricStanding", "value": 102 }]
+    },
+    "LI": { "base": 7 }
+  },
+
+  "slots": {
+    "surface": {
+      "base": "oak",
+      "when": [{ "key": "Material_Desk_DarkWalnut", "material": "walnut" }]
+    }
+  },
+
+  "materials": {
+    "oak": { "color": "#c8975a", "sheen": 0.07 },
+    "walnut": { "color": "#4d3425", "sheen": 0.09 },
+    "steelDark": { "color": "#3a414b", "sheen": 0.45 },
+    "steelLight": { "color": "#b4bcc6", "sheen": 0.55 },
+    "black": { "color": "#1f2228", "sheen": 0.3 },
+    "glow": { "color": "#9b6cff", "emissive": true },
+    "glowFloor": { "color": "#9b6cff", "emissive": true, "opacity": 0.28 },
+    "readout": { "color": "#6fe3f5", "emissive": true }
+  },
+
+  "parts": [
+    {
+      "id": "top",
+      "label": "tablero",
+      "shape": "box",
+      "material": "slot:surface",
+      "at": ["0", "H - T/2", "0"],
+      "size": ["W", "T", "D"]
+    },
+
+    {
+      "id": "leg-front-right",
+      "label": "patas fijas",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_Fixed"],
+      "at": ["W/2 - LI", "(H - T)/2", "D/2 - LI"],
+      "size": ["4.6", "H - T", "4.6"]
+    },
+    {
+      "id": "leg-front-left",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_Fixed"],
+      "at": ["-(W/2 - LI)", "(H - T)/2", "D/2 - LI"],
+      "size": ["4.6", "H - T", "4.6"]
+    },
+    {
+      "id": "leg-back-right",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_Fixed"],
+      "at": ["W/2 - LI", "(H - T)/2", "-(D/2 - LI)"],
+      "size": ["4.6", "H - T", "4.6"]
+    },
+    {
+      "id": "leg-back-left",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_Fixed"],
+      "at": ["-(W/2 - LI)", "(H - T)/2", "-(D/2 - LI)"],
+      "size": ["4.6", "H - T", "4.6"]
+    },
+    {
+      "id": "leg-brace",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_Fixed"],
+      "at": ["0", "H - T - 9", "-(D/2 - LI)"],
+      "size": ["W - 2*LI - 8", "3", "3"]
+    },
+
+    {
+      "id": "lift-foot-right",
+      "label": "columnas elevables",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["W/2 - LI - 2", "1.7", "0"],
+      "size": ["7", "3.4", "D - 14"]
+    },
+    {
+      "id": "lift-foot-left",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["-(W/2 - LI - 2)", "1.7", "0"],
+      "size": ["7", "3.4", "D - 14"]
+    },
+    {
+      "id": "lift-column-right",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["W/2 - LI - 2", "(H - T)*0.32", "0"],
+      "size": ["9.6", "(H - T)*0.6", "9.6"]
+    },
+    {
+      "id": "lift-column-left",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["-(W/2 - LI - 2)", "(H - T)*0.32", "0"],
+      "size": ["9.6", "(H - T)*0.6", "9.6"]
+    },
+    {
+      "id": "lift-stage-right",
+      "shape": "box",
+      "material": "steelLight",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["W/2 - LI - 2", "(H - T)*0.73", "0"],
+      "size": ["7.6", "(H - T)*0.5", "7.6"]
+    },
+    {
+      "id": "lift-stage-left",
+      "shape": "box",
+      "material": "steelLight",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["-(W/2 - LI - 2)", "(H - T)*0.73", "0"],
+      "size": ["7.6", "(H - T)*0.5", "7.6"]
+    },
+    {
+      "id": "lift-crossbar",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["0", "H - T - 8", "-(D/2 - LI - 4)"],
+      "size": ["W - 2*LI - 12", "4.4", "5"]
+    },
+    {
+      "id": "lift-panel",
+      "label": "mando de altura",
+      "shape": "box",
+      "material": "black",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["W/2 - 26", "H - T - 2.4", "D/2 - 6"],
+      "size": ["13", "2.6", "7"]
+    },
+    {
+      "id": "lift-readout",
+      "shape": "box",
+      "material": "readout",
+      "when": ["Legs_ElectricStanding"],
+      "at": ["W/2 - 26", "H - T - 2.6", "D/2 - 2.1"],
+      "size": ["7", "1.5", "1"]
+    },
+
+    {
+      "id": "pedestal-left",
+      "label": "cajonera izquierda",
+      "shape": "box",
+      "material": "slot:surface",
+      "when": ["Drawer_Left"],
+      "at": ["-(W/2 - 24)", "(H - T + 20)/2", "0"],
+      "size": ["40", "H - T - 20", "D - 12"]
+    },
+    {
+      "id": "pedestal-left-handle-upper",
+      "shape": "tube",
+      "material": "steelLight",
+      "when": ["Drawer_Left"],
+      "from": ["-(W/2 - 24) - 12", "H - T - 17", "(D - 12)/2 + 1.6"],
+      "to": ["-(W/2 - 24) + 12", "H - T - 17", "(D - 12)/2 + 1.6"],
+      "radius": "0.9"
+    },
+    {
+      "id": "pedestal-left-handle-lower",
+      "shape": "tube",
+      "material": "steelLight",
+      "when": ["Drawer_Left"],
+      "from": ["-(W/2 - 24) - 12", "H - T - 36", "(D - 12)/2 + 1.6"],
+      "to": ["-(W/2 - 24) + 12", "H - T - 36", "(D - 12)/2 + 1.6"],
+      "radius": "0.9"
+    },
+
+    {
+      "id": "pedestal-right",
+      "label": "cajonera derecha",
+      "shape": "box",
+      "material": "slot:surface",
+      "when": ["Drawer_Right"],
+      "at": ["W/2 - 24", "(H - T + 20)/2", "0"],
+      "size": ["40", "H - T - 20", "D - 12"]
+    },
+    {
+      "id": "pedestal-right-handle-upper",
+      "shape": "tube",
+      "material": "steelLight",
+      "when": ["Drawer_Right"],
+      "from": ["W/2 - 24 - 12", "H - T - 17", "(D - 12)/2 + 1.6"],
+      "to": ["W/2 - 24 + 12", "H - T - 17", "(D - 12)/2 + 1.6"],
+      "radius": "0.9"
+    },
+    {
+      "id": "pedestal-right-handle-lower",
+      "shape": "tube",
+      "material": "steelLight",
+      "when": ["Drawer_Right"],
+      "from": ["W/2 - 24 - 12", "H - T - 36", "(D - 12)/2 + 1.6"],
+      "to": ["W/2 - 24 + 12", "H - T - 36", "(D - 12)/2 + 1.6"],
+      "radius": "0.9"
+    },
+
+    {
+      "id": "riser-shelf",
+      "label": "soporte para monitor",
+      "shape": "box",
+      "material": "slot:surface",
+      "when": ["Accessory_MonitorStand"],
+      "at": ["0", "H + 8.2", "-D/2 + 17"],
+      "size": ["W*0.4", "2.6", "23"]
+    },
+    {
+      "id": "riser-foot-left",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Accessory_MonitorStand"],
+      "at": ["-W*0.155", "H + 4", "-D/2 + 17"],
+      "size": ["3", "8.4", "21"]
+    },
+    {
+      "id": "riser-foot-right",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Accessory_MonitorStand"],
+      "at": ["W*0.155", "H + 4", "-D/2 + 17"],
+      "size": ["3", "8.4", "21"]
+    },
+
+    {
+      "id": "cable-tray",
+      "label": "bandeja para cables",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Accessory_CableTray"],
+      "at": ["0", "H - T - 9", "-D/2 + 12"],
+      "size": ["W*0.46", "6", "9"]
+    },
+    {
+      "id": "cable-tray-lip",
+      "shape": "box",
+      "material": "steelLight",
+      "when": ["Accessory_CableTray"],
+      "at": ["0", "H - T - 5.6", "-D/2 + 16.2"],
+      "size": ["W*0.46", "1.2", "1.2"]
+    },
+
+    {
+      "id": "rgb-strip",
+      "label": "iluminación RGB",
+      "shape": "box",
+      "material": "glow",
+      "when": ["Accessory_RgbLighting"],
+      "at": ["0", "H - T - 1", "D/2 - 2.6"],
+      "size": ["W - 16", "1.5", "2"]
+    },
+    {
+      "id": "rgb-floor-wash",
+      "shape": "box",
+      "material": "glowFloor",
+      "when": ["Accessory_RgbLighting"],
+      "at": ["0", "0.25", "D/2 - 1"],
+      "size": ["W - 24", "0.5", "16"]
+    },
+
+    {
+      "id": "headphone-bracket",
+      "label": "soporte para auriculares",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Accessory_HeadphoneHolder"],
+      "at": ["W/2 - 9", "H - T - 2.8", "D/2 - 14"],
+      "size": ["3", "5.6", "10"]
+    },
+    {
+      "id": "headphone-hook",
+      "shape": "tube",
+      "material": "steelLight",
+      "when": ["Accessory_HeadphoneHolder"],
+      "from": ["W/2 - 9", "H - T - 5.4", "D/2 - 18.6"],
+      "to": ["W/2 - 9", "H - T - 10", "D/2 - 20.6"],
+      "radius": "1.1"
+    }
+  ]
+}

@@ -6,10 +6,11 @@
  * to render unrelated products without a branch.
  */
 
-import { evaluate, sumMoney } from "./demo/evaluator";
+import { sumMoney } from "./demo/evaluator";
 import type {
   CatalogOption,
   CatalogOptionGroup,
+  CompatibilityRule,
   ProductCatalog,
 } from "./types";
 
@@ -88,23 +89,59 @@ export function selectedVisualKeys(
 }
 
 /**
- * Rules the current selection would break, evaluated locally for immediate
- * feedback. Advisory only: the server still decides, and the UI labels these
- * as a preview rather than as a verdict.
+ * Compatibility rules the current selection breaks.
+ *
+ * This is the preview the browser shows while the user is still choosing, and
+ * it is advisory: the authoritative verdict is `ConfigurationEvaluator` on the
+ * server, mirrored for offline mode by `demo/evaluator`. It reports rules even
+ * while a group is still missing a required choice, which the mirrored
+ * evaluator deliberately does not — a verdict stops at the first class of
+ * error, a preview should show the user everything that is in their way.
  */
+export function unsatisfiedRules(
+  catalog: ProductCatalog,
+  selectedOptionCodes: string[],
+): CompatibilityRule[] {
+  const selected = new Set(selectedOptionCodes);
+
+  return catalog.product.compatibilityRules.filter(
+    (rule) =>
+      rule.type === "RequiresAny" &&
+      rule.sourceOptionCodes.some((code) => selected.has(code)) &&
+      !rule.targetOptionCodes.some((code) => selected.has(code)),
+  );
+}
+
+/** The messages of {@link unsatisfiedRules}, in catalog order. */
 export function pendingRuleWarnings(
   catalog: ProductCatalog,
   selectedOptionCodes: string[],
 ): string[] {
-  if (selectedOptionCodes.length === 0) {
-    return [];
+  return unsatisfiedRules(catalog, selectedOptionCodes).map(
+    (rule) => rule.message,
+  );
+}
+
+/**
+ * How a given option relates to the rules the selection currently breaks:
+ * `"conflict"` for a selected option that triggers one, `"resolves"` for an
+ * option that would satisfy one, `null` for everything else.
+ */
+export function ruleRoleFor(
+  rules: readonly CompatibilityRule[],
+  optionCode: string,
+  isSelected: boolean,
+): "conflict" | "resolves" | null {
+  if (
+    isSelected &&
+    rules.some((rule) => rule.sourceOptionCodes.includes(optionCode))
+  ) {
+    return "conflict";
   }
 
-  const evaluation = evaluate(catalog, selectedOptionCodes);
-
-  return evaluation.errors
-    .filter((error) => error.code === "INVALID_OPTION_COMBINATION")
-    .map((error) => error.message);
+  return rules.some((rule) => rule.targetOptionCodes.includes(optionCode))
+    ? "resolves"
+    : null;
 }
 
 /** Groups still missing a required choice, in catalog order. */

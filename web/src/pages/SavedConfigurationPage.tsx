@@ -109,9 +109,7 @@ export function SavedConfigurationPage({
               saved.currencyCode,
             )}
           </strong>
-          <small>
-            Este importe queda congelado aunque cambie el catálogo.
-          </small>
+          <small>Congelada al guardar.</small>
         </div>
       </header>
 

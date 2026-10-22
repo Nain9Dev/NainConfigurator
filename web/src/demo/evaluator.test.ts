@@ -125,11 +125,7 @@ describe("configuration evaluator", () => {
   });
 
   it("adds money without floating-point drift", () => {
-    const result = evaluate(catalog(), [
-      "SIZE_LARGE",
-      "EXTRA_A",
-      "EXTRA_B",
-    ]);
+    const result = evaluate(catalog(), ["SIZE_LARGE", "EXTRA_A", "EXTRA_B"]);
 
     // 379.90 + 80.00 + 45.50 + 12.25, which a naive float sum gets wrong.
     expect(result.estimatedPrice).toBe(517.65);

@@ -10,14 +10,32 @@
 [![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vitest Passing](https://img.shields.io/badge/Vitest-16%2F16%20Passing-80FF00?style=flat-square&logo=vitest&logoColor=white)](https://configurator.naindev.com/)
-[![Domain Tests](https://img.shields.io/badge/Domain%20Tests-9%20Passing-80FF00?style=flat-square&logo=checkmarx&logoColor=black)](backend)
+[![Vitest](https://img.shields.io/badge/Vitest-83%20passing-80FF00?style=flat-square&logo=vitest&logoColor=white)](web)
+[![Journeys](https://img.shields.io/badge/E2E-20%20cross--browser%20journeys-80FF00?style=flat-square&logo=playwright&logoColor=white)](web/e2e)
+[![WCAG](https://img.shields.io/badge/WCAG%202.2-AA%20gated%20by%20axe-80FF00?style=flat-square&logo=accessibleicon&logoColor=white)](web/e2e)
+[![License](https://img.shields.io/badge/License-AGPL--3.0--or--later-38bdf8?style=flat-square)](LICENSE)
 
 </div>
 
-**Demo Online Interactiva:** [https://configurator.naindev.com/](https://configurator.naindev.com/) (Motor de compatibilidad y catálogo determinista en navegador, coste 0,00 €)
+**Demo online:** [configurator.naindev.com](https://configurator.naindev.com/) — the whole configurator runs in the browser against a bundled synthetic catalog. No backend, no database, no cloud resource, 0,00 € of recurring cost.
 
 NainConfigurator is a catalog-driven B2B product configurator designed to support fundamentally different products without customer-specific code, API contracts, database columns or deployment forks.
+
+---
+
+## The problem it solves
+
+A manufacturer selling configurable product usually ends up with one configurator per customer. Every new account adds columns, endpoints and a deployment of its own, so the cost of maintaining the system grows with every sale.
+
+Here, a product is rows. Option groups, selection limits, compatibility rules, prices **and the scene the buyer looks at** are catalog data. The demo ships two unrelated products — a modular desk and an urban bicycle — that share one schema, one public contract, one renderer and one release.
+
+| Usual pattern | This engine |
+|---|---|
+| A column per customer property | Products, options and rules are rows |
+| An endpoint per product | One public contract for every product |
+| A branch and a deployment per brand | One deployment, isolated per company |
+| Price reimplemented client and server side | The server reprices before anything is saved |
+| A preview component per product | One renderer interpreting a published visual pack |
 
 ---
 
@@ -25,10 +43,15 @@ NainConfigurator is a catalog-driven B2B product configurator designed to suppor
 
 ```mermaid
 graph TB
-    subgraph ClientLayer["Frontend Layer (:5280 / configurator.naindev.com)"]
-        ReactShell["React 19 Commercial Shell<br/><code>Vite + TypeScript</code><br/><i>Accessible UI, WCAG 2.1 AA</i>"]
+    subgraph ClientLayer["Frontend Layer (:5180 / configurator.naindev.com)"]
+        ReactShell["React 19 Commercial Shell<br/><code>Vite + TypeScript</code><br/><i>Accessible UI, WCAG 2.2 AA</i>"]
         ClientEvaluator["Browser Rule Evaluator<br/><i>Offline Deterministic Catalog &amp; Cart</i>"]
-        BabylonRenderer["Babylon.js 3D Viewer<br/><i>(Optional / Lazy-Loaded Runtime)</i>"]
+        SceneRenderer["Visual Pack Renderer<br/><i>Generic SVG scene engine, no WebGL</i>"]
+        BabylonRenderer["Babylon.js 3D Viewer<br/><i>(Deferred / ARCH-019)</i>"]
+    end
+
+    subgraph AssetLayer["Published Assets"]
+        VisualPacks[("Visual packs<br/><i>Declarative scenes keyed by visualAssetKey</i>")]
     end
 
     subgraph BackendLayer["Backend Monolith Layer (:8080)"]
@@ -42,7 +65,10 @@ graph TB
     end
 
     ReactShell --> ClientEvaluator
+    ReactShell --> SceneRenderer
+    SceneRenderer -->|"visualAssetKey"| VisualPacks
     ReactShell -.-> BabylonRenderer
+    BabylonRenderer -.-> VisualPacks
     ReactShell -->|"HTTP / REST API (Quotes &amp; Catalogs)"| ApiHost
     ApiHost --> DomainEngine
     DomainEngine --> SqlServer
@@ -52,10 +78,39 @@ graph TB
     classDef backend fill:#002B66,stroke:#80FF00,stroke-width:2px,color:#FFFFFF;
     classDef db fill:#060D1A,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF;
 
-    class ReactShell,ClientEvaluator,BabylonRenderer client;
+    class ReactShell,ClientEvaluator,SceneRenderer,BabylonRenderer client;
     class ApiHost,DomainEngine,Migrator backend;
-    class SqlServer db;
+    class SqlServer,VisualPacks db;
 ```
+
+The dotted edges are deferred: `ARCH-019` keeps the Babylon.js runtime out of the MVP, and a visual pack is projection-independent, so that adapter can consume the same document when it arrives.
+
+## Catalog-driven visuals
+
+The preview is not a component per product. It is a **visual pack**: a declarative scene document addressed by the product's existing `visualAssetKey`, published under [`assets/visual-packs`](assets/visual-packs) and interpreted by a generic renderer in [`web/src/visual`](web/src/visual) that names no product, company or option.
+
+```jsonc
+{
+  "vars": { "W": { "base": 120, "when": [{ "key": "DeskTop_160_80", "value": 160 }] } },
+  "slots": { "surface": { "base": "oak", "when": [{ "key": "Material_Desk_DarkWalnut", "material": "walnut" }] } },
+  "parts": [
+    { "id": "top", "shape": "box", "material": "slot:surface",
+      "at": ["0", "H - T/2", "0"], "size": ["W", "T", "D"] },
+    { "id": "pedestal-left", "shape": "box", "material": "slot:surface",
+      "when": ["Drawer_Left"], "at": ["-(W/2 - 24)", "(H - T + 20)/2", "0"],
+      "size": ["40", "H - T - 20", "D - 12"] }
+  ]
+}
+```
+
+The only input is the set of `visualAssetKey` values the catalog already carries on the product and on each selected option. Geometry uses three primitives (`box`, `tube`, `ring`); numbers are arithmetic over the pack's own variables, evaluated by a closed parser that cannot resolve anything the pack did not declare.
+
+- No WebGL context, no binary asset, no request beyond the pack itself.
+- No change to the public API contract, the database schema or any migration.
+- A missing or malformed pack degrades to the accessible fallback view; the commercial flow never depends on it.
+- The visual never takes part in validation, pricing or persistence.
+
+See `ARCH-020` in the [decision log](<docs/Proyectos Documentación/NainConfigurator/07-DecisionLog.md>) and [`specs/001-catalog-driven-visualization`](specs/001-catalog-driven-visualization).
 
 ---
 
@@ -88,7 +143,8 @@ This does not promise zero-cost production. A paying-customer environment may re
 | `renderer` | Future Babylon.js adapter and browser 3D runtime | Documentation placeholder |
 | `database` | Versioned SQL Server migration and synthetic product catalogs | Technical Demo candidate |
 | `tests` | Cross-stack verification and source-to-test traceability | Technical Demo candidate |
-| `assets` | Future controlled source/published 3D asset pipeline | Documentation placeholder |
+| `assets` | Published visual packs and the future glTF/GLB pipeline | Visual packs active |
+| `specs` | Feature specifications, designs and task state | Active |
 | `ops` | LocalDemo packaging, integrity, reset, start, smoke and recovery | Technical Demo candidate |
 | `eng` | Reproducible local tools, quality gates and dependency evidence | Active |
 
@@ -134,6 +190,22 @@ The generated attended-demo package and runbook are under the ignored `artifacts
 - Use Git LFS only after asset size and free-tier limits are reviewed.
 - GitHub is an off-device copy and collaboration system, not the only backup.
 
-## Ownership
+## Running the web demo locally
 
-Private commercial project owned by Nain9Dev. No license to use, copy or distribute the project source or documentation is granted by repository access alone. Third-party components retain their own licenses.
+```bash
+cd web
+npm ci
+npm run start      # http://127.0.0.1:5180, offline catalog, no backend needed
+```
+
+```bash
+cd web
+npm test                  # 83 unit tests
+npm run test:e2e:offline  # 20 journeys on Chromium, Firefox, WebKit and mobile Chromium
+```
+
+`npm run start` and `npm run build` both run `npm run catalog` first, which projects the SQL seed into the offline catalog and stages every visual pack into `web/public/visual-packs` (generated; the authored source is `assets/visual-packs`).
+
+## Ownership and license
+
+Copyright Nain9Dev. The source and documentation in this repository are published under the **AGPL-3.0-or-later** license in [`LICENSE`](LICENSE); third-party components retain their own licenses. Synthetic demo data is part of the repository and describes no real company, product or person.

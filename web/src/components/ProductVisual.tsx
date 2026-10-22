@@ -2,45 +2,119 @@ import { useMemo } from "react";
 
 import { selectedVisualKeys } from "../catalog";
 import type { ProductCatalog } from "../types";
+import { Stage } from "../visual/Stage";
+import type { PackState } from "../visual/useVisualPack";
 
 /**
- * The accessible SL-002 fallback view.
+ * The scene panel.
  *
- * It draws the *composition* of a configuration, not the product: one plate per
- * selected visual asset key, stacked in catalog order, with a hue derived from
- * the key itself. That is why it works unchanged for a desk and for a bicycle —
- * it never needs to know which one it is drawing.
+ * It draws the *composition* of a configuration, never a product this code
+ * knows about. When the catalog's `visualAssetKey` resolves to a published
+ * visual pack, a generic scene renderer interprets that pack against the
+ * selected option keys. When it does not — no pack, offline, malformed — the
+ * accessible plate stack takes over and the commercial flow is unaffected.
  *
- * The optional Babylon.js renderer replaces this panel through the approved
- * adapter without touching catalog, validation, persistence or the controls.
- * Nothing here can alter a rule or a price.
+ * Neither view can alter a rule or a price.
  */
 export function ProductVisual({
   catalog,
   selectedOptionCodes,
+  packState,
 }: {
   catalog: ProductCatalog;
   selectedOptionCodes: string[];
+  packState: PackState;
 }) {
   const visualKeys = useMemo(
     () => selectedVisualKeys(catalog, selectedOptionCodes),
     [catalog, selectedOptionCodes],
   );
 
+  const { status, pack } = packState;
+  const isScene = status === "ready" && pack !== null;
+
+  return (
+    <section className="studio-stage" aria-labelledby="preview-title">
+      <h2 className="visually-hidden" id="preview-title">
+        {isScene ? "Previsualización" : "Composición del producto"}
+      </h2>
+
+      {isScene ? (
+        <Stage
+          pack={pack}
+          productName={catalog.product.name}
+          selectedVisualKeys={visualKeys}
+        />
+      ) : (
+        <PlateStack
+          isLoading={status === "loading"}
+          productCode={catalog.product.code}
+          productName={catalog.product.name}
+          visualKeys={visualKeys}
+        />
+      )}
+
+      <div className="stage-footer">
+        <p className="stage-caption">
+          {isScene
+            ? "La escena se interpreta desde el catálogo. Su estado nunca altera reglas ni precio."
+            : "Vista accesible de respaldo. Su estado nunca altera reglas ni precio."}
+        </p>
+
+        <details className="asset-details">
+          <summary>
+            Ver componentes visuales
+            <span className="asset-count">{visualKeys.length}</span>
+          </summary>
+          {visualKeys.length === 0 ? (
+            <p className="asset-overflow">
+              No hay componentes visuales adicionales.
+            </p>
+          ) : (
+            <ul className="asset-list">
+              {visualKeys.map((key) => (
+                <li key={key}>
+                  <span
+                    aria-hidden="true"
+                    className="asset-swatch"
+                    style={{ ["--plate-hue" as string]: `${hue(key)}` }}
+                  />
+                  <code>{key}</code>
+                </li>
+              ))}
+            </ul>
+          )}
+        </details>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * The fallback: one plate per selected visual asset key, stacked in catalog
+ * order, with a hue derived from the key itself. It needs no pack and no
+ * knowledge of the product, which is exactly why it is the safe floor.
+ */
+function PlateStack({
+  visualKeys,
+  productCode,
+  productName,
+  isLoading,
+}: {
+  visualKeys: string[];
+  productCode: string;
+  productName: string;
+  isLoading: boolean;
+}) {
   const plates = visualKeys.slice(0, MAX_PLATES);
   const hidden = visualKeys.length - plates.length;
 
   return (
-    <section className="visual-fallback" aria-labelledby="preview-title">
-      <div className="panel-heading">
-        <p className="section-index">Vista</p>
-        <h2 id="preview-title">Composición del producto</h2>
-      </div>
-
+    <>
       <div
-        className="visual-stage"
+        className={`visual-stage${isLoading ? " is-loading" : ""}`}
         role="img"
-        aria-label={`${catalog.product.name}. ${visualKeys.length} componentes visuales seleccionados.`}
+        aria-label={`${productName}. ${visualKeys.length} componentes visuales seleccionados.`}
       >
         <svg
           aria-hidden="true"
@@ -86,46 +160,18 @@ export function ProductVisual({
           )}
 
           <text className="visual-caption" x="160" y="228">
-            {catalog.product.code}
+            {productCode}
           </text>
         </svg>
       </div>
 
-      <details className="asset-details">
-        <summary>
-          Ver componentes visuales
-          <span className="asset-count">{visualKeys.length}</span>
-        </summary>
-        {visualKeys.length === 0 ? (
-          <p>No hay componentes visuales adicionales.</p>
-        ) : (
-          <ul className="asset-list">
-            {visualKeys.map((key) => (
-              <li key={key}>
-                <span
-                  aria-hidden="true"
-                  className="asset-swatch"
-                  style={{
-                    ["--plate-hue" as string]: `${hue(key)}`,
-                  }}
-                />
-                <code>{key}</code>
-              </li>
-            ))}
-          </ul>
-        )}
-        {hidden > 0 && (
-          <p className="asset-overflow">
-            Se dibujan {MAX_PLATES} capas; la lista incluye las {hidden}{" "}
-            restantes.
-          </p>
-        )}
-      </details>
-
-      <p className="fallback-note">
-        Vista accesible de respaldo. Su estado nunca altera reglas ni precio.
-      </p>
-    </section>
+      {hidden > 0 && (
+        <p className="asset-overflow">
+          Se dibujan {MAX_PLATES} capas; la lista incluye las {hidden}{" "}
+          restantes.
+        </p>
+      )}
+    </>
   );
 }
 

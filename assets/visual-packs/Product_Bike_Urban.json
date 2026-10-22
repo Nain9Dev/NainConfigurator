@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 1,
+  "key": "Product_Bike_Urban",
+  "label": "Bicicleta urbana de aventura",
+  "camera": { "yaw": 16, "pitch": 11, "scale": 1, "target": [0, 0, 0] },
+  "frame": { "width": 820, "height": 500 },
+  "light": { "yaw": -46, "pitch": 46 },
+  "ground": { "spreadX": 0.96, "spreadZ": 0.9 },
+
+  "vars": {
+    "S": {
+      "base": 1,
+      "when": [
+        { "key": "Bike_Frame_S", "value": 0.93 },
+        { "key": "Bike_Frame_L", "value": 1.07 }
+      ]
+    },
+    "TTS": { "base": 84, "when": [{ "key": "Bike_Style_Gravel", "value": 78 }] },
+    "TTH": { "base": 82, "when": [{ "key": "Bike_Style_Gravel", "value": 86 }] }
+  },
+
+  "slots": {
+    "frame": {
+      "base": "paintTeal",
+      "when": [{ "key": "Bike_Style_Gravel", "material": "paintSand" }]
+    }
+  },
+
+  "materials": {
+    "paintTeal": { "color": "#1d7a6e", "sheen": 0.38 },
+    "paintSand": { "color": "#b9793a", "sheen": 0.38 },
+    "tyre": { "color": "#1c1e22", "sheen": 0.08 },
+    "rim": { "color": "#b4bdc6", "sheen": 0.6 },
+    "chain": { "color": "#8b9199", "sheen": 0.5 },
+    "saddle": { "color": "#24262b", "sheen": 0.2 },
+    "steelDark": { "color": "#39404a", "sheen": 0.45 },
+    "fender": { "color": "#99a2ab", "sheen": 0.5 },
+    "motor": { "color": "#2b2f36", "sheen": 0.42 },
+    "battery": { "color": "#333942", "sheen": 0.35 },
+    "lightFront": { "color": "#ffe6a3", "emissive": true },
+    "lightRear": { "color": "#ff6f6f", "emissive": true },
+    "display": { "color": "#7fe8ff", "emissive": true }
+  },
+
+  "parts": [
+    {
+      "id": "tyre-rear",
+      "label": "rueda trasera",
+      "shape": "ring",
+      "material": "tyre",
+      "at": ["-46", "34", "0"],
+      "radius": "32",
+      "tube": "2.6",
+      "plane": "xy"
+    },
+    {
+      "id": "tyre-front",
+      "label": "rueda delantera",
+      "shape": "ring",
+      "material": "tyre",
+      "at": ["60", "34", "0"],
+      "radius": "32",
+      "tube": "2.6",
+      "plane": "xy"
+    },
+    {
+      "id": "rim-rear",
+      "shape": "ring",
+      "material": "rim",
+      "at": ["-46", "34", "0"],
+      "radius": "27",
+      "tube": "1.4",
+      "plane": "xy"
+    },
+    {
+      "id": "rim-front",
+      "shape": "ring",
+      "material": "rim",
+      "at": ["60", "34", "0"],
+      "radius": "27",
+      "tube": "1.4",
+      "plane": "xy"
+    },
+
+    {
+      "id": "spoke-rear-a",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["-73", "34", "0"],
+      "to": ["-19", "34", "0"],
+      "radius": "0.45"
+    },
+    {
+      "id": "spoke-rear-b",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["-59.5", "10.62", "0"],
+      "to": ["-32.5", "57.38", "0"],
+      "radius": "0.45"
+    },
+    {
+      "id": "spoke-rear-c",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["-32.5", "10.62", "0"],
+      "to": ["-59.5", "57.38", "0"],
+      "radius": "0.45"
+    },
+    {
+      "id": "spoke-front-a",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["33", "34", "0"],
+      "to": ["87", "34", "0"],
+      "radius": "0.45"
+    },
+    {
+      "id": "spoke-front-b",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["46.5", "10.62", "0"],
+      "to": ["73.5", "57.38", "0"],
+      "radius": "0.45"
+    },
+    {
+      "id": "spoke-front-c",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["73.5", "10.62", "0"],
+      "to": ["46.5", "57.38", "0"],
+      "radius": "0.45"
+    },
+    {
+      "id": "hub-rear",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["-46", "34", "-2.6"],
+      "to": ["-46", "34", "2.6"],
+      "radius": "2.2"
+    },
+    {
+      "id": "hub-front",
+      "shape": "tube",
+      "material": "rim",
+      "from": ["60", "34", "-2.6"],
+      "to": ["60", "34", "2.6"],
+      "radius": "2.2"
+    },
+
+    {
+      "id": "seat-tube",
+      "label": "cuadro",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["0", "27", "0"],
+      "to": ["-13", "TTS*S", "0"],
+      "radius": "2"
+    },
+    {
+      "id": "down-tube",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["0", "27", "0"],
+      "to": ["56", "66", "0"],
+      "radius": "2.3"
+    },
+    {
+      "id": "top-tube",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["-13", "TTS*S", "0"],
+      "to": ["52", "TTH*S", "0"],
+      "radius": "1.9"
+    },
+    {
+      "id": "head-tube",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["56", "66", "0"],
+      "to": ["51", "TTH*S + 4", "0"],
+      "radius": "2.6"
+    },
+    {
+      "id": "chain-stay-right",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["0", "27", "2.6"],
+      "to": ["-46", "34", "2.6"],
+      "radius": "1.4"
+    },
+    {
+      "id": "chain-stay-left",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["0", "27", "-2.6"],
+      "to": ["-46", "34", "-2.6"],
+      "radius": "1.4"
+    },
+    {
+      "id": "seat-stay-right",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["-13", "TTS*S - 2", "1.8"],
+      "to": ["-46", "34", "2.6"],
+      "radius": "1.3"
+    },
+    {
+      "id": "seat-stay-left",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["-13", "TTS*S - 2", "-1.8"],
+      "to": ["-46", "34", "-2.6"],
+      "radius": "1.3"
+    },
+    {
+      "id": "fork-right",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["56", "66", "2.6"],
+      "to": ["60", "34", "2.6"],
+      "radius": "1.5"
+    },
+    {
+      "id": "fork-left",
+      "shape": "tube",
+      "material": "slot:frame",
+      "from": ["56", "66", "-2.6"],
+      "to": ["60", "34", "-2.6"],
+      "radius": "1.5"
+    },
+
+    {
+      "id": "seat-post",
+      "shape": "tube",
+      "material": "steelDark",
+      "from": ["-13", "TTS*S", "0"],
+      "to": ["-16", "TTS*S + 13", "0"],
+      "radius": "1.3"
+    },
+    {
+      "id": "saddle",
+      "label": "sillín",
+      "shape": "box",
+      "material": "saddle",
+      "at": ["-18", "TTS*S + 15", "0"],
+      "size": ["23", "3.4", "8"]
+    },
+
+    {
+      "id": "stem",
+      "shape": "tube",
+      "material": "steelDark",
+      "from": ["51", "TTH*S + 4", "0"],
+      "to": ["56", "TTH*S + 8", "0"],
+      "radius": "1.5"
+    },
+    {
+      "id": "handlebar-flat",
+      "label": "manillar plano",
+      "shape": "tube",
+      "material": "steelDark",
+      "when": ["Bike_Style_City"],
+      "from": ["56", "TTH*S + 8", "-21"],
+      "to": ["56", "TTH*S + 8", "21"],
+      "radius": "1.3"
+    },
+    {
+      "id": "handlebar-drop-top",
+      "label": "manillar de carretera",
+      "shape": "tube",
+      "material": "steelDark",
+      "when": ["Bike_Style_Gravel"],
+      "from": ["56", "TTH*S + 8", "-19"],
+      "to": ["56", "TTH*S + 8", "19"],
+      "radius": "1.3"
+    },
+    {
+      "id": "handlebar-drop-right",
+      "shape": "tube",
+      "material": "steelDark",
+      "when": ["Bike_Style_Gravel"],
+      "from": ["56", "TTH*S + 8", "19"],
+      "to": ["66", "TTH*S + 2", "19"],
+      "radius": "1.3"
+    },
+    {
+      "id": "handlebar-drop-left",
+      "shape": "tube",
+      "material": "steelDark",
+      "when": ["Bike_Style_Gravel"],
+      "from": ["56", "TTH*S + 8", "-19"],
+      "to": ["66", "TTH*S + 2", "-19"],
+      "radius": "1.3"
+    },
+    {
+      "id": "handlebar-hood-right",
+      "shape": "tube",
+      "material": "saddle",
+      "when": ["Bike_Style_Gravel"],
+      "from": ["66", "TTH*S + 2", "19"],
+      "to": ["68", "TTH*S - 8", "19"],
+      "radius": "1.4"
+    },
+    {
+      "id": "handlebar-hood-left",
+      "shape": "tube",
+      "material": "saddle",
+      "when": ["Bike_Style_Gravel"],
+      "from": ["66", "TTH*S + 2", "-19"],
+      "to": ["68", "TTH*S - 8", "-19"],
+      "radius": "1.4"
+    },
+    {
+      "id": "grip-right",
+      "shape": "tube",
+      "material": "saddle",
+      "when": ["Bike_Style_City"],
+      "from": ["56", "TTH*S + 8", "12"],
+      "to": ["56", "TTH*S + 8", "21"],
+      "radius": "1.7"
+    },
+    {
+      "id": "grip-left",
+      "shape": "tube",
+      "material": "saddle",
+      "when": ["Bike_Style_City"],
+      "from": ["56", "TTH*S + 8", "-12"],
+      "to": ["56", "TTH*S + 8", "-21"],
+      "radius": "1.7"
+    },
+
+    {
+      "id": "chainring",
+      "label": "transmisión",
+      "shape": "ring",
+      "material": "rim",
+      "at": ["0", "27", "3.6"],
+      "radius": "9",
+      "tube": "1",
+      "plane": "xy"
+    },
+    {
+      "id": "cassette",
+      "shape": "ring",
+      "material": "rim",
+      "at": ["-46", "34", "3.2"],
+      "radius": "5",
+      "tube": "1",
+      "plane": "xy"
+    },
+    {
+      "id": "chain-upper",
+      "shape": "tube",
+      "material": "chain",
+      "from": ["0", "36", "3.4"],
+      "to": ["-46", "39", "3.4"],
+      "radius": "0.5"
+    },
+    {
+      "id": "chain-lower",
+      "shape": "tube",
+      "material": "chain",
+      "from": ["0", "18", "3.4"],
+      "to": ["-46", "29", "3.4"],
+      "radius": "0.5"
+    },
+    {
+      "id": "derailleur",
+      "shape": "box",
+      "material": "steelDark",
+      "at": ["-46", "23", "3.8"],
+      "size": ["3.4", "8", "2.6"]
+    },
+    {
+      "id": "crank-right",
+      "shape": "tube",
+      "material": "steelDark",
+      "from": ["0", "27", "4.8"],
+      "to": ["7", "18", "4.8"],
+      "radius": "1.1"
+    },
+    {
+      "id": "crank-left",
+      "shape": "tube",
+      "material": "steelDark",
+      "from": ["0", "27", "-4.8"],
+      "to": ["-7", "36", "-4.8"],
+      "radius": "1.1"
+    },
+    {
+      "id": "pedal-right",
+      "shape": "box",
+      "material": "saddle",
+      "at": ["8", "16.8", "6.6"],
+      "size": ["8.5", "1.8", "4.4"]
+    },
+    {
+      "id": "pedal-left",
+      "shape": "box",
+      "material": "saddle",
+      "at": ["-8", "37.2", "-6.6"],
+      "size": ["8.5", "1.8", "4.4"]
+    },
+
+    {
+      "id": "motor",
+      "label": "motor central",
+      "shape": "box",
+      "material": "motor",
+      "when": ["Bike_Drive_Electric"],
+      "at": ["0", "26", "0"],
+      "size": ["16", "13", "10"]
+    },
+    {
+      "id": "battery",
+      "label": "batería integrada",
+      "shape": "tube",
+      "material": "battery",
+      "when": ["Bike_Drive_Electric"],
+      "from": ["10", "33.5", "0"],
+      "to": ["48", "60", "0"],
+      "radius": "3.6"
+    },
+    {
+      "id": "display",
+      "shape": "box",
+      "material": "display",
+      "when": ["Bike_Drive_Electric"],
+      "at": ["52", "TTH*S + 10", "0"],
+      "size": ["7", "1.8", "9"]
+    },
+
+    {
+      "id": "rotor-rear-mech",
+      "label": "frenos de disco",
+      "shape": "ring",
+      "material": "rim",
+      "when": ["Bike_Brake_Disc"],
+      "at": ["-46", "34", "-3.4"],
+      "radius": "8",
+      "tube": "0.45",
+      "plane": "xy"
+    },
+    {
+      "id": "rotor-front-mech",
+      "shape": "ring",
+      "material": "rim",
+      "when": ["Bike_Brake_Disc"],
+      "at": ["60", "34", "-3.4"],
+      "radius": "8",
+      "tube": "0.45",
+      "plane": "xy"
+    },
+    {
+      "id": "caliper-rear-mech",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Bike_Brake_Disc"],
+      "at": ["-40", "40", "-3.4"],
+      "size": ["3.4", "6", "2.4"]
+    },
+    {
+      "id": "caliper-front-mech",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Bike_Brake_Disc"],
+      "at": ["57", "44", "-3.4"],
+      "size": ["3.4", "6", "2.4"]
+    },
+
+    {
+      "id": "rotor-rear-hydraulic",
+      "label": "frenos hidráulicos",
+      "shape": "ring",
+      "material": "rim",
+      "when": ["Bike_Brake_Hydraulic"],
+      "at": ["-46", "34", "-3.4"],
+      "radius": "9.5",
+      "tube": "0.55",
+      "plane": "xy"
+    },
+    {
+      "id": "rotor-front-hydraulic",
+      "shape": "ring",
+      "material": "rim",
+      "when": ["Bike_Brake_Hydraulic"],
+      "at": ["60", "34", "-3.4"],
+      "radius": "9.5",
+      "tube": "0.55",
+      "plane": "xy"
+    },
+    {
+      "id": "caliper-rear-hydraulic",
+      "shape": "box",
+      "material": "motor",
+      "when": ["Bike_Brake_Hydraulic"],
+      "at": ["-39", "41", "-3.4"],
+      "size": ["4.4", "7.5", "3"]
+    },
+    {
+      "id": "caliper-front-hydraulic",
+      "shape": "box",
+      "material": "motor",
+      "when": ["Bike_Brake_Hydraulic"],
+      "at": ["57", "45", "-3.4"],
+      "size": ["4.4", "7.5", "3"]
+    },
+    {
+      "id": "brake-hose",
+      "shape": "tube",
+      "material": "saddle",
+      "when": ["Bike_Brake_Hydraulic"],
+      "from": ["57", "48", "-3.4"],
+      "to": ["55", "TTH*S + 7", "-6"],
+      "radius": "0.5"
+    },
+
+    {
+      "id": "rack-platform",
+      "label": "portaequipajes",
+      "shape": "box",
+      "material": "steelDark",
+      "when": ["Bike_Accessory_Rack"],
+      "at": ["-50", "TTS*S - 4", "0"],
+      "size": ["32", "2.2", "14"]
+    },
+    {
+      "id": "rack-strut-right",
+      "shape": "tube",
+      "material": "steelDark",
+      "when": ["Bike_Accessory_Rack"],
+      "from": ["-64", "TTS*S - 5", "5.6"],
+      "to": ["-46", "35", "5.6"],
+      "radius": "0.7"
+    },
+    {
+      "id": "rack-strut-left",
+      "shape": "tube",
+      "material": "steelDark",
+      "when": ["Bike_Accessory_Rack"],
+      "from": ["-64", "TTS*S - 5", "-5.6"],
+      "to": ["-46", "35", "-5.6"],
+      "radius": "0.7"
+    },
+    {
+      "id": "rack-stay",
+      "shape": "tube",
+      "material": "steelDark",
+      "when": ["Bike_Accessory_Rack"],
+      "from": ["-36", "TTS*S - 5", "0"],
+      "to": ["-22", "TTS*S - 8", "0"],
+      "radius": "0.7"
+    },
+
+    {
+      "id": "light-front",
+      "label": "luces integradas",
+      "shape": "box",
+      "material": "lightFront",
+      "when": ["Bike_Accessory_Lights"],
+      "at": ["59", "71", "0"],
+      "size": ["6", "5.4", "6.4"]
+    },
+    {
+      "id": "light-rear",
+      "shape": "box",
+      "material": "lightRear",
+      "when": ["Bike_Accessory_Lights"],
+      "at": ["-60", "TTS*S - 10", "0"],
+      "size": ["3.6", "4.4", "5.4"]
+    },
+
+    {
+      "id": "fender-rear-1",
+      "label": "guardabarros",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["-13.96", "52.5", "0"],
+      "to": ["-27.5", "66.04", "0"],
+      "radius": "1.7"
+    },
+    {
+      "id": "fender-rear-2",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["-27.5", "66.04", "0"],
+      "to": ["-46", "71", "0"],
+      "radius": "1.7"
+    },
+    {
+      "id": "fender-rear-3",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["-46", "71", "0"],
+      "to": ["-64.5", "66.04", "0"],
+      "radius": "1.7"
+    },
+    {
+      "id": "fender-rear-4",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["-64.5", "66.04", "0"],
+      "to": ["-78.04", "52.5", "0"],
+      "radius": "1.7"
+    },
+    {
+      "id": "fender-front-1",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["92.04", "52.5", "0"],
+      "to": ["78.5", "66.04", "0"],
+      "radius": "1.7"
+    },
+    {
+      "id": "fender-front-2",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["78.5", "66.04", "0"],
+      "to": ["60", "71", "0"],
+      "radius": "1.7"
+    },
+    {
+      "id": "fender-front-3",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["60", "71", "0"],
+      "to": ["41.5", "66.04", "0"],
+      "radius": "1.7"
+    },
+    {
+      "id": "fender-front-4",
+      "shape": "tube",
+      "material": "fender",
+      "when": ["Bike_Accessory_Fenders"],
+      "from": ["41.5", "66.04", "0"],
+      "to": ["27.96", "52.5", "0"],
+      "radius": "1.7"
+    }
+  ]
+}

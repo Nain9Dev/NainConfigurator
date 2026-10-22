@@ -40,6 +40,10 @@ secrets.json
 *.coverage
 *.coveragexml
 
+# Visual packs staged into the web app by `npm run catalog`.
+# The authored source lives in assets/visual-packs.
+web/public/visual-packs/
+
 # JavaScript output and caches
 **/node_modules/
 **/dist/

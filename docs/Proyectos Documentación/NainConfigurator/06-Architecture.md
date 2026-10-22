@@ -268,6 +268,33 @@ React state remains local feature state plus explicit context/reducer boundaries
 - An unsaved configuration lives in memory only. Reloading or closing the page before save starts again from catalog defaults; the MVP does not promise draft recovery.
 - A successful save replaces the shareable state with the immutable saved-configuration URL. Quote contact values are never encoded in a URL or history state.
 
+## 8bis. Visual pack boundary
+
+Status: Proposed with `ARCH-020`. Implemented in `web` and `assets/visual-packs`; see `specs/001-catalog-driven-visualization`.
+
+### 8bis.1 Role
+
+A visual pack is the shell's product preview source today, and it is data, not code. A pack is a declarative scene document addressed by a product's `visualAssetKey` and published as an asset exactly as a glTF/GLB package is. The renderer that interprets it contains no identifier specific to a product, a company or an option, which is what lets one implementation draw a desk and a bicycle.
+
+A pack declares:
+
+| Element | Meaning |
+|---|---|
+| `vars` | Named dimensions, each with a base value and per-key overrides |
+| `slots` | Named material slots, each with a base material and per-key overrides |
+| `materials` | Colour, specular response, opacity and self-illumination |
+| `parts` | `box`, `tube` or `ring` primitives, with `when`/`unless` visibility |
+
+The only input a pack reads is the set of `visualAssetKey` values the catalog carries on the product and on the currently selected options. Numbers inside a part are arithmetic expressions over the pack's own declared variables, evaluated by a closed parser that resolves no identifier the pack did not declare.
+
+### 8bis.2 Constraints
+
+- A pack must not be read by validation, pricing, normalization or persistence.
+- A missing, unreachable or malformed pack degrades to the accessible fallback view and must not block configuration, validation, saving or quoting.
+- Rendering requires no WebGL context, no binary asset and no network call beyond the pack document.
+- Packs change no public API field, no database column and no migration. `visualAssetKey` was already the join.
+- A pack is projection-independent, so the Babylon.js adapter in section 9 may consume the same document when `ARCH-019` is activated.
+
 ## 9. Babylon.js renderer boundary
 
 ### 9.1 Role

@@ -3,9 +3,13 @@ import { describe, expect, it } from "vitest";
 import {
   calculateDraftPrice,
   defaultSelections,
+  pendingRuleWarnings,
+  ruleRoleFor,
+  selectedVisualKeys,
+  unsatisfiedRules,
   updateSelection,
 } from "./catalog";
-import type { ProductCatalog } from "./types";
+import type { CompatibilityRule, ProductCatalog } from "./types";
 
 const catalog: ProductCatalog = {
   company: {
@@ -77,5 +81,88 @@ describe("catalog-driven selection", () => {
         true,
       ).sort(),
     ).toEqual(["SIZE_B", "UNRELATED"]);
+  });
+});
+
+const RULE: CompatibilityRule = {
+  code: "B_REQUIRES_EXTRA",
+  type: "RequiresAny",
+  sourceOptionCodes: ["SIZE_B"],
+  targetOptionCodes: ["EXTRA_X"],
+  message: "B requires X.",
+};
+
+function withRule(): ProductCatalog {
+  const next = structuredClone(catalog);
+  next.product.compatibilityRules = [RULE];
+  next.product.optionGroups.push({
+    code: "EXTRA",
+    name: "Extra",
+    minSelections: 0,
+    maxSelections: 1,
+    sortOrder: 2,
+    options: [
+      {
+        code: "EXTRA_X",
+        name: "X",
+        priceAdjustment: 10,
+        visualAssetKey: "Extra_X",
+        isDefault: false,
+        sortOrder: 1,
+      },
+    ],
+  });
+
+  return next;
+}
+
+describe("compatibility rule preview", () => {
+  it("reports nothing while the rule is not triggered", () => {
+    expect(unsatisfiedRules(withRule(), ["SIZE_A"])).toEqual([]);
+  });
+
+  it("reports a triggered rule that nothing satisfies", () => {
+    expect(unsatisfiedRules(withRule(), ["SIZE_B"])).toEqual([RULE]);
+    expect(pendingRuleWarnings(withRule(), ["SIZE_B"])).toEqual([
+      "B requires X.",
+    ]);
+  });
+
+  it("clears once a target option is selected", () => {
+    expect(unsatisfiedRules(withRule(), ["SIZE_B", "EXTRA_X"])).toEqual([]);
+  });
+
+  it("reports a rule even while a required group is still empty", () => {
+    // The mirrored server evaluator stops at the first class of error; a
+    // preview must not, or the user never sees what is actually in their way.
+    expect(unsatisfiedRules(withRule(), ["SIZE_B"])).toHaveLength(1);
+  });
+
+  it("marks the selected option that triggers a rule as the conflict", () => {
+    expect(ruleRoleFor([RULE], "SIZE_B", true)).toBe("conflict");
+  });
+
+  it("does not mark an unselected source option", () => {
+    expect(ruleRoleFor([RULE], "SIZE_B", false)).toBeNull();
+  });
+
+  it("marks an option that would satisfy the rule", () => {
+    expect(ruleRoleFor([RULE], "EXTRA_X", false)).toBe("resolves");
+  });
+
+  it("marks nothing when no rule is broken", () => {
+    expect(ruleRoleFor([], "SIZE_B", true)).toBeNull();
+  });
+});
+
+describe("selectedVisualKeys", () => {
+  it("returns the keys of the selected options only", () => {
+    expect(selectedVisualKeys(withRule(), ["SIZE_B", "EXTRA_X"])).toEqual([
+      "Extra_X",
+    ]);
+  });
+
+  it("skips options with no visual asset key", () => {
+    expect(selectedVisualKeys(withRule(), ["SIZE_A"])).toEqual([]);
   });
 });

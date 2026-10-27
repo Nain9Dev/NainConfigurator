@@ -4,6 +4,7 @@ Thumbs.db
 Desktop.ini
 .vs/
 .vscode/
+.claude/
 .idea/
 .local-history/
 *.user

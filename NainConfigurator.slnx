@@ -11,6 +11,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="backend/tests/NainConfigurator.Api.IntegrationTests/NainConfigurator.Api.IntegrationTests.csproj" />
+    <Project Path="backend/tests/NainConfigurator.Architecture.Tests/NainConfigurator.Architecture.Tests.csproj" />
     <Project Path="backend/tests/NainConfigurator.Baseline.Tests/NainConfigurator.Baseline.Tests.csproj" />
     <Project Path="backend/tests/NainConfigurator.Database.IntegrationTests/NainConfigurator.Database.IntegrationTests.csproj" />
     <Project Path="backend/tests/NainConfigurator.Domain.Tests/NainConfigurator.Domain.Tests.csproj" />

@@ -6,6 +6,9 @@
 
 <div align="center">
 
+[![English](https://img.shields.io/badge/Language-English-blue?style=flat-square)](README.md)
+[![Español](https://img.shields.io/badge/Idioma-Espa%C3%B1ol-emerald?style=flat-square)](README.es.md)
+[![Architecture Tests](https://img.shields.io/badge/Architecture%20Tests-NetArchTest%20enforced-80FF00?style=flat-square&logo=checkmarx&logoColor=black)](backend/tests/NainConfigurator.Architecture.Tests/CleanArchitectureFitnessTests.cs)
 [![Live Demo](https://img.shields.io/badge/Demo%20Online-configurator.naindev.com-38bdf8?style=flat-square&logo=googlechrome&logoColor=white)](https://configurator.naindev.com/)
 [![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![React 19](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)

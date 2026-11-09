@@ -1,0 +1,9 @@
+# NainConfigurator
+
+> Public demo of a catalog-driven B2B product configurator: the interface, rules, price and 3D scene are all derived from the catalog, with no per-customer code branches.
+
+## Links
+
+- [Live demo](https://configurator.naindev.com/): two unrelated demo products running on one engine
+- [Source repository](https://github.com/Nain9Dev/NainConfigurator): code, specs and documentation
+- [NainDev](https://www.naindev.com/): main site of the author, Aitor Nain

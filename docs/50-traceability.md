@@ -1,6 +1,6 @@
 # Requirements Traceability Matrix — NainConfigurator
 
-All 10 requirements defined in [`docs/10-requirements.md`](10-requirements.md) are strictly mapped to automated test suites or deterministic build verifications.
+All 11 requirements defined in [`docs/10-requirements.md`](10-requirements.md) are strictly mapped to automated test suites or deterministic build verifications.
 
 | Requirement ID | Summary | Verification Type | Implementation / Test Target | Status |
 | :--- | :--- | :--- | :--- | :--- |
@@ -14,5 +14,6 @@ All 10 requirements defined in [`docs/10-requirements.md`](10-requirements.md) a
 | **REQ-CFG-008** | Offline Demo Resilience | Frontend Automated Test | `web/src/catalog-offline.test.ts` & `npm run build` | VERIFIED |
 | **REQ-CFG-009** | Strict Port Governance | Configuration & Build Guard | `web/vite.config.ts` (`strictPort: true`, port 5180) | VERIFIED |
 | **REQ-CFG-010** | Accessibility Conformance | E2E Automated Journeys | `web/e2e` Playwright + axe WCAG 2.2 AA suite | VERIFIED |
+| **REQ-CFG-011** | Public Page Discoverability | Frontend Automated Test | `web/src/seo.test.ts` | VERIFIED |
 
-**Coverage Summary**: 10/10 requirements verified (100% coverage across automated unit tests, architecture fitness rules, and frontend test suites).
+**Coverage Summary**: 11/11 requirements verified (100% coverage across automated unit tests, architecture fitness rules, and frontend test suites).

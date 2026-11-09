@@ -79,6 +79,8 @@ jobs:
       - name: Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
+          # gitleaks-action requires the token to scan pull requests.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_CONFIG: .gitleaks.toml
 
   dependency-review:

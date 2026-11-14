@@ -15,5 +15,6 @@ All 11 requirements defined in [`docs/10-requirements.md`](10-requirements.md) a
 | **REQ-CFG-009** | Strict Port Governance | Configuration & Build Guard | `web/vite.config.ts` (`strictPort: true`, port 5180) | VERIFIED |
 | **REQ-CFG-010** | Accessibility Conformance | E2E Automated Journeys | `web/e2e` Playwright + axe WCAG 2.2 AA suite | VERIFIED |
 | **REQ-CFG-011** | Public Page Discoverability | Frontend Automated Test | `web/src/seo.test.ts` | VERIFIED |
+| **REQ-CFG-012** | Installable Public Demo | Frontend Automated Test | `web/src/install.test.ts` | VERIFIED |
 
-**Coverage Summary**: 11/11 requirements verified (100% coverage across automated unit tests, architecture fitness rules, and frontend test suites).
+**Coverage Summary**: 12/12 requirements verified (100% coverage across automated unit tests, architecture fitness rules, and frontend test suites).

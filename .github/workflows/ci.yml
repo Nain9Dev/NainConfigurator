@@ -115,7 +115,9 @@ jobs:
 
   e2e:
     name: Accessible journeys (offline mode)
-    runs-on: ubuntu-latest
+    # Pinned: Playwright 1.60 cannot install its browser dependencies on Ubuntu 26.04, which
+    # ubuntu-latest now resolves to. Go back to ubuntu-latest with a Playwright that supports it.
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     needs: frontend
     defaults:
